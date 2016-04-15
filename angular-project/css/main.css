@@ -1,0 +1,194 @@
+option{
+	background:rgba(30,30,30,0.3);
+}
+.file-input{
+	color: #66F;
+	cursor: pointer;
+}
+button{
+    color: #FFF;
+    border-radius: 4px;
+	border-color: grey;
+	border-width: 1px;
+	background:rgba(30,30,30,0.3);
+}
+h4{
+	color:white;
+	text-align: center;
+}
+#enterVr {
+	background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20245.82%20141.73%22%3E%3Cdefs%3E%3Cstyle%3E.a%7Bfill%3A%23fff%3Bfill-rule%3Aevenodd%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Ctitle%3Emask%3C%2Ftitle%3E%3Cpath%20class%3D%22a%22%20d%3D%22M175.56%2C111.37c-22.52%2C0-40.77-18.84-40.77-42.07S153%2C27.24%2C175.56%2C27.24s40.77%2C18.84%2C40.77%2C42.07S198.08%2C111.37%2C175.56%2C111.37ZM26.84%2C69.31c0-23.23%2C18.25-42.07%2C40.77-42.07s40.77%2C18.84%2C40.77%2C42.07-18.26%2C42.07-40.77%2C42.07S26.84%2C92.54%2C26.84%2C69.31ZM27.27%2C0C11.54%2C0%2C0%2C12.34%2C0%2C28.58V110.9c0%2C16.24%2C11.54%2C30.83%2C27.27%2C30.83H99.57c2.17%2C0%2C4.19-1.83%2C5.4-3.7L116.47%2C118a8%2C8%2C0%2C0%2C1%2C12.52-.18l11.51%2C20.34c1.2%2C1.86%2C3.22%2C3.61%2C5.39%2C3.61h72.29c15.74%2C0%2C27.63-14.6%2C27.63-30.83V28.58C245.82%2C12.34%2C233.93%2C0%2C218.19%2C0H27.27Z%22%2F%3E%3C%2Fsvg%3E) 50% 50%/70% 70% no-repeat rgba(0,0,0,.35);
+	top: 15px;
+	left: 55px;
+    color: #FFF;
+    cursor: pointer;
+    height: 34px;
+    position: absolute;
+    transition: background-color .05s ease;
+    -webkit-transition: background-color .05s ease;
+    width: 60px;
+    z-index: 999999;
+    border-radius: 4px;
+	border-color: grey;
+	border-width: 1px
+}
+
+#toogleKeyboard {
+	top: 15px;
+	left: 105px;
+    color: #FFF;
+    cursor: pointer;
+    height: 34px;
+    position: absolute;
+    transition: background-color .05s ease;
+    -webkit-transition: background-color .05s ease;
+    width: 60px;
+    z-index: 999999;
+    border-radius: 4px;
+	border-color: grey;
+	border-width: 1px
+}
+
+input[type="number"]{
+	max-width: 70px;
+	text-align: center;
+} 
+input, textarea, select{
+	background:rgba(30,30,30,0.3);
+	border-color:rgba(255,255,255,0.3);
+	color:white;
+} 
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    cursor:pointer;
+    display:block;
+    width:8px;
+    color: #ffffff;
+    text-align:center;
+    position:relative;
+}
+
+input[type=number]::-webkit-inner-spin-button:before,
+input[type=number]::-webkit-inner-spin-button:after {
+    content: "^";
+    position:absolute;
+    right: 0;
+    font-family:monospace;
+    line-height:
+    color:white;
+}
+
+input[type=number]::-webkit-inner-spin-button:before {
+    top:0px;
+}
+
+input[type=number]::-webkit-inner-spin-button:after {
+    bottom:0px;
+    -webkit-transform: rotate(180deg);
+}
+
+#display{
+  margin-top: 15px;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 10px;
+  border-color: grey;
+
+}
+#display:hover{
+  color: #fff;
+}
+.row{
+	margin-left:0px;
+	margin-right:0px;
+}
+.row-marked{
+	margin:2px;
+	border-top: solid 1px rgba(128,128,128,0.5);
+	margin-top: 5px;
+	padding-top:5px;
+}
+label{
+	color: white;
+}
+select{
+	width:100%;
+}	
+textarea{
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	overflow	: hidden;
+	padding		: 0;
+	margin		: 0;
+
+	color		: #222;
+	background-color: #BBB;
+	font-family	: arial;
+	font-size	: 100%;
+}
+#info .top {
+	position	: absolute;
+	top		: 0px;
+	width		: 100%;
+	padding		: 5px;
+	text-align	: center;
+}
+#info a {
+	color		: #66F;
+	text-decoration	: none;
+}
+#info a:hover {
+	text-decoration	: underline;
+}
+#info .bottom {
+	position	: absolute;
+	bottom		: 0px;
+	right		: 5px;
+	padding		: 5px;
+}
+
+#info .controls {
+	background-color: rgba(30,30,30,0.3);
+	position	: absolute;
+	top			: 60px;
+	left		: 10px;
+	padding		: 5px;
+	height: 700px;
+	width: 300px;
+	overflow-y:scroll;
+}
+
+.panel-default > .panel-heading{
+	background-image: none;
+	background:rgba(30,30,30,0.3);
+}
+
+.panel-group .panel{
+	background: rgba(30,30,30,0.3);
+	border-color: rgba(30,30,30,0.3);
+}
+
+  /* For Google Chrome*/
+  ::-webkit-scrollbar {
+      width:  .5em;
+      height: .5em;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      background: rgba(230,230,230,0.3);
+  }
+
+  ::-webkit-scrollbar-track {
+      background: rgba(130,130,130,0.3);
+  }
+
+  // For Internet Explorer
+  body {
+    scrollbar-face-color: rgba(230,230,230,0.3);
+    scrollbar-track-color: rgba(130,130,130,0.3);
+  }

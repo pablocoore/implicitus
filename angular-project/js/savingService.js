@@ -4,7 +4,7 @@ angular.module('isosurface')
 
 
 	//var jsonName = "ecuacionJsurfer2.json";
-	var serverUrl="http://192.168.0.108:8000"
+	var serverUrl="http://192.168.0.104:8000"
 	return {
 		'saveMesh':saveMesh,
 		'loadMesh': loadMesh,

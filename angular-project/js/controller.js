@@ -73,6 +73,7 @@ angular.module('isosurface')
     $scope.metalMaterial=false
     $scope.jellyMaterial=false
     $scope.selectedMaterial="None"
+    $scope.displayAmibientLight=true;
 
     $scope.materials=[
       "None",
@@ -139,6 +140,11 @@ angular.module('isosurface')
         MainService.toggleMultipleFigures();
     }
 
+    $scope.switchLight=function(){
+        MainService.shutDownAmbient(); 
+    }
+
+
 
     savingService.getAllEquations().then(function(response){
       $scope.preloadedEquations=response;
@@ -173,7 +179,6 @@ angular.module('isosurface')
       }
       MainService.moveMesh(newPosition,index);
     }
-    
 
     var updateShowLoading = function(elem){
       if($scope.showLoading){
@@ -381,8 +386,10 @@ function onKeyUp( event ) {
       //zoom
       case 101: /*5*/ /*MainService.shutDownAmbient();*/ zoom($scope.currentEquation); break;
       //apagar ambient light
-      case 97: /*1*/ MainService.shutDownAmbient() break;
-
+      case 97: /*1*/ 
+        MainService.shutDownAmbient(); 
+        $scope.displayAmibientLight=!$scope.displayAmibientLight;
+      break;
       case 99: /*3*/ MainService.changeCubeMode();break;
 
       case 77: /*M*/ 

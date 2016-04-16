@@ -251,7 +251,7 @@ void main()
 				    </div>
 				    <div id="collapse{{$index}}" class="panel-collapse collapse in">
 				      <div class="panel-body">
-	    				<div class="row row-marked">
+	    				<div class="row row-marked" ng-if="backendEnabled">
 						    <div class="col-md-6 col-sm-6">
 						    	<label >Load:</label>
 						    </div>
@@ -348,7 +348,7 @@ void main()
 						    <div class="col-md-6 col-sm-6">	
 						    	<input type="text" ng-model="equation.name" placeholder="Equation name"></input>
 						    </div>
-						    <div class="col-md-3 col-sm-3">
+						    <div class="col-md-3 col-sm-3" ng-if="backendEnabled">
 						    	<a href="" ng-click="saveEquation($index)" >Save</a>
 						    </div>	
 						</div>	

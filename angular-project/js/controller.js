@@ -34,6 +34,7 @@ angular.module('isosurface')
     var functionToCallEnd= ";";
     $scope.equations=[];
     $scope.showFloor=true;
+    $scope.backendEnabled=true;
     $scope.algorithms=[
       'Marching Cubes',
       'Marching Tetraheda',
@@ -154,15 +155,6 @@ angular.module('isosurface')
         
     }
 
-
-    savingService.getAllEquations().then(function(response){
-      $scope.preloadedEquations=response;
-      $scope.equations[$scope.currentEquation].selectedEquation=$scope.preloadedEquations[7]  
-      MainService.initCOSARARA();
-      MainService.updateKeyboardEvent(keyboardEvents);    
-      if(!MainService.init()) MainService.animate();
-      $scope.selectEquation(0,$scope.equations[0])
-    })
     
      
      $scope.addEquation=function(){
@@ -200,11 +192,9 @@ angular.module('isosurface')
     MainService.registerObserverCallback(updateShowLoading);
 
     $scope.selectEquation=function(index){
-          //console.log($scope.equations[0].name)
+        if($scope.backendEnabled){
           var equation=$scope.equations[index].selectedEquation;
           MainService.loadGeometry(equation.id, index).then(function(response){
-            //$scope.equations.splice(index,1)
-
             $scope.equations[index].name=equation.name;
             $scope.equations[index].dimension = response.dimension;
             $scope.equations[index].vertexCount = response.vertexCount;
@@ -212,9 +202,12 @@ angular.module('isosurface')
             $scope.equations[index].boundingBox = response.boundingBox;
             $scope.equations[index].introducedEquation = response.introducedEquation;
             $scope.equations[index].position=MainService.getLastMeshPosition();
-            //equationObj.name=$scope.equations[index].selectedEquation.name
             MainService.updateCurrentMesh(index, $scope.equations[index].showFacets, $scope.equations[index].showEdges,$scope.equations[index].introducedEquation);
           });  
+        }else{
+
+
+        }
     }
 
     $scope.toggleEdges=function(index){
@@ -283,6 +276,28 @@ angular.module('isosurface')
       },10,true);
      }
      
+
+    if($scope.backendEnabled){
+      savingService.getAllEquations().then(function(response){
+        $scope.preloadedEquations=response;
+        $scope.equations[$scope.currentEquation].selectedEquation=$scope.preloadedEquations[7]  
+        MainService.initCOSARARA();
+        MainService.updateKeyboardEvent(keyboardEvents);    
+        if(!MainService.init()) MainService.animate();
+        $scope.selectEquation(0)
+      },function(error){
+        console.log("No backend");
+      });
+    }else{
+      $scope.equations[0].introducedEquation="x^2+y^2+z^2-0.2";
+      $scope.equations[0].name= "Sphere";
+      $scope.updateEquation(0);
+      MainService.initCOSARARA();
+      MainService.updateKeyboardEvent(keyboardEvents);
+      if(!MainService.init()) MainService.animate();
+    }
+
+
      $scope.saveEquation=function(index){
         console.log("Saving")
         MainService.saveEquation($scope.equations[index].name, $scope.equations[index].introducedEquation,$scope.equations[index].boundingBox)

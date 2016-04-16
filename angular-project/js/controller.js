@@ -16,7 +16,7 @@
         }
       });
   });
-//MainService.buildAxes(300); to create axes
+
 angular.module('isosurface')
  
 .controller('MainCtrl', ['$scope','MainService','savingService','$timeout', function($scope, MainService, savingService, $timeout) {
@@ -144,6 +144,15 @@ angular.module('isosurface')
         MainService.shutDownAmbient(); 
     }
 
+    $scope.showAxes=false;
+    $scope.toggleAxes=function(){
+        if ($scope.showAxes){
+          MainService.buildAxes(300); 
+        }else{
+          MainService.removeAxes(); 
+        }
+        
+    }
 
 
     savingService.getAllEquations().then(function(response){

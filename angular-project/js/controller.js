@@ -16,7 +16,7 @@
         }
       });
   });
-
+//MainService.buildAxes(300); to create axes
 angular.module('isosurface')
  
 .controller('MainCtrl', ['$scope','MainService','savingService','$timeout', function($scope, MainService, savingService, $timeout) {
@@ -381,7 +381,7 @@ function onKeyUp( event ) {
       //zoom
       case 101: /*5*/ /*MainService.shutDownAmbient();*/ zoom($scope.currentEquation); break;
       //apagar ambient light
-      case 97: /*1*/ MainService.shutDownAmbient(); break;
+      case 97: /*1*/ MainService.shutDownAmbient() break;
 
       case 99: /*3*/ MainService.changeCubeMode();break;
 

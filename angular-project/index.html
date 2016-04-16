@@ -377,13 +377,13 @@ void main()
 						</div>	
 						<div class="row">	
 							<div class="col-md-4 col-sm-4">
-								<input type="number" ng-model="equation.positionX" ng-change="updatePosition($index)"></input>
+								<input type="number" ng-model="equation.position.x" ng-change="updatePosition($index)"></input>
 							</div>
 							<div class="col-md-4 col-sm-4">
-								<input type="number" ng-model="equation.positionY" ng-change="updatePosition($index)"></input>
+								<input type="number" ng-model="equation.position.y" ng-change="updatePosition($index)"></input>
 							</div>
 							<div class="col-md-4 col-sm-4">
-								<input type="number" ng-model="equation.positionZ" ng-change="updatePosition($index)"></input>
+								<input type="number" ng-model="equation.position.z" ng-change="updatePosition($index)"></input>
 							</div>
 						</div>				      
 				      </div>
@@ -409,8 +409,25 @@ void main()
 			    		<label>Show floor:</label>
 		    		</div>
 			    	<div class="col-md-2 col-sm-2">
-			    		<input type="checkbox" ng-model="showFloor" value="checked" ng-change="toggleFloor()"/>
-		    		</div
+			    		<input type="checkbox" ng-model="showFloor" ng-change="toggleFloor()"/>
+		    		</div>
+		    	</div>
+				<div class="row row-marked">					
+	
+		    		<div class="col-md-6 col-sm-6">
+			    		<label>Select material:</label>
+		    		</div>
+				   	<div class="col-md-6 col-sm-6">
+				   		<select ng-model="selectedMaterial" ng-change="selectMaterial()" ng-options="material for material in materials"></select>
+				   	</div>
+
+		    		<div class="col-md-4 col-sm-4">
+			    		<label>Multiple figures:</label>
+		    		</div>
+			    	<div class="col-md-2 col-sm-2">
+			    		<input type="checkbox" ng-model="multipleFigures" ng-change="toggleMultipleFigures()"/>
+		    		</div>
+
                 </div>
 			</div>
 		</div>

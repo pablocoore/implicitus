@@ -27,12 +27,13 @@ angular.module('isosurface')
     $scope.activateKeyboard= function(){
       $scope.vrModeEnabled=!$scope.vrModeEnabled;
     }
+    $scope.multipleFigures=MainService.getMultipleFiguresValue();
 
     $scope.showLoading=false;
     var functionToCallIni="";
     var functionToCallEnd= ";";
     $scope.equations=[];
-
+    $scope.showFloor=true;
     $scope.algorithms=[
       'Marching Cubes',
       'Marching Tetraheda',
@@ -54,14 +55,90 @@ angular.module('isosurface')
       outterColor:"#aaaaaa",
       innerTexture: null,
       outterTexture:null,
-      positionX:0,
-      positionY:0,
-      positionZ:0,
+      position:{
+        x:0,
+        y:0,
+        z:0
+      },
       selectedEquation:null,
     }
 
     $scope.equations.push(angular.copy(equationDummy));
     $scope.currentEquation=0;
+  
+    $scope.showLavaMaterial=false
+    $scope.showWaterMaterial=false
+    $scope.selectedMaterialTurnOff=false
+    $scope.matrixMaterial=false
+    $scope.metalMaterial=false
+    $scope.jellyMaterial=false
+    $scope.selectedMaterial="None"
+
+    $scope.materials=[
+      "None",
+      "Lava",
+      "Water",
+      "Matrix",
+      "Metal",
+      "Jelly",
+    ]
+    $scope.selectMaterial=function(){
+      switch ($scope.selectedMaterial) {
+        case "Lava": 
+            MainService.lavaMaterial();
+            $scope.showLavaMaterial=true
+            $scope.showWaterMaterial=false
+            $scope.matrixMaterial=false
+            $scope.metalMaterial=false
+            $scope.jellyMaterial=false
+          break;
+        case "Water": 
+            MainService.waterMaterial();
+            $scope.showLavaMaterial=true
+            $scope.showWaterMaterial=false
+            $scope.matrixMaterial=false
+            $scope.metalMaterial=false
+            $scope.jellyMaterial=false
+          break;
+        case "Matrix": 
+            MainService.matrixMaterial();
+            $scope.showLavaMaterial=true
+            $scope.showWaterMaterial=false
+            $scope.matrixMaterial=false
+            $scope.metalMaterial=false
+            $scope.jellyMaterial=false
+          break;
+        case "Metal": 
+            MainService.metalMaterial();
+            $scope.showLavaMaterial=true
+            $scope.showWaterMaterial=false
+            $scope.matrixMaterial=false
+            $scope.metalMaterial=false
+            $scope.jellyMaterial=false
+          break;
+        case "Jelly": 
+            MainService.jellyMaterial();
+            $scope.showLavaMaterial=true
+            $scope.showWaterMaterial=false
+            $scope.matrixMaterial=false
+            $scope.metalMaterial=false
+            $scope.jellyMaterial=false
+          break;
+        case "None": 
+            //FIX_ME this should do something in the service
+            $scope.showLavaMaterial=false
+            $scope.showWaterMaterial=false
+            $scope.matrixMaterial=false
+            $scope.metalMaterial=false
+            $scope.jellyMaterial=false
+          break;
+      }
+    }
+
+    $scope.toggleMultipleFigures=function(){
+        MainService.toggleMultipleFigures();
+    }
+
 
     savingService.getAllEquations().then(function(response){
       $scope.preloadedEquations=response;
@@ -89,15 +166,10 @@ angular.module('isosurface')
      }
 
     $scope.updatePosition=function(index){
-      console.log($scope.equations)
-      console.log(index)
-      console.log($scope.equations[index].positionX)
-      console.log($scope.equations[index].positionY)
-      console.log($scope.equations[index].positionZ)
       var newPosition={
-        x:$scope.equations[index].positionX,
-        y:$scope.equations[index].positionY,
-        z:$scope.equations[index].positionZ,
+        x:$scope.equations[index].position.x,
+        y:$scope.equations[index].position.y,
+        z:$scope.equations[index].position.z,
       }
       MainService.moveMesh(newPosition,index);
     }
@@ -114,21 +186,20 @@ angular.module('isosurface')
     MainService.registerObserverCallback(updateShowLoading);
 
     $scope.selectEquation=function(index){
-        console.log("selected index: "+index)
           //console.log($scope.equations[0].name)
           var equation=$scope.equations[index].selectedEquation;
           MainService.loadGeometry(equation.id, index).then(function(response){
             //$scope.equations.splice(index,1)
 
-            console.log("INDEX "+index)
             $scope.equations[index].name=equation.name;
             $scope.equations[index].dimension = response.dimension;
             $scope.equations[index].vertexCount = response.vertexCount;
             $scope.equations[index].faceCount = response.faceCount;
             $scope.equations[index].boundingBox = response.boundingBox;
             $scope.equations[index].introducedEquation = response.introducedEquation;
+            $scope.equations[index].position=MainService.getLastMeshPosition();
             //equationObj.name=$scope.equations[index].selectedEquation.name
-            MainService.updateCurrentMesh(index, $scope.equations[index].showFacets, $scope.equations[index].showEdges,$scope.equations[index].introducedEquation );
+            MainService.updateCurrentMesh(index, $scope.equations[index].showFacets, $scope.equations[index].showEdges,$scope.equations[index].introducedEquation);
           });  
     }
 
@@ -192,6 +263,7 @@ angular.module('isosurface')
             $scope.equations[index].dimension=response.dimension
             $scope.equations[index].vertexCount=response.vertexCount
             $scope.equations[index].faceCount=response.faceCount
+            $scope.equations[index].position=MainService.getLastMeshPosition();
             MainService.updateCurrentMesh(index, $scope.equations[index].showFacets, $scope.equations[index].showEdges,$scope.equations[index].introducedEquation );
         });
       },10,true);
@@ -257,6 +329,7 @@ function zoom(){
             $scope.equations[$scope.currentEquation].dimension=response.dimension
             $scope.equations[$scope.currentEquation].vertexCount=response.vertexCount
             $scope.equations[$scope.currentEquation].faceCount=response.faceCount
+            $scope.equations[index].position=MainService.getLastMeshPosition();
         });
       },10,true);
   }    
@@ -311,13 +384,38 @@ function onKeyUp( event ) {
 
       case 99: /*3*/ MainService.changeCubeMode();break;
 
-      case 77: /*M*/ MainService.updateMultipleMode();break;
-      case 9: /*TAB*/ MainService.lavaMaterial();break;
-      case 20: /*CAPS LOCK*/ MainService.waterMaterial();break;
-      case 16: /*shift*/ MainService.selectedMaterialTurnOff();break;
-      case 78: /*N*/ MainService.matrixMaterial();break;
-      case 80: /*P*/ MainService.metalMaterial();break;
-      case 71: /*G*/ MainService.jellyMaterial();break;
+      case 77: /*M*/ 
+        $scope.toggleMultipleFigures();
+        $scope.multipleFigures=!$scope.multipleFigures;
+      break;
+      case 9: /*TAB*/ 
+        MainService.lavaMaterial();
+        $scope.multipleFigures=!$scope.multipleFigures;
+        $scope.selectedMaterial="Lava"
+      break;
+      case 20: /*CAPS LOCK*/ 
+        MainService.waterMaterial();
+        $scope.waterMaterial=!$scope.waterMaterial;
+        $scope.selectedMaterial="Water"
+      break;
+      case 16: /*shift*/ 
+        MainService.selectedMaterialTurnOff();
+      break;
+      case 78: /*N*/ 
+        MainService.matrixMaterial();
+        $scope.matrixMaterial=!$scope.matrixMaterial;
+        $scope.selectedMaterial="Matrix"
+      break;
+      case 80: /*P*/ 
+        MainService.metalMaterial();
+        $scope.metalMaterial=!$scope.metalMaterial;
+        $scope.selectedMaterial="Metal"
+      break;
+      case 71: /*G*/ 
+        MainService.jellyMaterial();
+        $scope.jellyMaterial=!$scope.jellyMaterial;
+        $scope.selectedMaterial="Jelly"
+      break;
     }
     MainService.updateKeyboardEvent(keyboardEvents);    
   }

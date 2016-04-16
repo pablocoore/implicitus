@@ -5,7 +5,7 @@ angular.module('isosurface')
 	var cube = null;
 	var visibleCube = false;
 	var dynamicTexture;
-	var multipleFigures = false;
+	var multipleFigures = true;
 	var customUniforms;
 	var selectedMaterialOn = false;
 	var customUniforms2;
@@ -14,7 +14,7 @@ angular.module('isosurface')
 	var clock = new THREE.Clock(1);
 	var outlineMesh;
 	var lastTimestampCube;
-
+	var lastMeshPosition=null;
 	var testdata = {};
 	var cambioFigura = true;
 	var texture=null;
@@ -92,7 +92,6 @@ var observerCallbacks=[]
 		'calculateZoomBB':calculateZoomBB,
 		'cubeEnlarge':cubeEnlarge,
 		'changeCubeMode':changeCubeMode,
-		'updateMultipleMode':updateMultipleMode,
 		'lavaMaterial':lavaMaterial,
 		'moveMesh':moveMesh,
 		'toggleFacets':toggleFacets,
@@ -103,8 +102,23 @@ var observerCallbacks=[]
 		'selectedMaterialTurnOff':selectedMaterialTurnOff,
 		'matrixMaterial':matrixMaterial,
 		'metalMaterial':metalMaterial,
-		'jellyMaterial':jellyMaterial
+		'jellyMaterial':jellyMaterial,
+		'getLastMeshPosition': getLastMeshPosition,
+		
+		'toggleMultipleFigures': toggleMultipleFigures,
+		'getMultipleFiguresValue': getMultipleFiguresValue,
+
 	};
+	function getMultipleFiguresValue(){
+		return multipleFigures;
+	}
+	function toggleMultipleFigures(){
+		multipleFigures=!multipleFigures;
+	}
+
+	function getLastMeshPosition(){
+		return lastMeshPosition;
+	}
 
 	function jellyMaterial(){
 		var noiseTexture = new THREE.ImageUtils.loadTexture( 'images/cloud.png' );
@@ -243,28 +257,33 @@ var observerCallbacks=[]
 
 	function toggleEdges(index){
         if (view.scene.getObjectByName(""+index+"-wiremesh")!=undefined){
-        	showFloor=!showFloor
-            view.scene.getObjectByName(""+index+"-wiremesh").visible=showFloor;        	
+            view.scene.getObjectByName(""+index+"-wiremesh").visible=!view.scene.getObjectByName(""+index+"-wiremesh").visible;        	
         }
 	}
 
 	function toggleFacets(index){
+		console.log(index);
         if (view.scene.getObjectByName(""+index)!=undefined){
-        	showFloor=!showFloor
-            view.scene.getObjectByName(""+index).visible=showFloor;        	
+            view.scene.getObjectByName(""+index).visible=!view.scene.getObjectByName(""+index).visible;        	
+            console.log(view.scene.getObjectByName(""+index))
         }
 	}
 
 	function moveMesh(position,index){
-		//XXX cambiar por figura apropiada
-		console.log(view.scene)
-		view.scene.children[4].position.x=position.x;
-		view.scene.children[4].position.y=position.y;
-		view.scene.children[4].position.z=position.z;
+        if (view.scene.getObjectByName(""+index)!=undefined){
+            view.scene.getObjectByName(""+index).position.x=position.x;
+            view.scene.getObjectByName(""+index).position.y=position.y;
+            view.scene.getObjectByName(""+index).position.z=position.z;        	
+        }
+	    if (view.scene.getObjectByName(""+index+"-wiremesh")!=undefined){
+            view.scene.getObjectByName(""+index+"-wiremesh").position.x=position.x;
+            view.scene.getObjectByName(""+index+"-wiremesh").position.y=position.y;
+            view.scene.getObjectByName(""+index+"-wiremesh").position.z=position.z;        	
+        }
+
 	}
 
 	function lavaMaterial(){
-		//*************************************************raro abajo
 			// base image texture for mesh
 		var lavaTexture = new THREE.ImageUtils.loadTexture( 'images/lava.jpg');
 		lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping; 
@@ -350,7 +369,6 @@ var observerCallbacks=[]
 			lineHeight	: 0.1,
 			fillStyle	:'white'
 		});
-		console.log(equation);
 		dynamicTexture.texture.needsUpdate  = true;
 
 	}
@@ -498,7 +516,6 @@ var observerCallbacks=[]
 			"introducedEquation":null
 		}
 		savingService.loadMesh(geometryId).then(function(response){
-			console.log(response);
 			objectToReturn.dimension = response.dimension;
 			objectToReturn.vertexCount = response.vertexCount;
 			objectToReturn.faceCount = response.faceCount;
@@ -560,10 +577,6 @@ var observerCallbacks=[]
 		}
 	}
 
-	function updateMultipleMode(){
-		multipleFigures = !multipleFigures;
-		console.log(multipleFigures);
-	}
 	function updateCurrentMesh(arrayPos, showedFaces, showedEdges, equation){
 		if(!multipleFigures){
 			for (var i = view.surfacemeshes.length - 1; i >= 0; i--) {
@@ -624,7 +637,6 @@ var observerCallbacks=[]
 			oculus.effect.render(view.scene, view.camera);
 		}
 		if(cambioFigura){
-			console.log("casi al final");
 			cambioFigura=false;
 		    notifyObservers();
 
@@ -650,7 +662,7 @@ var observerCallbacks=[]
 		spotLight.position.set( -100, -200, 10 );
 
 		spotLight.castShadow = true;
-		//XXX supuestamente la calidad de la sombra mejora con ese aumento
+		//XXX the quality of the shades are suppose to be increased as I increase the following values
 		spotLight.shadowMapWidth = 4096;//1024;
 		spotLight.shadowMapHeight = 4096;//1024;
 
@@ -731,7 +743,7 @@ var observerCallbacks=[]
 		});
 		//XXX esto para la sombra no se que puede llegar a romper
 //GGG triple G of guillermo
-	
+/*	
 renderer.shadowMapEnabled = true;
 renderer.shadowMapSoft = true;
 
@@ -743,7 +755,7 @@ renderer.shadowMapBias = 0.0039;
 renderer.shadowMapDarkness = 0.5;
 renderer.shadowMapWidth = 2*4096;
 renderer.shadowMapHeight = 2*4096;
-
+*/
 		//hasta aca la sombra (mal identado intencionalmente)
 		renderer.autoClear = false;
 		//renderer.setClearColor(0x404040);
@@ -852,7 +864,7 @@ renderer.shadowMapHeight = 2*4096;
 			map:texture2,
 		 });
 		 
-		//XXX arregla lo que no se ve del otro lado
+		//XXX this will make the mesh visible in both sides
 		//material.side = THREE.DoubleSide;
 
 
@@ -873,7 +885,11 @@ renderer.shadowMapHeight = 2*4096;
 		view.wiremeshes[view.currentMesh].name=""+view.currentMesh+"-wiremesh"
 		view.scene.add(view.surfacemeshes[view.currentMesh]);
 		view.scene.add(view.wiremeshes[view.currentMesh]);
-
+		//PPP
+		if (view.scene.getObjectByName(""+view.currentMesh)!=undefined){
+            lastMeshPosition=view.scene.getObjectByName(""+view.currentMesh).position;
+        }
+		
 		//geometry.computeBoundingBox();
 		var bb = geometry.boundingBox;
 
@@ -881,7 +897,7 @@ renderer.shadowMapHeight = 2*4096;
 		view.wiremeshes[view.currentMesh].position.y = view.surfacemeshes[view.currentMesh].position.y = -(bb.max.y + bb.min.y) / 2.0;
 		view.wiremeshes[view.currentMesh].position.z = view.surfacemeshes[view.currentMesh].position.z = -(bb.max.z + bb.min.z) / 2.0;
 
-		//piso
+		//floor
 		var geometryf = new THREE.PlaneGeometry( 1000, 1000, 1, 1 );
 		//var materialf = new THREE.MeshLambertMaterial( { color: 0x0000ff } );
 		if(texturefloor==null){
@@ -904,7 +920,7 @@ renderer.shadowMapHeight = 2*4096;
 		view.scene.add(floor);
 
 
-		//sombras
+		//shades
 		view.surfacemeshes[view.currentMesh].children[0].castShadow = true;
 		view.surfacemeshes[view.currentMesh].children[0].receiveShadow = true;
 		view.surfacemeshes[view.currentMesh].children[1].castShadow = true;
@@ -917,22 +933,21 @@ renderer.shadowMapHeight = 2*4096;
         return deferred.promise;
 	}
 
-	//xxx mover luz
+	//XXX moving light
 	
 	function updateLightPosition(actualMoveSpeed){
 		actualMoveSpeed = 20;
 		view.spotLight.position.x+=actualMoveSpeed*keyboardEvent.light.moveX;
 		view.spotLight.position.y+=actualMoveSpeed*keyboardEvent.light.moveY;
 		view.spotLight.position.z+=actualMoveSpeed*keyboardEvent.light.moveZ;	
-		//console.log(isNaN(actualMoveSpeed*keyboardEvent.light.moveX));
 	}
 	
-	//fin mover luz
-	//XXX apagar ambient light
+	//end moving light
+	//XXX switch off the ambient light
 	function shutDownAmbient(){
 		view.light.visible = !view.light.visible;
 	}
-	//fin apagar
+	//end switching off
 
 	//XXX texture mapping - stackoverflow
 	 function assignUVs( geometry ){
@@ -941,7 +956,6 @@ renderer.shadowMapHeight = 2*4096;
 
 	    var max     = geometry.boundingBox.max;
 	    var min     = geometry.boundingBox.min;
-	    console.log(min,max);
 
 	    var offset  = new THREE.Vector2(0 - min.x, 0 - min.y);
 	    var range   = new THREE.Vector2(max.x - min.x, max.y - min.y);

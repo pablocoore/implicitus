@@ -34,7 +34,7 @@ angular.module('isosurface')
     var functionToCallEnd= ";";
     $scope.equations=[];
     $scope.showFloor=true;
-    $scope.backendEnabled=true;
+    $scope.backendEnabled=false;
     $scope.algorithms=[
       'Marching Cubes',
       'Marching Tetraheda',

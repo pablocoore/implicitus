@@ -135,7 +135,7 @@ var observerCallbacks=[]
 		// use "this." to create global object
 		customUniforms3 = {
 			baseTexture: 	{ type: "t", value: jellyTexture },
-			baseSpeed: 		{ type: "f", value: 0.01 },
+			baseSpeed: 		{ type: "f", value: 0.001 },
 			noiseTexture: 	{ type: "t", value: noiseTexture },
 			noiseScale:		{ type: "f", value: 0.2 },
 			alpha: 			{ type: "f", value: 0.5 },//0.8d
@@ -750,7 +750,7 @@ var observerCallbacks=[]
 		});
 		//XXX esto para la sombra no se que puede llegar a romper
 //GGG triple G of guillermo
-/*	
+
 renderer.shadowMapEnabled = true;
 renderer.shadowMapSoft = true;
 
@@ -762,7 +762,7 @@ renderer.shadowMapBias = 0.0039;
 renderer.shadowMapDarkness = 0.5;
 renderer.shadowMapWidth = 2*4096;
 renderer.shadowMapHeight = 2*4096;
-*/
+
 		//hasta aca la sombra (mal identado intencionalmente)
 		renderer.autoClear = false;
 		//renderer.setClearColor(0x404040);
@@ -914,9 +914,9 @@ renderer.shadowMapHeight = 2*4096;
 		}
 		var materialfloor = new THREE.MeshLambertMaterial({
 			//color: 0x2194CE,
-			shading: THREE.SmoothShading,
-			specular: 0x111111,
-			shininess: 33,
+			//shading: THREE.SmoothShading,
+			//specular: 0x111111,
+			//shininess: 33,
 			map:texturefloor,
 		 });
 		floor = new THREE.Mesh( geometryf, materialfloor);

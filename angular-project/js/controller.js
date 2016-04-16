@@ -379,7 +379,7 @@ function onKeyUp( event ) {
       case 105: /*9*/ keyboardEvents.light.moveZ = 0; break;
 
       //zoom
-      case 101: /*5*/ /*MainService.shutDownAmbient();*/ zoom(); break;
+      case 101: /*5*/ /*MainService.shutDownAmbient();*/ zoom($scope.currentEquation); break;
       //apagar ambient light
       case 97: /*1*/ MainService.shutDownAmbient(); break;
 

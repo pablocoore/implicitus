@@ -108,7 +108,11 @@ var observerCallbacks=[]
 		'toggleMultipleFigures': toggleMultipleFigures,
 		'getMultipleFiguresValue': getMultipleFiguresValue,
 
+		'isCubeOn':isCubeOn,
 	};
+	function isCubeOn(){
+		return visibleCube;
+	}
 	function getMultipleFiguresValue(){
 		return multipleFigures;
 	}
@@ -198,11 +202,9 @@ var observerCallbacks=[]
 		var outlineMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, side: THREE.BackSide } );
 		outlineMesh = new THREE.Mesh( view.surfacemeshes[view.currentMesh].children[0].geometry, outlineMaterial );
 		outlineMesh.scale.multiplyScalar(1.05);
-		outlineMesh.geometry.computeBoundingBox();
-		var bb = outlineMesh.geometry.boundingBox
-		outlineMesh.position.x = (-(bb.max.x + bb.min.x) / 2.0)*1.05;
-		outlineMesh.position.y = (-(bb.max.y + bb.min.y) / 2.0)*1.05;
-		outlineMesh.position.z = (-(bb.max.z + bb.min.z) / 2.0)*1.05;
+		outlineMesh.position.x = (view.surfacemeshes[view.currentMesh].position.x)*1.05;
+		outlineMesh.position.y = (view.surfacemeshes[view.currentMesh].position.y)*1.05;
+		outlineMesh.position.z = (view.surfacemeshes[view.currentMesh].position.z)*1.05;
 		view.scene.add( outlineMesh );
 	}
 
@@ -391,27 +393,32 @@ var observerCallbacks=[]
 			if(!visibleCube) return;
 			var bounding = view.surfacemeshes[view.currentMesh].children[0].geometry.boundingBox;
 
+			var dipsx = view.surfacemeshes[view.currentMesh].position.x +(bounding.max.x + bounding.min.x) / 2.0;
+			var dipsy = view.surfacemeshes[view.currentMesh].position.y +(bounding.max.y + bounding.min.y) / 2.0;
+			var dipsz = view.surfacemeshes[view.currentMesh].position.z +(bounding.max.z + bounding.min.z) / 2.0;
+			console.log(dipsx);
+
 			var lx= bb[0][1]-bb[0][0];//largo en unidades "matematicas"
 			var ex=dim[0]/lx;//cuantas unidades de escena son una matematica
-			var mX=((cube.position.x-(cuboL/2))+(bounding.max.x + bounding.min.x) / 2.0)/ex;//diferencia entre el minimo en x y el x del cubo en unidades matematicas
+			var mX=((cube.position.x-(cuboL/2))+(bounding.max.x + bounding.min.x) / 2.0 -dipsx)/ex;//diferencia entre el minimo en x y el x del cubo en unidades matematicas
 			bb[0][0]+=mX;
-			var MX = ((dim[0] -(cube.position.x+(cuboL/2))) -(bounding.max.x + bounding.min.x) / 2.0)/ex;
+			var MX = ((dim[0] -(cube.position.x+(cuboL/2))) -(bounding.max.x + bounding.min.x) / 2.0 +dipsx)/ex;
 			bb[0][1]-=MX;
 
 
 			var ly= bb[1][1]-bb[1][0];//largo en unidades "matematicas"
 			var ey=dim[1]/ly;//cuantas unidades de escena son una matematica
-			var mY=((cube.position.y-(cuboL/2)) +(bounding.max.y + bounding.min.y) / 2.0 )/ey;//diferencia entre el minimo en x y el x del cubo en unidades matematicas
+			var mY=((cube.position.y-(cuboL/2)) +(bounding.max.y + bounding.min.y) / 2.0 -dipsy)/ey;//diferencia entre el minimo en x y el x del cubo en unidades matematicas
 			bb[1][0]+=mY;
-			var MY = ((dim[1] -(cube.position.y+(cuboL/2)))-(bounding.max.y + bounding.min.y) / 2.0 )/ey;
+			var MY = ((dim[1] -(cube.position.y+(cuboL/2)))-(bounding.max.y + bounding.min.y) / 2.0 +dipsy)/ey;
 			bb[1][1]-=MY;
 
 
 			var lz= bb[2][1]-bb[2][0];//largo en unidades "matematicas"		
 			var ez=dim[2]/lz;//cuantas unidades de escena son una matematica
-			var mZ=((cube.position.z-(cuboL/2))+(bounding.max.z + bounding.min.z) / 2.0 )/ez;//diferencia entre el minimo en x y el x del cubo en unidades matematicas
+			var mZ=((cube.position.z-(cuboL/2))+(bounding.max.z + bounding.min.z) / 2.0 -dipsz)/ez;//diferencia entre el minimo en x y el x del cubo en unidades matematicas
 			bb[2][0]+=mZ;
-			var MZ = ((dim[2] -(cube.position.z+(cuboL/2)))-(bounding.max.z + bounding.min.z) / 2.0 )/ez;
+			var MZ = ((dim[2] -(cube.position.z+(cuboL/2)))-(bounding.max.z + bounding.min.z) / 2.0 +dipsz)/ez;
 			bb[2][1]-=MZ;
 
 			visibleCube=false;	

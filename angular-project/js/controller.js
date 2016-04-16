@@ -317,9 +317,9 @@ function onKeyDown( event ) {
 };
 
 
-
-function zoom(){
-  if($scope.vrModeEnabled){
+//XXX hay que pasarle el index
+function zoom(index){
+  if($scope.vrModeEnabled && MainService.isCubeOn()){
       updateShowLoading();
       $timeout(function(){
         var expr = Parser.parse($scope.equations[$scope.currentEquation].introducedEquation);
@@ -378,8 +378,9 @@ function onKeyUp( event ) {
       case 103: /*7*/ keyboardEvents.light.moveZ = 0; break;
       case 105: /*9*/ keyboardEvents.light.moveZ = 0; break;
 
-      //apagar ambient light
+      //zoom
       case 101: /*5*/ /*MainService.shutDownAmbient();*/ zoom(); break;
+      //apagar ambient light
       case 97: /*1*/ MainService.shutDownAmbient(); break;
 
       case 99: /*3*/ MainService.changeCubeMode();break;

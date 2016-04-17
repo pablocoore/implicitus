@@ -702,6 +702,7 @@ angular.module('isosurface')
 		//var spotLight = new THREE.SpotLight( 0xffffff );
 		spotLight.position.set( -100, -200, 10 );
 
+
 		spotLight.castShadow = true;
 		//XXX the quality of the shades are suppose to be increased as I increase the following values
 		spotLight.shadowMapWidth = 4096;//1024;
@@ -784,18 +785,20 @@ angular.module('isosurface')
 		});
 		//XXX esto para la sombra no se que puede llegar a romper
 //GGG triple G of guillermo
+if(!isMobile()){
+	console.log("not mobile");
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMapSoft = true;
 
-renderer.shadowMap.enabled = true;
-renderer.shadowMapSoft = true;
+	renderer.shadowCameraNear = 3;
+	//renderer.shadowCameraFar = camera.far;
+	renderer.shadowCameraFov = 50;
 
-renderer.shadowCameraNear = 3;
-//renderer.shadowCameraFar = camera.far;
-renderer.shadowCameraFov = 50;
-
-renderer.shadowMapBias = 0.0039;
-renderer.shadowMapDarkness = 0.5;
-renderer.shadowMapWidth = 2*4096;
-renderer.shadowMapHeight = 2*4096;
+	renderer.shadowMapBias = 0.0039;
+	renderer.shadowMapDarkness = 0.5;
+	renderer.shadowMapWidth = 2*4096;
+	renderer.shadowMapHeight = 2*4096;
+}
 
 		//hasta aca la sombra (mal identado intencionalmente)
 		renderer.autoClear = false;

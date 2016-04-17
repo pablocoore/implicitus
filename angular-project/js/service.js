@@ -1029,8 +1029,6 @@ renderer.shadowMapHeight = 2*4096;
 		}
 	}
 
-var selectPressed = false;
-var startPressed = false;
 	function updateGamepad() {//FIX_ME capazque va en el controller, no estoy seguro
 	  	scangamepads();
 		for (j in controllers) {
@@ -1038,13 +1036,6 @@ var startPressed = false;
 		    //lights
 		    if(Math.abs(controller.axes[2])>0.1)keyboardEvent.light.moveX =controller.axes[2]; else keyboardEvent.light.moveX =0;
 		    if(Math.abs(controller.axes[3])>0.1)keyboardEvent.light.moveZ =controller.axes[3]; else keyboardEvent.light.moveZ =0;
-		    //wiremesh or not
-		    var prevSelect = selectPressed;
-		    var prevStart = startPressed;
-		    if(controller.buttons[8].pressed/*select*/) selectPressed = true; else selectPressed = false;
-		    if(prevSelect && !selectPressed) document.getElementById("showedges").click();//FIX_ME pablo queria usar angular
-		    if(controller.buttons[9].pressed/*select*/) startPressed = true; else startPressed = false;
-		    if(prevStart && !startPressed) document.getElementById("showfacets").click();//FIX_ME pablo queria usar angular
 		    
 		    //movement
 		    if(controller.buttons[6].pressed/*LT*/) keyboardEvent.moveDown =true; else keyboardEvent.moveDown =false;

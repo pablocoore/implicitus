@@ -70,7 +70,7 @@ angular.module('isosurface')
 	var stats= null;
 	var renderer =null;
 
-var observerCallbacks=[]
+	var observerCallbacks=[]
 
 	return {
 		'render':render,
@@ -117,8 +117,7 @@ var observerCallbacks=[]
 		view.scene.remove(axes);
 	}
 	function buildAxis( src, dst, colorHex, dashed ) {
-        var geom = new THREE.Geometry(),
-            mat;
+        var geom = new THREE.Geometry(), mat;
         if(dashed) {
                 mat = new THREE.LineDashedMaterial({ linewidth: 3, color: colorHex, dashSize: 3, gapSize: 3 });
         } else {
@@ -126,7 +125,7 @@ var observerCallbacks=[]
         }
         geom.vertices.push( src.clone() );
         geom.vertices.push( dst.clone() );
-        geom.computeLineDistances(); // This one is SUPER important, otherwise dashed lines will appear as simple plain lines
+        geom.computeLineDistances();
         var axis = new THREE.Line( geom, mat, THREE.LinePieces );
         return axis;
 	}
@@ -488,7 +487,7 @@ var observerCallbacks=[]
 	}
 //prueba del cubo de zoom
 	function createZoomCube(changePos){
-		if(!changePos)
+		if(!changePos && cube!=null)
 			var prevpos= cube.position;
 		view.scene.remove(cube);
 		var material = new THREE.MeshBasicMaterial({color: 0xfffff/*, wireframe: true*/});

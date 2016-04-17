@@ -623,7 +623,7 @@ angular.module('isosurface')
 
 			});
 		}catch(err){
-		  console.log("ERROR",err);
+			throw err;
 		}
         return deferred.promise;
 	}

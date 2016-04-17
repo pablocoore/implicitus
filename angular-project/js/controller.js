@@ -2,13 +2,13 @@
   $(function(){
       $('#display').click(function(){
         if(isMenuDisplayed){
-          $(".container").animate({
+          $("#info").animate({
               left:'-300px',
               opacity: 0
             },500);
             isMenuDisplayed=false;
         }else{
-          $(".container").animate({
+          $("#info").animate({
               left:'10px',
               opacity: 1
           },500);
@@ -19,8 +19,10 @@
 
 angular.module('isosurface')
  
-.controller('MainCtrl', ['$scope','MainService','savingService','$timeout', function($scope, MainService, savingService, $timeout) {
+.controller('MainCtrl', ['$scope','MainService','savingService','$timeout','ngToast','$rootScope', function($scope, MainService, savingService, $timeout, ngToast, $rootScope) {
     $scope.vrModeEnabled=false;
+    ngToast.create('Welcome to implicitus');
+
     $scope.enterVr= function(){
       MainService.enterVr();
     }
@@ -34,7 +36,7 @@ angular.module('isosurface')
     var functionToCallEnd= ";";
     $scope.equations=[];
     $scope.showFloor=true;
-    $scope.backendEnabled=true;
+    $scope.backendEnabled=false;
     $scope.algorithms=[
       'Marching Cubes',
       'Marching Tetraheda',
@@ -59,7 +61,7 @@ angular.module('isosurface')
       position:{
         x:0,
         y:0,
-        z:0
+        z:0,
       },
       selectedEquation:null,
     }
@@ -154,8 +156,6 @@ angular.module('isosurface')
         }
         
     }
-
-    
      
      $scope.addEquation=function(){
         console.log("Add equation")
@@ -189,6 +189,7 @@ angular.module('isosurface')
       }
       $scope.showLoading = !$scope.showLoading;
     };
+
     MainService.registerObserverCallback(updateShowLoading);
 
     $scope.selectEquation=function(index){
@@ -259,21 +260,31 @@ angular.module('isosurface')
     }
 
      $scope.updateEquation=function(index){
-      updateShowLoading();
-      $timeout(function(){
-        var expr = Parser.parse($scope.equations[index].introducedEquation);
-        $scope.functionToCall= functionToCallIni+ "return "+expr.toString(true)+functionToCallEnd;
-        console.log($scope.functionToCall);
-        replaceOps();  
-        //$scope.functionToCall= functionToCallIni+ "return "+$scope.equations[index].introducedEquation+functionToCallEnd;
-        MainService.geometryHandler($scope.functionToCall, $scope.equations[index].boundingBox, $scope.equations[index].selectedAlgorithm, $scope.equations[index].introducedEquation, index).then(function(response){
-            $scope.equations[index].dimension=response.dimension
-            $scope.equations[index].vertexCount=response.vertexCount
-            $scope.equations[index].faceCount=response.faceCount
-            $scope.equations[index].position=MainService.getLastMeshPosition();
-            MainService.updateCurrentMesh(index, $scope.equations[index].showFacets, $scope.equations[index].showEdges,$scope.equations[index].introducedEquation );
-        });
-      },10,true);
+      try{
+        updateShowLoading();
+        $timeout(function(){
+          try{
+            var expr = Parser.parse($scope.equations[index].introducedEquation)
+            $scope.functionToCall= functionToCallIni+ "return "+expr.toString(true)+functionToCallEnd;
+            console.log($scope.functionToCall);
+            replaceOps();  
+            //$scope.functionToCall= functionToCallIni+ "return "+$scope.equations[index].introducedEquation+functionToCallEnd;
+            MainService.geometryHandler($scope.functionToCall, $scope.equations[index].boundingBox, $scope.equations[index].selectedAlgorithm, $scope.equations[index].introducedEquation, index).then(function(response){
+                $scope.equations[index].dimension=response.dimension
+                $scope.equations[index].vertexCount=response.vertexCount
+                $scope.equations[index].faceCount=response.faceCount
+                $scope.equations[index].position=MainService.getLastMeshPosition();
+                MainService.updateCurrentMesh(index, $scope.equations[index].showFacets, $scope.equations[index].showEdges,$scope.equations[index].introducedEquation );
+            });
+          }catch(err){
+            updateShowLoading();
+            throw err;
+          }    
+        },10,true);
+      }catch(err){
+        updateShowLoading();
+        throw err;
+      }
      }
      
 
@@ -348,20 +359,30 @@ function onKeyDown( event ) {
 
 //XXX hay que pasarle el index
 function zoom(index){
-  if($scope.vrModeEnabled && MainService.isCubeOn()){
-      updateShowLoading();
-      $timeout(function(){
-        var expr = Parser.parse($scope.equations[$scope.currentEquation].introducedEquation);
-        $scope.functionToCall= functionToCallIni+ "return "+expr.toString(true)+functionToCallEnd;
-        replaceOps();  
-        MainService.calculateZoomBB($scope.functionToCall, $scope.equations[$scope.currentEquation].boundingBox, $scope.equations[$scope.currentEquation].selectedAlgorithm,$scope.equations[$scope.currentEquation].dimension, $scope.equations[$scope.currentEquation].introducedEquation).then(function(response){
-            $scope.equations[$scope.currentEquation].dimension=response.dimension
-            $scope.equations[$scope.currentEquation].vertexCount=response.vertexCount
-            $scope.equations[$scope.currentEquation].faceCount=response.faceCount
-            $scope.equations[index].position=MainService.getLastMeshPosition();
-        });
-      },10,true);
-  }    
+  try{
+    if($scope.vrModeEnabled && MainService.isCubeOn()){
+        updateShowLoading();
+        $timeout(function(){
+          try{  
+            var expr = Parser.parse($scope.equations[$scope.currentEquation].introducedEquation);
+            $scope.functionToCall= functionToCallIni+ "return "+expr.toString(true)+functionToCallEnd;
+            replaceOps();  
+            MainService.calculateZoomBB($scope.functionToCall, $scope.equations[$scope.currentEquation].boundingBox, $scope.equations[$scope.currentEquation].selectedAlgorithm,$scope.equations[$scope.currentEquation].dimension, $scope.equations[$scope.currentEquation].introducedEquation).then(function(response){
+                $scope.equations[$scope.currentEquation].dimension=response.dimension
+                $scope.equations[$scope.currentEquation].vertexCount=response.vertexCount
+                $scope.equations[$scope.currentEquation].faceCount=response.faceCount
+                $scope.equations[index].position=MainService.getLastMeshPosition();
+            });
+          }catch(err){
+            updateShowLoading();
+            throw err;
+          }
+        },10,true);
+    }
+  }catch(err){
+    updateShowLoading();
+    throw err;
+  }     
 }
 
 function onKeyUp( event ) {

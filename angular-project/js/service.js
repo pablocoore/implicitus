@@ -513,7 +513,7 @@ angular.module('isosurface')
 	}
 //prueba del cubo de zoom
 	function createZoomCube(changePos){
-		if(!changePos && cube!=null)
+		if(!changePos)
 			var prevpos= cube.position;
 		view.scene.remove(cube);
 		var material = new THREE.MeshBasicMaterial({color: 0xfffff/*, wireframe: true*/});
@@ -617,7 +617,7 @@ angular.module('isosurface')
 				objectToSave.dims=volume.dims;
 				objectToSave.verticesLength=geometry.vertices.length
 				objectToSave.facesLength=geometry.faces.length
-				
+				createZoomCube(true);
 				updateText(introducedEquation);
 				deferred.resolve(objectToReturn);
 

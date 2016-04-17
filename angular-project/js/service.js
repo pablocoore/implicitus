@@ -111,8 +111,34 @@ angular.module('isosurface')
 
 		'isCubeOn':isCubeOn,
 		'buildAxes':buildAxes,
-		'removeAxes':removeAxes
+		'removeAxes':removeAxes,
+
+		'normalMaterial':normalMaterial
 	};
+
+	function normalMaterial(){
+		if(texture==null){
+			texture = THREE.ImageUtils.loadTexture('ejercicio12.jpg', {}, function() {//FIX_ME
+				                  renderer.render(view.scene);
+				            });
+		}
+		if(texture2==null){
+			texture2 = THREE.ImageUtils.loadTexture('ejercicio13.jpg', {}, function() {
+			                  renderer.render(view.scene);
+			            });
+		}
+		var material = new THREE.MeshLambertMaterial({
+			map:texture,
+		 });
+		var material2 = new THREE.MeshLambertMaterial({
+			map:texture2,
+		 });
+		material2.side = THREE.BackSide;
+		view.surfacemeshes[view.currentMesh].children[0].material = material;
+		view.surfacemeshes[view.currentMesh].children[0].material.needsUpdate = true;
+		view.surfacemeshes[view.currentMesh].children[1].material = material2;
+		view.surfacemeshes[view.currentMesh].children[1].material.needsUpdate = true;
+	}
 	function removeAxes(){
 		view.scene.remove(axes);
 	}

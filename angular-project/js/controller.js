@@ -127,7 +127,7 @@ angular.module('isosurface')
             $scope.jellyMaterial=false
           break;
         case "None": 
-            //FIX_ME this should do something in the service
+            MainService.normalMaterial();
             $scope.showLavaMaterial=false
             $scope.showWaterMaterial=false
             $scope.matrixMaterial=false

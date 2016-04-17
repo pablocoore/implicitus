@@ -70,7 +70,7 @@ angular.module('isosurface')
 	var stats= null;
 	var renderer =null;
 
-var observerCallbacks=[]
+	var observerCallbacks=[]
 
 	return {
 		'render':render,
@@ -111,14 +111,39 @@ var observerCallbacks=[]
 
 		'isCubeOn':isCubeOn,
 		'buildAxes':buildAxes,
-		'removeAxes':removeAxes
+		'removeAxes':removeAxes,
+
+		'normalMaterial':normalMaterial
 	};
+
+	function normalMaterial(){
+		if(texture==null){
+			texture = THREE.ImageUtils.loadTexture('ejercicio12.jpg', {}, function() {//FIX_ME
+				                  renderer.render(view.scene);
+				            });
+		}
+		if(texture2==null){
+			texture2 = THREE.ImageUtils.loadTexture('ejercicio13.jpg', {}, function() {
+			                  renderer.render(view.scene);
+			            });
+		}
+		var material = new THREE.MeshLambertMaterial({
+			map:texture,
+		 });
+		var material2 = new THREE.MeshLambertMaterial({
+			map:texture2,
+		 });
+		material2.side = THREE.BackSide;
+		view.surfacemeshes[view.currentMesh].children[0].material = material;
+		view.surfacemeshes[view.currentMesh].children[0].material.needsUpdate = true;
+		view.surfacemeshes[view.currentMesh].children[1].material = material2;
+		view.surfacemeshes[view.currentMesh].children[1].material.needsUpdate = true;
+	}
 	function removeAxes(){
 		view.scene.remove(axes);
 	}
 	function buildAxis( src, dst, colorHex, dashed ) {
-        var geom = new THREE.Geometry(),
-            mat;
+        var geom = new THREE.Geometry(), mat;
         if(dashed) {
                 mat = new THREE.LineDashedMaterial({ linewidth: 3, color: colorHex, dashSize: 3, gapSize: 3 });
         } else {
@@ -126,7 +151,7 @@ var observerCallbacks=[]
         }
         geom.vertices.push( src.clone() );
         geom.vertices.push( dst.clone() );
-        geom.computeLineDistances(); // This one is SUPER important, otherwise dashed lines will appear as simple plain lines
+        geom.computeLineDistances();
         var axis = new THREE.Line( geom, mat, THREE.LinePieces );
         return axis;
 	}
@@ -488,7 +513,7 @@ var observerCallbacks=[]
 	}
 //prueba del cubo de zoom
 	function createZoomCube(changePos){
-		if(!changePos)
+		if(!changePos && cube!=null)
 			var prevpos= cube.position;
 		view.scene.remove(cube);
 		var material = new THREE.MeshBasicMaterial({color: 0xfffff/*, wireframe: true*/});
@@ -598,7 +623,7 @@ var observerCallbacks=[]
 
 			});
 		}catch(err){
-		  console.log("ERROR",err);
+			throw err;
 		}
         return deferred.promise;
 	}
@@ -703,6 +728,7 @@ var observerCallbacks=[]
 		//var spotLight = new THREE.SpotLight( 0xffffff );
 		spotLight.position.set( -100, -200, 10 );
 
+
 		spotLight.castShadow = true;
 		//XXX the quality of the shades are suppose to be increased as I increase the following values
 		spotLight.shadowMapWidth = 4096;//1024;
@@ -785,18 +811,20 @@ var observerCallbacks=[]
 		});
 		//XXX esto para la sombra no se que puede llegar a romper
 //GGG triple G of guillermo
+if(!isMobile()){
+	console.log("not mobile");
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMapSoft = true;
 
-renderer.shadowMap.enabled = true;
-renderer.shadowMapSoft = true;
+	renderer.shadowCameraNear = 3;
+	//renderer.shadowCameraFar = camera.far;
+	renderer.shadowCameraFov = 50;
 
-renderer.shadowCameraNear = 3;
-//renderer.shadowCameraFar = camera.far;
-renderer.shadowCameraFov = 50;
-
-renderer.shadowMapBias = 0.0039;
-renderer.shadowMapDarkness = 0.5;
-renderer.shadowMapWidth = 2*4096;
-renderer.shadowMapHeight = 2*4096;
+	renderer.shadowMapBias = 0.0039;
+	renderer.shadowMapDarkness = 0.5;
+	renderer.shadowMapWidth = 2*4096;
+	renderer.shadowMapHeight = 2*4096;
+}
 
 		//hasta aca la sombra (mal identado intencionalmente)
 		renderer.autoClear = false;
@@ -1030,8 +1058,6 @@ renderer.shadowMapHeight = 2*4096;
 		}
 	}
 
-var selectPressed = false;
-var startPressed = false;
 	function updateGamepad() {//FIX_ME capazque va en el controller, no estoy seguro
 	  	scangamepads();
 		for (j in controllers) {
@@ -1039,13 +1065,6 @@ var startPressed = false;
 		    //lights
 		    if(Math.abs(controller.axes[2])>0.1)keyboardEvent.light.moveX =controller.axes[2]; else keyboardEvent.light.moveX =0;
 		    if(Math.abs(controller.axes[3])>0.1)keyboardEvent.light.moveZ =controller.axes[3]; else keyboardEvent.light.moveZ =0;
-		    //wiremesh or not
-		    var prevSelect = selectPressed;
-		    var prevStart = startPressed;
-		    if(controller.buttons[8].pressed/*select*/) selectPressed = true; else selectPressed = false;
-		    if(prevSelect && !selectPressed) document.getElementById("showedges").click();//FIX_ME pablo queria usar angular
-		    if(controller.buttons[9].pressed/*select*/) startPressed = true; else startPressed = false;
-		    if(prevStart && !startPressed) document.getElementById("showfacets").click();//FIX_ME pablo queria usar angular
 		    
 		    //movement
 		    if(controller.buttons[6].pressed/*LT*/) keyboardEvent.moveDown =true; else keyboardEvent.moveDown =false;

@@ -4,6 +4,8 @@
 		<title>Isosurface Toolbox</title>
 		<link  href="css/bootstrap.min.css" rel="stylesheet"/>
 		<link  href="css/bootstrap-theme.min.css" rel="stylesheet"/>
+		<link  href="css/ngToast-animations.min.css" rel="stylesheet"/>
+		<link  href="css/ngToast.min.css" rel="stylesheet"/>
 
 		<link  href="css/main.css" rel="stylesheet"/>
 		<meta charset="utf-8">
@@ -195,7 +197,10 @@ void main()
 		<script src="js/angular.min.js"></script>
 		<script src="js/three.min.js"></script>
 	    <script src="js/Tween.js"></script>
-	    
+	    <script src="js/angular-animate.min.js"></script>
+		<script src="js/angular-sanitize.min.js"></script>
+	    <script src="js/ngToast.min.js"></script>
+
 	    <!--Other libraries-->
 
 	    <script src="js/marchingcubes.js"></script>
@@ -229,18 +234,13 @@ void main()
 	</head>
 
 	<body ng-controller="MainCtrl">
-		<a id="display" type="button" class="btn btn-default" aria-label="Left Align">
+		<a href="" id="display" type="button" class="btn btn-default" aria-label="Left Align">
 	  		<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
 		</a>
 		<button id="enterVr" ng-click="enterVr()"></button>
 		<button id="toogleKeyboard" ng-click="activateKeyboard()">Toogle Keyboard</button>
-		<!-- three.js container -->
     	<div id="container"></div>
-		<!-- info on screen display -->
 		<div id="info">
-			<div class="bottom" id="inlineDoc" >
-				- <i>p</i> for screenshot
-			</div>
 			<div class="controls">	
 				<div class="panel-group row row-marked" id="accordion">
 				  <div class="panel panel-default" ng-repeat="equation in equations track by $index">
@@ -307,7 +307,7 @@ void main()
 						    	<label>Equation</label>
 						    </div>
 						    <div class="col-md-12 col-sm-12">
-						    	<textarea ng-model="equation.introducedEquation" ng-change="updateEquation($index)" ng-model-options="{ updateOn: 'default blur', debounce: { default: 5000, blur: 0 } }" rows="6"/>hola</textarea> 
+						    	<textarea ng-model="equation.introducedEquation" rows="6"/>hola</textarea> 
 					    	</div>
 			
 
@@ -444,7 +444,8 @@ void main()
 				</div>
 			</div>
 		</div>
-		
+    	<toast></toast>
+
 		<div id="loading" style="position: absolute;width: 100%;height: 100%;background-color: rgba(0,0,0,0.8);z-index: 10000;top: 0;left: 0;" >
 			<h1 style="color:white;position:absolute;left:46%;top:46%;letter-spacing:2px">LOADING...</h1>
 		</div>

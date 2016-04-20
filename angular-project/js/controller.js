@@ -17,7 +17,7 @@
       });
   });
 
-angular.module('isosurface')
+angular.module('implicitus')
  
 .controller('MainCtrl', ['$scope','MainService','savingService','$timeout','ngToast','$rootScope', function($scope, MainService, savingService, $timeout, ngToast, $rootScope) {
     $scope.vrModeEnabled=false;
@@ -259,7 +259,17 @@ angular.module('isosurface')
       console.log(URL.createObjectURL(p));
     }
 
+    function updateBoundingBoxValues(index){
+        $scope.equations[index].boundingBox[1][0]=$scope.equations[index].boundingBox[0][0]
+        $scope.equations[index].boundingBox[1][1]=$scope.equations[index].boundingBox[0][1]
+        $scope.equations[index].boundingBox[1][2]=$scope.equations[index].boundingBox[0][2]
+        $scope.equations[index].boundingBox[2][0]=$scope.equations[index].boundingBox[0][0]
+        $scope.equations[index].boundingBox[2][1]=$scope.equations[index].boundingBox[0][1]
+        $scope.equations[index].boundingBox[2][2]=$scope.equations[index].boundingBox[0][2]
+    }
+
      $scope.updateEquation=function(index){
+      updateBoundingBoxValues(index)
       try{
         updateShowLoading();
         $timeout(function(){
@@ -311,6 +321,7 @@ angular.module('isosurface')
 
      $scope.saveEquation=function(index){
         console.log("Saving")
+        updateBoundingBoxValues(index)
         MainService.saveEquation($scope.equations[index].name, $scope.equations[index].introducedEquation,$scope.equations[index].boundingBox)
      }
 
@@ -366,7 +377,8 @@ function zoom(index){
           try{  
             var expr = Parser.parse($scope.equations[$scope.currentEquation].introducedEquation);
             $scope.functionToCall= functionToCallIni+ "return "+expr.toString(true)+functionToCallEnd;
-            replaceOps();  
+            replaceOps();
+            updateBoundingBoxValues(index)
             MainService.calculateZoomBB($scope.functionToCall, $scope.equations[$scope.currentEquation].boundingBox, $scope.equations[$scope.currentEquation].selectedAlgorithm,$scope.equations[$scope.currentEquation].dimension, $scope.equations[$scope.currentEquation].introducedEquation).then(function(response){
                 $scope.equations[$scope.currentEquation].dimension=response.dimension
                 $scope.equations[$scope.currentEquation].vertexCount=response.vertexCount

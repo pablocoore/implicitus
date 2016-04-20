@@ -1,4 +1,4 @@
-angular.module('isosurface', ['ngFileUpload', 'ngSanitize', 'ngToast'])
+angular.module('implicitus', ['ngFileUpload', 'ngSanitize', 'ngToast'])
 .config(function($provide) {
     $provide.decorator("$exceptionHandler", ['$delegate','ngToast', function($delegate,ngToast) {
         return function(exception, cause) {

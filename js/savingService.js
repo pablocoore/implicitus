@@ -1,4 +1,4 @@
-angular.module('isosurface')
+angular.module('implicitus')
  
 .service('savingService', ['$http','$q', function($http, $q) {
 

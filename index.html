@@ -1,7 +1,7 @@
 <!doctype html>
-<html ng-app="isosurface">
+<html ng-app="implicitus">
 	<head>
-		<title>Isosurface Toolbox</title>
+		<title>Implicitus</title>
 		<link  href="css/bootstrap.min.css" rel="stylesheet"/>
 		<link  href="css/bootstrap-theme.min.css" rel="stylesheet"/>
 		<link  href="css/ngToast-animations.min.css" rel="stylesheet"/>
@@ -312,38 +312,18 @@ void main()
 			
 
 						    <div class="col-md-4 col-sm-4">
-						    	<input type="number" ng-model="equation.boundingBox[0][0]" ng-model-options="{ debounce: { default: 5000, blur: 0 } }"placeholder="X min"></input>
+						    	<input type="number" ng-model="equation.boundingBox[0][0]" placeholder="Min"></input>
 						    </div>
 						    <div class="col-md-4 col-sm-4">
-						    	<input type="number" ng-model="equation.boundingBox[0][1]" ng-model-options="{ debounce: { default: 5000, blur: 0 } }"placeholder="X max"></input>
+						    	<input type="number" ng-model="equation.boundingBox[0][1]" placeholder="Max"></input>
 						    </div>
 						    <div class="col-md-4 col-sm-4">
-						    	<input type="number" ng-model="equation.boundingBox[0][2]" ng-model-options="{ debounce: { default: 5000, blur: 0 } }"placeholder="X step"></input>
-						    </div>
-
-						    <div class="col-md-4 col-sm-4">
-						    	<input type="number" ng-model="equation.boundingBox[1][0]" ng-model-options="{ debounce: { default: 5000, blur: 0 } }"placeholder="Y min"></input>
-						    </div>
-						    <div class="col-md-4 col-sm-4">
-						    	<input type="number" ng-model="equation.boundingBox[1][1]" ng-model-options="{ debounce: { default: 5000, blur: 0 } }"placeholder="Y max"></input>
-						    </div>
-						    <div class="col-md-4 col-sm-4">
-						    	<input type="number" ng-model="equation.boundingBox[1][2]" ng-model-options="{ debounce: { default: 5000, blur: 0 } }"placeholder="Y step"></input>
-						    </div>
-
-						    <div class="col-md-4 col-sm-4">
-						    	<input type="number" ng-model="equation.boundingBox[2][0]" ng-model-options="{ debounce: { default: 5000, blur: 0 } }"placeholder="Z min"></input>
-						    </div>
-						    <div class="col-md-4 col-sm-4">
-						    	<input type="number" ng-model="equation.boundingBox[2][1]" ng-model-options="{ debounce: { default: 5000, blur: 0 } }"placeholder="Z max"></input>
-						    </div>
-						    <div class="col-md-4 col-sm-4">
-						    	<input type="number" ng-model="equation.boundingBox[2][2]" ng-model-options="{ debounce: { default: 5000, blur: 0 } }" placeholder="Z step"></input>
+						    	<input type="number" ng-model="equation.boundingBox[0][2]" placeholder="Step" step="0.01"></input>
 						    </div>
 						</div>
 		 			    <div class="row">
 		   				    <div class="col-md-3 col-sm-3">
-						    	<a href="" ng-click="updateEquation($index)" >Update</a>
+						    	<button href="" ng-click="updateEquation($index)" >Update</button>
 							</div>
 						    <div class="col-md-6 col-sm-6">	
 						    	<input type="text" ng-model="equation.name" placeholder="Equation name"></input>
@@ -361,18 +341,16 @@ void main()
 						    	<input type="color" ng-model="equation.outterColor" ng-change="updateColor(1,$index)" ></input>
 						    </div>	
 						    <div class="col-md-6 col-sm-6">
-						    	<label class="file-input" >
-						    		<input type="file"  ngf-select="updateCompanyImage($file,0,$index)" ng-model="equation.innerTexture" name="company_logo"
-		                                accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
-		                            Outter Texture    
-		                        </label>
+						    	<button>
+						    		<input type="file"  ngf-select="updateCompanyImage($file,0,$index)" ng-model="equation.innerTexture" name="company_logo" accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
+		                            Outer Texture    
+		                        </button>
 		                    </div>    
 		                    <div class="col-md-6 col-sm-6">
-						    	<label class="file-input" >
-			                        <input type="file"  ngf-select="updateCompanyImage($file,1,$index)" ng-model="equation.outterTexture" name="company_logo2" 
-		                                accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
+						    	<button>
+			                        <input type="file"  ngf-select="updateCompanyImage($file,1,$index)" ng-model="equation.outterTexture" name="company_logo2" accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
 		                            Inner Texture
-		                        </label>
+		                        </button>
 							</div>
 						</div>	
 						<div class="row">	
@@ -399,11 +377,11 @@ void main()
                 		<input type="color" ng-model="colorfloor" ng-change="updateColor(2)" ></input>
                 	</div>
                 	<div class="col-md-6 col-sm-6">
-				    	<label class="file-input" >
+				    	<button>
 	                        <input type="file"  ngf-select="updateCompanyImage($file,2)" ng-model="outterTexture" name="company_logo2" 
                                 accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
                                 Floor texture
-                        </label>
+                        </button>
                     </div>
 			    	<div class="col-md-4 col-sm-4">
 			    		<label>Show floor:</label>

@@ -1,4 +1,4 @@
-angular.module('isosurface')
+angular.module('implicitus')
  
 .service('MainService', ['$q','savingService', function($q, savingService) {
 	var cuboL = 10;
@@ -855,7 +855,7 @@ if(!isMobile()){
 		// here you add your objects
 		// - you will most likely replace this part by your own
 		//var light = new THREE.AmbientLight(Math.random()*0xffffff);
-		view.light = new THREE.AmbientLight(0xaaaaaa);
+		view.light = new THREE.AmbientLight(0x888888);
 		//view.light = new THREE.AmbientLight(0xffffff);
 		view.scene.add(view.light);
 		

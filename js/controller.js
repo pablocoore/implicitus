@@ -243,11 +243,11 @@ angular.module('implicitus')
    
       function replaceOps(){
         $scope.functionToCall = $scope.functionToCall.replaceAll('abs','Math.abs');
-        $scope.functionToCall = $scope.functionToCall.replaceAll('sin','Math.sin');
-        $scope.functionToCall = $scope.functionToCall.replaceAll('sqrt','Math.sqrt');
-        $scope.functionToCall = $scope.functionToCall.replaceAll('cos','Math.cos');
-        $scope.functionToCall = $scope.functionToCall.replaceAll('tan','Math.tan');
-        $scope.functionToCall = $scope.functionToCall.replaceAll('exp','Math.exp');
+      	$scope.functionToCall = $scope.functionToCall.replaceAll('sin','Math.sin');
+      	$scope.functionToCall = $scope.functionToCall.replaceAll('sqrt','Math.sqrt');
+      	$scope.functionToCall = $scope.functionToCall.replaceAll('cos','Math.cos');
+      	$scope.functionToCall = $scope.functionToCall.replaceAll('tan','Math.tan');
+      	$scope.functionToCall = $scope.functionToCall.replaceAll('exp','Math.exp');
         $scope.functionToCall = $scope.functionToCall.replaceAll('log','Math.log');
         $scope.functionToCall = $scope.functionToCall.replaceAll('min','Math.min');
         $scope.functionToCall = $scope.functionToCall.replaceAll('max','Math.max');

@@ -275,12 +275,15 @@ angular.module('implicitus')
             console.log($scope.functionToCall);
             replaceOps();  
             //$scope.functionToCall= functionToCallIni+ "return "+$scope.equations[index].introducedEquation+functionToCallEnd;
+            var timeIni =(new Date()).getTime();
             MainService.geometryHandler($scope.functionToCall, $scope.equations[index].boundingBox, $scope.equations[index].selectedAlgorithm, $scope.equations[index].introducedEquation, index).then(function(response){
                 $scope.equations[index].dimension=response.dimension
                 $scope.equations[index].vertexCount=response.vertexCount
                 $scope.equations[index].faceCount=response.faceCount
                 $scope.equations[index].position=MainService.getLastMeshPosition();
                 MainService.updateCurrentMesh(index, $scope.equations[index].showFacets, $scope.equations[index].showEdges,$scope.equations[index].introducedEquation );
+                var timeEnd =(new Date()).getTime();
+                console.log("time: "+(timeEnd-timeIni)/1000.0)
             });
           }catch(err){
             updateShowLoading();

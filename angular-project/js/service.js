@@ -681,6 +681,13 @@ angular.module('implicitus')
 	}
 	// render the scene
 	function render() {
+		if(isMobile()){
+		    if (view.surfacemeshes[view.currentMesh]!=undefined){
+		        view.surfacemeshes[view.currentMesh].rotateY(1  * (Math.PI / 180));
+		    	view.wiremeshes[view.currentMesh].rotateY(1  * (Math.PI / 180));
+		    }
+		}
+
 		if(cube!=null)
 			cube.visible = visibleCube;
 		// update camera controls
@@ -855,7 +862,7 @@ if(!isMobile()){
 		// here you add your objects
 		// - you will most likely replace this part by your own
 		//var light = new THREE.AmbientLight(Math.random()*0xffffff);
-		view.light = new THREE.AmbientLight(0x888888);
+		view.light = new THREE.AmbientLight(0x444444);
 		//view.light = new THREE.AmbientLight(0xffffff);
 		view.scene.add(view.light);
 		

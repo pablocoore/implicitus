@@ -681,7 +681,7 @@ angular.module('implicitus')
 	}
 	// render the scene
 	function render() {
-		if(isMobile()){
+		if(isMobile()&&oculus.vrMode){
 		    if (view.surfacemeshes[view.currentMesh]!=undefined){
 		        view.surfacemeshes[view.currentMesh].rotateY(1  * (Math.PI / 180));
 		    	view.wiremeshes[view.currentMesh].rotateY(1  * (Math.PI / 180));

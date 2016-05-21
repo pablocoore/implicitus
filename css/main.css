@@ -12,6 +12,17 @@ button{
 	border-width: 1px;
 	background:rgba(30,30,30,0.3);
 }
+
+.button{
+    color: #FFF;
+    border-radius: 4px;
+	border-color: grey;
+	border-width: 1px;
+	background:rgba(30,30,30,0.3);
+	cursor:pointer;
+	border-style: solid;
+    padding: 2px;	
+}
 h4{
 	color:white;
 	text-align: center;

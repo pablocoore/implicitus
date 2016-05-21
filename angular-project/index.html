@@ -356,16 +356,16 @@ void main()
 						    	<input type="color" ng-model="equation.outterColor" ng-change="updateColor(1,$index)" ></input>
 						    </div>	
 						    <div class="col-md-6 col-sm-6">
-						    	<button>
+						    	<label class="button">
 						    		<input type="file"  ngf-select="updateCompanyImage($file,0,$index)" ng-model="equation.innerTexture" name="company_logo" accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
 		                            Outer Texture    
-		                        </button>
+		                        </label>
 		                    </div>    
 		                    <div class="col-md-6 col-sm-6">
-						    	<button>
+						    	<label class="button">
 			                        <input type="file"  ngf-select="updateCompanyImage($file,1,$index)" ng-model="equation.outterTexture" name="company_logo2" accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
 		                            Inner Texture
-		                        </button>
+		                        </label>
 							</div>
 						</div>	
 						<div class="row">	
@@ -392,11 +392,11 @@ void main()
                 		<input type="color" ng-model="colorfloor" ng-change="updateColor(2)" ></input>
                 	</div>
                 	<div class="col-md-6 col-sm-6">
-				    	<button>
+				    	<label class="button">
 	                        <input type="file"  ngf-select="updateCompanyImage($file,2)" ng-model="outterTexture" name="company_logo2" 
                                 accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
                                 Floor texture
-                        </button>
+                        </label>
                     </div>
 			    	<div class="col-md-4 col-sm-4">
 			    		<label>Show floor:</label>

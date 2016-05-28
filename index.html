@@ -2,10 +2,10 @@
 <html ng-app="implicitus">
 	<head>
 		<title>Implicitus</title>
- 		<link  href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
-		<link  href="node_modules/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet"/>
-		<link  href="node_modules/ng-toast/dist/ngToast-animations.min.css" rel="stylesheet"/>
-		<link  href="node_modules/ng-toast/dist/ngToast.min.css" rel="stylesheet"/>
+ 		<link  href="css/bootstrap.css" rel="stylesheet"/>
+		<link  href="css/bootstrap-theme.css" rel="stylesheet"/>
+		<link  href="css/ngToast-animations.min.css" rel="stylesheet"/>
+		<link  href="css/ngToast.min.css" rel="stylesheet"/>
 
 		<link  href="css/main.css" rel="stylesheet"/>
 		<meta charset="utf-8">
@@ -186,20 +186,15 @@ void main()
     gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
 }
 </script>
-
-
-		
-
-
 		<!--Just use npm install in the project folder to install the following packages-->	   
- 		<script src="node_modules/jquery/dist/jquery.js"></script>
-		<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-		<script src="node_modules/angular/angular.js"></script>
-		<script src="node_modules/three/three.min.js"></script>
-	    <script src="node_modules/tween.js/src/Tween.js"></script>
-	    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
-		<script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
-	    <script src="node_modules/ng-toast/dist/ngToast.min.js"></script>
+ 		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/angular.js"></script>
+		<script src="js/three.min.js"></script>
+	    <script src="js/Tween.js"></script>
+	    <script src="js/angular-animate.min.js"></script>
+		<script src="js/angular-sanitize.min.js"></script>
+	    <script src="js/ngToast.min.js"></script>
 
 	    <!--Other libraries-->
 
@@ -219,12 +214,11 @@ void main()
 	    <script src="js/vr/C4DCurveLoader.js"></script>
 
 	    <script src="js/threex.dynamictexture.js"></script>
-		
 	    
 		<script type="text/javascript" src="js/parser.js"></script>
 		<script type="text/javascript" src="js/gamepad.js"></script>
- 		<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload-shim.js"></script>
-		<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload.js"></script>
+ 		<script type="text/javascript" src="js/ng-file-upload-shim.js"></script>
+		<script type="text/javascript" src="js/ng-file-upload.js"></script>
 		<script type="text/javascript" src="js/config.js"></script>
 		<script type="text/javascript" src="js/service.js"></script>
 		<script type="text/javascript" src="js/savingService.js"></script>

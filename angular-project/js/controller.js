@@ -260,11 +260,15 @@ angular.module('implicitus')
     }
 
     function updateBoundingBoxValues(index){
+        $scope.equations[index].boundingBox[1][0]=$scope.equations[index].boundingBox[0][0]
+        $scope.equations[index].boundingBox[1][1]=$scope.equations[index].boundingBox[0][1]
         $scope.equations[index].boundingBox[1][2]=$scope.equations[index].boundingBox[0][2]
+        $scope.equations[index].boundingBox[2][0]=$scope.equations[index].boundingBox[0][0]
+        $scope.equations[index].boundingBox[2][1]=$scope.equations[index].boundingBox[0][1]
         $scope.equations[index].boundingBox[2][2]=$scope.equations[index].boundingBox[0][2]
     }
 
-     $scope.updateEquation=function(index){
+    $scope.updateEquation=function(index){
       updateBoundingBoxValues(index)
       try{
         updateShowLoading();
@@ -294,7 +298,7 @@ angular.module('implicitus')
         updateShowLoading();
         throw err;
       }
-     }
+    }
      
 
     if($scope.backendEnabled){

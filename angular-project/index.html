@@ -309,29 +309,13 @@ void main()
 						    	<textarea ng-model="equation.introducedEquation" rows="6"/>hola</textarea> 
 					    	</div>
 			
-
-						    <div class="col-md-6 col-sm-6">
-						    	<input type="number" ng-model="equation.boundingBox[0][0]" placeholder="Min"></input>
-						    </div>
-						    <div class="col-md-6 col-sm-6">
-						    	<input type="number" ng-model="equation.boundingBox[0][1]" placeholder="Max"></input>
-						    </div>
-
-						    <div class="col-md-6 col-sm-6">
-						    	<input type="number" ng-model="equation.boundingBox[1][0]" placeholder="Min"></input>
-						    </div>
-						    <div class="col-md-6 col-sm-6">
-						    	<input type="number" ng-model="equation.boundingBox[1][1]" placeholder="Max"></input>
-						    </div>
-
-						    <div class="col-md-6 col-sm-6">
-						    	<input type="number" ng-model="equation.boundingBox[2][0]" placeholder="Min"></input>
-						    </div>
-						    <div class="col-md-6 col-sm-6">
-						    	<input type="number" ng-model="equation.boundingBox[2][1]" placeholder="Max"></input>
-						    </div>
-
-						    <div class="col-md-6 col-sm-6">
+  						    <div class="col-md-4 col-sm-4"> 
+ 						    	<input type="number" ng-model="equation.boundingBox[0][0]" placeholder="Min"></input> 
+ 							</div>
+ 							<div class="col-md-4 col-sm-4">
+ 					    		<input type="number" ng-model="equation.boundingBox[0][1]" placeholder="Max"></input> 
+							</div>
+						    <div class="col-md-4 col-sm-4">
 						    	<input type="number" ng-model="equation.boundingBox[0][2]" placeholder="Step" step="0.01"></input>
 						    </div>
 

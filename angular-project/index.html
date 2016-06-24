@@ -187,14 +187,11 @@ void main()
 }
 </script>
 
-
-		
-
-
 		<!--Just use npm install in the project folder to install the following packages-->	   
  		<script src="node_modules/jquery/dist/jquery.js"></script>
 		<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="node_modules/angular/angular.js"></script>
+		<script src="node_modules/angular-translate/dist/angular-translate.js"></script>
 		<script src="node_modules/three/three.min.js"></script>
 	    <script src="node_modules/tween.js/src/Tween.js"></script>
 	    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
@@ -237,7 +234,8 @@ void main()
 	  		<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
 		</a>
 		<button id="enterVr" ng-click="enterVr()"></button>
-		<button id="toogleKeyboard" ng-click="activateKeyboard()">Toogle Keyboard</button>
+		<button id="flag" ng-click="changeLanguage()"><img ng-src="/images/{{flag}}" alt="Description" /></button>
+		<button id="toogleKeyboard" ng-click="activateKeyboard()">{{'TOOGLE_KEYBOARD'| translate}}</button>
     	<div id="container"></div>
 		<div id="info">
 			<div class="controls">	
@@ -252,7 +250,7 @@ void main()
 				      <div class="panel-body">
 	    				<div class="row row-marked" ng-if="backendEnabled">
 						    <div class="col-md-6 col-sm-6">
-						    	<label >Load:</label>
+						    	<label >{{'LOAD'|translate}}:</label>
 						    </div>
 						    <div class="col-md-6 col-sm-6" >
 						    	<select ng-model="equation.selectedEquation" ng-options="eq.name for eq in preloadedEquations" ng-change="selectEquation($index)"></select>
@@ -260,7 +258,7 @@ void main()
 						</div>
 						<div class="row">   	
 						   	<div class="col-md-6 col-sm-6">
-						   		<label>Algorithm:</label>
+						   		<label>{{'ALGORITHM '| translate}}:</label>
 						   	</div>
 						   	<div class="col-md-6 col-sm-6">
 						   		<select ng-model="equation.selectedAlgorithm" ng-options="alg for alg in algorithms"></select>
@@ -268,13 +266,13 @@ void main()
 						</div>
 						<div class="row">
 					    	<div class="col-md-4 col-sm-4">
-					    		<label>Show facets:</label>
+					    		<label>{{'SHOW_FACETS '| translate}}:</label>
 				    		</div>
 					    	<div class="col-md-2 col-sm-2">
 					    		<input type="checkbox" ng-model="equation.showFacets" value="checked" ng-change="toggleFacets($index)"/>
 				    		</div>
 					    	<div class="col-md-4 col-sm-4">
-					    		<label>Show edges: </label>
+					    		<label>{{'SHOW_EDGES '| translate}}: </label>
 				    		</div>
 						    <div class="col-md-2 col-sm-2">
 						    	<input type="checkbox" ng-model="equation.showEdges" value="checked" ng-change="toggleEdges($index)"/>
@@ -282,19 +280,19 @@ void main()
 					    </div>
 					    <div class="row row-marked">
 					    	<div class="col-md-6 col-sm-6">
-					    		<label >Resolution: </label>
+					    		<label >{{'RESOLUTION'| translate}}: </label>
 				    		</div>
 					    	<div class="col-md-6 col-sm-6">
 					    		<label  id="resolution" >{{equation.dimension}}</label>
 				    		</div>
 					    	<div class="col-md-6 col-sm-6">
-					    		<label >Vertex count: </label>
+					    		<label >{{'VERTEX_COUNT'| translate}}: </label>
 				    		</div>
 					    	<div class="col-md-6 col-sm-6">
 				    			<label  id="vertcount" />{{equation.vertexCount}}</label>
 			    			</div>
 					    	<div class="col-md-6 col-sm-6">
-				    			<label >Face count:</label>
+				    			<label >{{'FACE_COUNT'|translate}}:</label>
 			    			</div>
 					    	<div class="col-md-6 col-sm-6">
 					    		<label  id="facecount" >{{equation.faceCount}}</label>
@@ -303,7 +301,7 @@ void main()
 		  
 				    	<div class="row row-marked">
 						    <div class="col-md-12 col-sm-12">
-						    	<label>Equation</label>
+						    	<label>{{'EQUATION'| translate}}</label>
 						    </div>
 						    <div class="col-md-12 col-sm-12">
 						    	<textarea ng-model="equation.introducedEquation" rows="6"/>hola</textarea> 
@@ -317,18 +315,18 @@ void main()
 							</div>
 						    <div class="col-md-4 col-sm-4">
 						    	<input type="number" ng-model="equation.boundingBox[0][2]" placeholder="Step" step="0.01"></input>
-						    </div>
+					    </div>
 
 						</div>
 		 			    <div class="row">
 		   				    <div class="col-md-3 col-sm-3">
-						    	<button href="" ng-click="updateEquation($index)" >Update</button>
+						    	<button href="" ng-click="updateEquation($index)" >{{'UPDATE'|translate}}</button>
 							</div>
 						    <div class="col-md-6 col-sm-6">	
 						    	<input type="text" ng-model="equation.name" placeholder="Equation name"></input>
 						    </div>
 						    <div class="col-md-3 col-sm-3" ng-if="backendEnabled">
-						    	<a href="" ng-click="saveEquation($index)" >Save</a>
+						    	<a href="" ng-click="saveEquation($index)" >{{'SAVE'|translate}}</a>
 						    </div>	
 						</div>	
 					    <div class="row">
@@ -342,13 +340,13 @@ void main()
 						    <div class="col-md-6 col-sm-6">
 						    	<label class="button">
 						    		<input type="file"  ngf-select="updateCompanyImage($file,0,$index)" ng-model="equation.innerTexture" name="company_logo" accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
-		                            Outer Texture    
+		                            {{'OUTER_TEXTURE'| translate}}    
 		                        </label>
 		                    </div>    
 		                    <div class="col-md-6 col-sm-6">
 						    	<label class="button">
 			                        <input type="file"  ngf-select="updateCompanyImage($file,1,$index)" ng-model="equation.outterTexture" name="company_logo2" accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
-		                            Inner Texture
+		                            {{'INNER_TEXTURE'| translate}}
 		                        </label>
 							</div>
 						</div>	
@@ -368,7 +366,7 @@ void main()
 				  </div>
 				</div> 
 				<div class="row row-marked">	
-					<button ng-click="addEquation()">Add Equation</button>
+					<button ng-click="addEquation()">{{'ADD_EQUATION'| translate}}</button>
 				</div>
  
 				<div class="row row-marked">					
@@ -379,11 +377,11 @@ void main()
 				    	<label class="button">
 	                        <input type="file"  ngf-select="updateCompanyImage($file,2)" ng-model="outterTexture" name="company_logo2" 
                                 accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
-                                Floor texture
+                                {{'FLOOR_TEXTURE'| translate}}
                         </label>
                     </div>
 			    	<div class="col-md-4 col-sm-4">
-			    		<label>Show floor:</label>
+			    		<label>{{'SHOW_FLOOR'| translate}}:</label>
 		    		</div>
 			    	<div class="col-md-2 col-sm-2">
 			    		<input type="checkbox" ng-model="showFloor" ng-change="toggleFloor()"/>
@@ -392,31 +390,34 @@ void main()
 				<div class="row row-marked">					
 	
 		    		<div class="col-md-6 col-sm-6">
-			    		<label>Select material:</label>
+			    		<label>{{'SELECT_MATERIAL'| translate}}:</label>
 		    		</div>
 				   	<div class="col-md-6 col-sm-6">
 				   		<select ng-model="selectedMaterial" ng-change="selectMaterial()" ng-options="material for material in materials"></select>
 				   	</div>
 
 		    		<div class="col-md-4 col-sm-4">
-			    		<label>Multiple figures:</label>
+			    		<label>{{'MULTIPLE_FIGURES'| translate}}:</label>
 		    		</div>
 			    	<div class="col-md-2 col-sm-2">
 			    		<input type="checkbox" ng-model="multipleFigures" ng-change="toggleMultipleFigures()"/>
 		    		</div>
 
 		    		<div class="col-md-4 col-sm-4">
-			    		<label>Switch ambient light:</label>
+			    		<label>{{'SWITCH_AMBIENT_LIGHT'| translate}}:</label>
 		    		</div>
 			    	<div class="col-md-2 col-sm-2">
 			    		<input type="checkbox" ng-model="displayAmibientLight" ng-change="switchLight()"/>
 		    		</div>
 
 		    		<div class="col-md-4 col-sm-4">
-			    		<label>Show axes:</label>
+			    		<label>{{'SHOW_AXES'| translate}}:</label>
 		    		</div>
-			    	<div class="col-md-2 col-sm-2">
+		    		<div class="col-md-2 col-sm-2">
 			    		<input type="checkbox" ng-model="showAxes" ng-change="toggleAxes()"/>
+		    		</div>
+		    		<div class="col-md-12 col-sm-12">
+			    		<label>{{'HEADLINE'|translate}}:</label>
 		    		</div>
 				</div>
 			</div>
@@ -424,7 +425,7 @@ void main()
     	<toast></toast>
 
 		<div id="loading" style="position: absolute;width: 100%;height: 100%;background-color: rgba(0,0,0,0.8);z-index: 10000;top: 0;left: 0;" >
-			<h1 style="color:white;position:absolute;left:46%;top:46%;letter-spacing:2px">LOADING...</h1>
+			<h1 style="color:white;position:absolute;left:46%;top:46%;letter-spacing:2px">{{'LOADING'| translate}}...</h1>
 		</div>
 	</body>
 </html>

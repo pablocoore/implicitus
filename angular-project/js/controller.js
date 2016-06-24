@@ -19,10 +19,10 @@
 
 angular.module('implicitus')
  
-.controller('MainCtrl', ['$scope','MainService','savingService','$timeout','ngToast','$rootScope', function($scope, MainService, savingService, $timeout, ngToast, $rootScope) {
+.controller('MainCtrl', ['$scope','MainService','savingService','$timeout','ngToast','$rootScope','$translate', function($scope, MainService, savingService, $timeout, ngToast, $rootScope, $translate) {
     $scope.vrModeEnabled=false;
-    ngToast.create('Welcome to implicitus');
-
+    ngToast.create('Bienvenido a implicitus');
+    $scope.flag="blackbritishflag.jpg";
     $scope.enterVr= function(){
       MainService.enterVr();
     }
@@ -266,6 +266,10 @@ angular.module('implicitus')
         $scope.equations[index].boundingBox[2][0]=$scope.equations[index].boundingBox[0][0]
         $scope.equations[index].boundingBox[2][1]=$scope.equations[index].boundingBox[0][1]
         $scope.equations[index].boundingBox[2][2]=$scope.equations[index].boundingBox[0][2]
+    }
+    $scope.changeLanguage=function(){
+      $translate.use('en');
+      $scope.flag="spainFlag.png";
     }
 
     $scope.updateEquation=function(index){

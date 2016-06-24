@@ -9,15 +9,16 @@
   "author": "Pablo Coore and Guillermo Baez",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "tween.js": "~16.3.4",
-    "three": "~0.73.0",
     "angular": "~1.5.3",
-    "bootstrap": "~3.3.6",
-    "ng-file-upload": "~12.0.4",
-    "jquery": "~2.2.3",
-    "ng-toast": "~2.0.0",
-    "ng-sanitize": "0.0.2",
+    "angular-animate": "~1.5.3",
     "angular-sanitize": "~1.5.3",
-    "angular-animate": "~1.5.3"
+    "angular-translate": "^2.11.0",
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.2.3",
+    "ng-file-upload": "~12.0.4",
+    "ng-sanitize": "0.0.2",
+    "ng-toast": "~2.0.0",
+    "three": "~0.73.0",
+    "tween.js": "~16.3.4"
   }
 }

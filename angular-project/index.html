@@ -235,10 +235,84 @@ void main()
 		</a>
 		<button id="enterVr" ng-click="enterVr()"></button>
 		<button id="flag" ng-click="changeLanguage()"><img ng-src="/images/{{flag}}" alt="Description" /></button>
+		<button id="config"><img id="config-image" src="/images/gear.png" alt="Configuration" /></button>
 		<button id="toogleKeyboard" ng-click="activateKeyboard()">{{'TOOGLE_KEYBOARD'| translate}}</button>
     	<div id="container"></div>
-		<div id="info">
+		<div id="info2">
 			<div class="controls">	
+				<div class="panel-group row row-marked" id="accordion2">
+				  <div class="panel panel-default">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#accordion2" href="#collapse1">{{'CONFIGURATION'| translate}}</a>
+				      </h4>
+				    </div>
+				    <div id="collapse1" class="panel-collapse collapse in">
+				      <div class="panel-body">
+						<div class="row">   	
+						   	<div class="col-md-6 col-sm-6">
+						   		<label>{{'ALGORITHM '| translate}}:</label>
+						   	</div>
+						   	<div class="col-md-6 col-sm-6">
+						   		<select ng-model="selectedAlgorithm" ng-options="alg for alg in algorithms"></select>
+						   	</div>
+						</div>
+						<div class="row row-marked">					
+		                	<div class="col-md-6 col-sm-6">
+		                		<input type="color" ng-model="colorfloor" ng-change="updateColor(2)" ></input>
+		                	</div>
+		                	<div class="col-md-6 col-sm-6">
+						    	<label class="button">
+			                        <input type="file"  ngf-select="updateCompanyImage($file,2)" ng-model="outterTexture" name="company_logo2" 
+		                                accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
+		                                {{'FLOOR_TEXTURE'| translate}}
+		                        </label>
+		                    </div>
+					    	<div class="col-md-4 col-sm-4">
+					    		<label>{{'SHOW_FLOOR'| translate}}:</label>
+				    		</div>
+					    	<div class="col-md-2 col-sm-2">
+					    		<input type="checkbox" ng-model="showFloor" ng-change="toggleFloor()"/>
+				    		</div>
+				    	</div>
+						<div class="row row-marked">					
+			
+				    		<div class="col-md-6 col-sm-6">
+					    		<label>{{'SELECT_MATERIAL'| translate}}:</label>
+				    		</div>
+						   	<div class="col-md-6 col-sm-6">
+						   		<select ng-model="selectedMaterial" ng-change="selectMaterial()" ng-options="material for material in materials"></select>
+						   	</div>
+
+				    		<div class="col-md-4 col-sm-4">
+					    		<label>{{'MULTIPLE_FIGURES'| translate}}:</label>
+				    		</div>
+					    	<div class="col-md-2 col-sm-2">
+					    		<input type="checkbox" ng-model="multipleFigures" ng-change="toggleMultipleFigures()"/>
+				    		</div>
+
+				    		<div class="col-md-4 col-sm-4">
+					    		<label>{{'SWITCH_AMBIENT_LIGHT'| translate}}:</label>
+				    		</div>
+					    	<div class="col-md-2 col-sm-2">
+					    		<input type="checkbox" ng-model="displayAmibientLight" ng-change="switchLight()"/>
+				    		</div>
+
+				    		<div class="col-md-4 col-sm-4">
+					    		<label>{{'SHOW_AXES'| translate}}:</label>
+				    		</div>
+				    		<div class="col-md-2 col-sm-2">
+					    		<input type="checkbox" ng-model="showAxes" ng-change="toggleAxes()"/>
+				    		</div>
+						</div>
+					  </div>
+					</div>
+				</div>
+			  </div>
+			</div>
+		</div> 	
+		<div id="info">
+			<div class="controls">
 				<div class="panel-group row row-marked" id="accordion">
 				  <div class="panel panel-default" ng-repeat="equation in equations track by $index">
 				    <div class="panel-heading">
@@ -255,14 +329,6 @@ void main()
 						    <div class="col-md-6 col-sm-6" >
 						    	<select ng-model="equation.selectedEquation" ng-options="eq.name for eq in preloadedEquations" ng-change="selectEquation($index)"></select>
 						    </div>
-						</div>
-						<div class="row">   	
-						   	<div class="col-md-6 col-sm-6">
-						   		<label>{{'ALGORITHM '| translate}}:</label>
-						   	</div>
-						   	<div class="col-md-6 col-sm-6">
-						   		<select ng-model="equation.selectedAlgorithm" ng-options="alg for alg in algorithms"></select>
-						   	</div>
 						</div>
 						<div class="row">
 					    	<div class="col-md-4 col-sm-4">
@@ -304,7 +370,7 @@ void main()
 						    	<label>{{'EQUATION'| translate}}</label>
 						    </div>
 						    <div class="col-md-12 col-sm-12">
-						    	<textarea ng-model="equation.introducedEquation" rows="6"/>hola</textarea> 
+						    	<textarea ng-model="equation.introducedEquation" rows="6" style="font-size:15px"/>hola</textarea> 
 					    	</div>
 			
   						    <div class="col-md-4 col-sm-4"> 
@@ -369,57 +435,7 @@ void main()
 					<button ng-click="addEquation()">{{'ADD_EQUATION'| translate}}</button>
 				</div>
  
-				<div class="row row-marked">					
-                	<div class="col-md-6 col-sm-6">
-                		<input type="color" ng-model="colorfloor" ng-change="updateColor(2)" ></input>
-                	</div>
-                	<div class="col-md-6 col-sm-6">
-				    	<label class="button">
-	                        <input type="file"  ngf-select="updateCompanyImage($file,2)" ng-model="outterTexture" name="company_logo2" 
-                                accept="image/*" ngf-max-size="200MB" ngf-model-invalid="errorFiles" style="display:none"/>
-                                {{'FLOOR_TEXTURE'| translate}}
-                        </label>
-                    </div>
-			    	<div class="col-md-4 col-sm-4">
-			    		<label>{{'SHOW_FLOOR'| translate}}:</label>
-		    		</div>
-			    	<div class="col-md-2 col-sm-2">
-			    		<input type="checkbox" ng-model="showFloor" ng-change="toggleFloor()"/>
-		    		</div>
-		    	</div>
-				<div class="row row-marked">					
-	
-		    		<div class="col-md-6 col-sm-6">
-			    		<label>{{'SELECT_MATERIAL'| translate}}:</label>
-		    		</div>
-				   	<div class="col-md-6 col-sm-6">
-				   		<select ng-model="selectedMaterial" ng-change="selectMaterial()" ng-options="material for material in materials"></select>
-				   	</div>
-
-		    		<div class="col-md-4 col-sm-4">
-			    		<label>{{'MULTIPLE_FIGURES'| translate}}:</label>
-		    		</div>
-			    	<div class="col-md-2 col-sm-2">
-			    		<input type="checkbox" ng-model="multipleFigures" ng-change="toggleMultipleFigures()"/>
-		    		</div>
-
-		    		<div class="col-md-4 col-sm-4">
-			    		<label>{{'SWITCH_AMBIENT_LIGHT'| translate}}:</label>
-		    		</div>
-			    	<div class="col-md-2 col-sm-2">
-			    		<input type="checkbox" ng-model="displayAmibientLight" ng-change="switchLight()"/>
-		    		</div>
-
-		    		<div class="col-md-4 col-sm-4">
-			    		<label>{{'SHOW_AXES'| translate}}:</label>
-		    		</div>
-		    		<div class="col-md-2 col-sm-2">
-			    		<input type="checkbox" ng-model="showAxes" ng-change="toggleAxes()"/>
-		    		</div>
-		    		<div class="col-md-12 col-sm-12">
-			    		<label>{{'HEADLINE'|translate}}:</label>
-		    		</div>
-				</div>
+				
 			</div>
 		</div>
     	<toast></toast>

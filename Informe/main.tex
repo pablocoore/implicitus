@@ -398,11 +398,11 @@ Algo deseable a controlar cuando se poligoniza una superficie es la resolución 
 \caption{Ejemplo de la misma figura utilizando diferentes tamaños de grilla, se puede notar que en la primer figura, debido a que el tamaño de celda elegido es grande, no genera una figura correctamente.}
 \end{figure}
 \subsubsection{Determinación de las normales de los vértices de las caras triangulares}
-A menudo es necesario crear las normales para cada vértice de las caras triangulares para poder representar una superficie “suave”. Una forma de hacer esto es ,después de que las caras han sido creadas, promediar las normales de todas las caras que comparten un vértice del triángulo. A continuación se muestra el resultado suave a la derecha, la imagen de la izquierda tiene la única normal para la faceta aplicada a cada uno de los vértices. El modelo a continuación es de un tipo particular de neurona capturado de un microscopio confocal.\\
+A menudo es necesario crear las normales para cada vértice de las caras triangulares para poder representar una superficie “suave”. Una forma de hacer esto es ,después de que las caras han sido creadas, promediar las normales de todas las caras que comparten un vértice del triángulo. A continuación se muestra el resultado suave a la derecha, la imagen de la izquierda tiene la única normal para la faceta aplicada a cada uno de los vértices. El modelo a continuación es de una esfera.\\
 \begin{figure}[h]
-\includegraphics[width =0.45\linewidth]{marchingcubes5.png}
+\includegraphics[width =0.45\linewidth]{facetado.png}
 \hfill
-\includegraphics[width =0.45\linewidth]{marchingcubes6.png}
+\includegraphics[width =0.45\linewidth]{noFacetado.png}
 \caption{ Ejemplos de distintas configuraciones de normales de la misma figura.}
 \label{ fig : surface }
 \end{figure}
@@ -526,6 +526,18 @@ A continuación se presenta una versión simplificada del cliente web, y se prov
 \\VRControls es el responsable de que cuando se está en modo VR, tome del dispositivo la rotación de forma de mover la cámara de la misma forma, para poder dar la sensación de inmersión.
 \\Gamepad tiene el objetivo de exponer el estado del joystick de XBOX ONE utilizando la Gamepad API\cite{gamepadapi} a el MainService.
 \\Parser se encarga de parsear las ecuaciones ingresadas por el usuario, de manera de proveerle al MainService las ecuaciones de la forma que los algoritmos necesitan como entrada. Este módulo permite que el usuario no se preocupe de como requieren los algoritmos de que se escriba la ecuación.
+\clearpage
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{arq-esp.png}
+\caption{Estructura de Main Service.}
+\end{figure}
+En la imagen anterior se aprecia como es la estructura interna del servicio principal. Se puede observar cómo se aplicó el \textit{Game Loop Pattern}, ya que el flujo del servicio se descompone en tres etapas: Handle Events, Update y Render.
+\begin{itemize}
+\item Handle input: Es en la sección donde se recibe lo que ingresa el usuario, ya sea a través de interrupciones (caso del teclado) o de polling (caso del joystick).
+\item Update: Es cuando se actualizan las posiciones y otros atributos que deben actualizarse antes de dibujar cada frame.
+\item Render: Se dibuja la escena.
+\end{itemize}
+También se cuenta con Update Mesh, que es una operación asincronica que regenera la geometría.
 \subsubsection{Backend y base de datos}
 El backend de la aplicación fue realizado en el lenguaje Python con el framework de django y django rest framework para comunicarse con los clientes web. Este se encarga de guardar datos de las superficies que se consideren interesantes, por ejemplo: coordenadas, nombre, cantidad de caras, etc. Todo esto se encuentra guardado en la base de datos Postgres.
 \\Esta parte de la aplicación presenta una ventaja sobre otro tipo de aplicaciones similares, ya que permite que usuarios de distinta parte del compartan ecuaciones interesantes. Además de que a medida de que más usuarios generar y almacenan ecuaciones la aplicación va creciendo en cuanto al catálogo de ecuaciones que ofrece.
@@ -1386,7 +1398,6 @@ Para cada una de las siguientes pruebas tomamos el tiempo que le llevó a la per
 \item Entre en modo VR.
 \item Asignele un material a la ecuación.
 \end{itemize}
-
 \clearpage
 \section{Cuestionario de usabilidad de la aplicación}
 \textbf{¿Qué le pareció la interfaz de la aplicación?}

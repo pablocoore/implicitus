@@ -223,6 +223,7 @@ void main()
  		<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload-shim.js"></script>
 		<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload.js"></script>
 		<script type="text/javascript" src="js/config.js"></script>
+		<script type="text/javascript" src="js/equationListService.js"></script>
 		<script type="text/javascript" src="js/service.js"></script>
 		<script type="text/javascript" src="js/savingService.js"></script>
 		<script type="text/javascript" src="js/controller.js"></script>
@@ -331,6 +332,13 @@ void main()
 						    </div>
 						</div>
 						<div class="row">
+				    		<div class="col-md-6 col-sm-6">
+					    		<label>{{'SELECT_FIGURES '| translate}}:</label>
+				    		</div>
+					    	<div class="col-md-6 col-sm-6">
+						   		<select ng-model="equation.selectedEquation" ng-options="eq.name for eq in equationList" ng-change="updateSelectedEquation($index)"></select>
+				    		</div>
+
 					    	<div class="col-md-4 col-sm-4">
 					    		<label>{{'SHOW_FACETS '| translate}}:</label>
 				    		</div>

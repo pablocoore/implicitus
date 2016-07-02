@@ -69,7 +69,7 @@
 
 angular.module('implicitus')
  
-.controller('MainCtrl', ['$scope','MainService','savingService','$timeout','ngToast','$rootScope','$translate', function($scope, MainService, savingService, $timeout, ngToast, $rootScope, $translate) {
+.controller('MainCtrl', ['$scope','MainService','savingService','$timeout','ngToast','$rootScope','$translate','equationList', function($scope, MainService, savingService, $timeout, ngToast, $rootScope, $translate, equationList) {
     $scope.vrModeEnabled=false;
     ngToast.create('Bienvenido a implicitus');
     $scope.flag="blackbritishflag.jpg";
@@ -80,7 +80,11 @@ angular.module('implicitus')
       $scope.vrModeEnabled=!$scope.vrModeEnabled;
     }
     $scope.multipleFigures=MainService.getMultipleFiguresValue();
-
+    $scope.equationList = equationList;
+    $scope.updateSelectedEquation=function(index){
+      $scope.equations[index].introducedEquation=$scope.equations[index].selectedEquation.equation;
+      $scope.updateEquation(index);
+    }
     $scope.showLoading=false;
     var functionToCallIni="";
     var functionToCallEnd= ";";

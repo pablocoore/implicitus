@@ -16,7 +16,6 @@ angular.module('implicitus')
 	var outlineMesh;
 	var lastTimestampCube;
 	var lastMeshPosition=null;
-	var testdata = {};
 	var cambioFigura = true;
 	var texture=null;
 	var texture2=null;
@@ -869,9 +868,10 @@ if(!isMobile()){
 		createSpotLight();
 
 		//Initialize dom elements
-		testdata = createTestData();//XXX here we get all preloaded equations and we load them in datasource
+		//testdata = createTestData();//XXX here we get all preloaded equations and we load them in datasource
 
-		var result=(meshers['Marching Cubes'](testdata["Empty"]().data,testdata["Empty"]().dims))
+		var emptyFigure=function(){ return { data: new Float32Array(32*32*32), dims:[32,32,32] } };
+		var result=(meshers['Marching Cubes'](emptyFigure().data,emptyFigure().dims))
 		updateMesh(result);
 		//XXX effect and controls for VR
 		oculus.effect = new THREE.VREffect(renderer);

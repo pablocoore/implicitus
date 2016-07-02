@@ -33,7 +33,8 @@ angular.module('implicitus', ['ngFileUpload', 'ngSanitize', 'ngToast', 'pascalpr
         TOOGLE_KEYBOARD:'Toogle keyboard',
         LOADING:'LOADING',
         LOAD:'Load',
-        SAVE:'Save',    
+        SAVE:'Save',
+        SELECT_FIGURES: 'Select mesh',
     }).translations('es', {
         CONFIGURATION: 'Configuración',
         ALGORITHM: 'Algoritmo',
@@ -57,7 +58,8 @@ angular.module('implicitus', ['ngFileUpload', 'ngSanitize', 'ngToast', 'pascalpr
         TOOGLE_KEYBOARD:'Activar teclado',
         LOADING:'CARGANDO',
         LOAD:'Cargar',  
-        SAVE:'Guardar',                      
+        SAVE:'Guardar',
+        SELECT_FIGURES: 'Selecccionar figura',                  
     });
     $translateProvider.preferredLanguage('es');
 });

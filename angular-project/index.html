@@ -331,14 +331,15 @@ void main()
 						    	<select ng-model="equation.selectedEquation" ng-options="eq.name for eq in preloadedEquations" ng-change="selectEquation($index)"></select>
 						    </div>
 						</div>
-						<div class="row">
+						<div class="row row-marked">
 				    		<div class="col-md-6 col-sm-6">
 					    		<label>{{'SELECT_FIGURES '| translate}}:</label>
 				    		</div>
 					    	<div class="col-md-6 col-sm-6">
 						   		<select ng-model="equation.selectedEquation" ng-options="eq.name for eq in equationList" ng-change="updateSelectedEquation($index)"></select>
 				    		</div>
-
+						</div>
+						<div class="row">
 					    	<div class="col-md-4 col-sm-4">
 					    		<label>{{'SHOW_FACETS '| translate}}:</label>
 				    		</div>

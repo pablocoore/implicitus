@@ -516,10 +516,11 @@ A continuación se presenta una versión simplificada del cliente web, y se prov
 \includegraphics[width=\textwidth]{arq_sim.png}
 \caption{Arquitectura del cliente web.}
 \end{figure}
-\\La aplicación cuenta con dos services y un controller para una única vista. 
+\\La aplicación cuenta con tres services y un controller para una única vista. 
 \\El SavingService es el responsable de comunicarse con el backend para tanto almacenar como cargar las mallas junto con su información asociada. Este módulo es utilizado por el Controller, el cual utilizando las interfaces del MainService le proporciona a éste la información de la malla que se recuperó de la base de datos.
 \\El MainService es el responsable de generar las mallas, crear la escena, hacer las actualizaciones y efectuar el render. Este módulo es el se comunica con más módulos, ya que es el que realiza las tareas más importantes y difíciles. También es el responsable de mostrar las ecuaciones que sean pertinentes, es decir sólo aquellas que deban ser visibles en el momento dado. En este módulo se generan las coordenadas de mapeo UV, se generan los shaders, se ejecuta el main loop de la aplicación, se generan las superficies, se realizan todas las actualizaciones (posición de cámara, posición de luz, etc), se generan las texturas, genera el cubo de zoom para recalcular la zona de la superficie que se quiera. Este es el módulo principal de la aplicación, que utilizando el resto, efectúa la mayoría de las operaciones importantes.
 \\El Controller es el responsable de manejar la interfaz y usar los servicios que le son provistos.
+\\También se cuenta con EcuationListService, que posee una lista de ecuaciones que se pueden cargar, la intención de este servicio es que el usuario pueda visualizar rápidamente una serie de ecuaciones, aunque no este conectado a la base de datos.
 \\MarchingCubes implementa el algoritmo para generar la malla del mismo nombre, es invocado por el MainService.
 \\MarchingTetrahedra es similar a MarchingCubes, en cuanto implementa a un algoritmo para generar la malla y que es invocado por el servicio principal.
 \\SurfaceNets es análogo a los dos módulos mencionados previamente, implementa el algoritmo de Naive SurfaceNets.
@@ -1193,28 +1194,40 @@ A continuación se presenta un breve manual de usuario, donde se explica como ut
 \subsection{Interfaz}
 En este punto se muestran los distintos modos con los que se puede interactuar con la aplicación.
 \subsubsection{Menú lateral}
-Esta interfaz permite varias funcionalidades. En la parte superior se encuentran tres botones, el que se encuentra más a la izquierda oculta el menú inferior, el central activa el modo VR y el de más a la izquierda habilita o deshabilita el uso del teclado para afectar la escena, de modo que ingresar la ecuación no afecte la visualización.
-\\El menú lateral está compuesto de varias pestañas que forman un acordeón cada una de éstas representa una ecuación. En cada pestaña se puede elegir:
+Esta interfaz permite varias funcionalidades. En la parte superior se encuentran cinco botones, el que se encuentra más a la izquierda oculta el menú de las ecuaciones, el siguiente activa el modo VR, el central habilita o deshabilita el uso del teclado para afectar la escena, de modo que ingresar la ecuación no afecte la visualización , el próximo cambia el idioma de la aplicación y finalmente el de más a la derecha muestra el menú de configuración que contiene parámetros avanzados.
 \begin{wrapfigure}{l}{0.35\textwidth}
-\includegraphics[width=0.9\linewidth]{interfaz_lateral.png} 
-\caption{Interfaz lateral de la aplicación.}
+\includegraphics[width=0.9\linewidth]{interfaz1.png} 
+\caption{Interfaz lateral de la aplicación, menú de ecuaciones.}
 \label{fig:subim1}
 \end{wrapfigure}
+\\El menú de las ecuaciones está compuesto de varias pestañas que forman un acordeón cada una de éstas representa una ecuación. En cada pestaña se puede elegir:
 \\Si la versión cuenta con la base de datos (es decir si existe conexión con la misma) se puede optar utilizando la lista desplegable por cargar una.
-\\Se puede elegir el algoritmo que es utilizado para generar la malla.
+\\Si la versión no cuenta con la base de datos se puede optar utilizando la lista desplegable por generar una de las que existen en la lista harcodeadas.
 \\Se puede elegir si se quiere que se muestren las caras de la figura y/o los edges (aristas) de la misma.
 \\Se muestra información útil, como la resolución de la ecuación, la cantidad de vértices y caras.
 \\Se muestra la ecuación, la cual puede ser modificada. Se deben ingresar ecuaciones que pueden tener como variables x,y,z; que pueden usar varios tipos de operación entre ellas se encuentran cos, sin, abs, min, max, log, \string^ (potencia).
 \\También se encuentra el mínimo/máximo valor de x,y e z.
 \\Se encuentra el valor del paso a utilizar en el algoritmo.
 \\El botón Update es el responsable de regenerar la geometría utilizando los parámetros ingresados.
-\\En un campo se ingresa el nombre, el cual es mostrado arriba en la pestaña, y en caso de estar conectado a la base a la hora de guardar se utilizará ese.
+\clearpage
+En un campo se ingresa el nombre, el cual es mostrado arriba en la pestaña, y en caso de estar conectado a la base a la hora de guardar se utilizará ese.
 \\Hay un botón que sólo aparece en caso de conexión con la base y permite grabar.
 \\Se presentan opciones para cambiar el color interno e externo así como las texturas.
 \\Finalmente se encuentra la posición de la figura en la escena.
-\\Afuera de las pestañas se encuentra una opción para agregar más ecuaciones (lo que genera más pestañas). 
-\\En otro sector se encuentra la configuración del piso. De éste se puede seleccionar, su textura o color, así como si se quiere que sea visible o no.
-\\Finalmente se presenta la opción de cambiar el material de la ecuación activa, de cambiar entre el modo de múltiples figuras o no, apagar la luz ambiente y desplegar los ejes de coordenadas de forma de entender mejor la ecuación.
+\\Afuera de las pestañas se encuentra una opción para agregar más ecuaciones (lo que genera más pestañas). \\
+\begin{wrapfigure}{l}{0.35\textwidth}
+\includegraphics[width=0.9\linewidth]{interfaz2.png} 
+\caption{Interfaz lateral de la aplicación, configuración avanzada.}
+\label{fig:subim1}
+\end{wrapfigure}
+\\En el menú de configuración avanzada se encuentran las siguientes opciones:
+\\Se puede elegir el algoritmo que es utilizado para generar la malla.
+\\Se puede modificar la configuración del piso. De éste se puede seleccionar, su textura o color, así como si se quiere que sea visible o no.
+\\Se presenta la opción de cambiar el material de la ecuación activa (activar los shaders (agua, gelatina,etc), activar metal o volver al material estándar).
+\\Se puede cambiar entre el modo de múltiples figuras o no (permite cambiar la configuración de cuantas ecuaciones se despliegan al mismo tiempo).
+\\Apagar la luz ambiente.
+\\Desplegar los ejes de coordenadas de forma de entender mejor la ecuación.
+\\\\\\\\\\\\\\\\\\\\
 \subsubsection{Mensajes}
 Otro aspecto de la interfaz son los mensajes. Estos son pequeños carteles que aparecen arriba la derecha, al momento de ingresar a la página se muestra un mensaje de bienvenida en verde.
 \begin{figure}[ht]
@@ -1245,11 +1258,12 @@ Si se encuentra en modo VR y no se está usando Nightly con un Oculus conectado,
 \\Durante el modo VR  (siempre que no se esté en el modo cortar) WASDRF  permiten al usuario “caminar” por la escena de modo de explorarla en su totalidad.
 \subsubsection{Joystick}
 El joystick de XBOX ONE permite cuando se encuentra en modo VR, desplazarse de forma más intuitiva y cómoda que si se utilizase el teclado, ya que se puede conectar de forma inalámbrica.\\
+\clearpage
 \begin{figure}[h]
 \includegraphics[width=0.8\linewidth]{joystick.png}
 \caption{Diagrama que muestra el mappeo de las teclas en el joystick.}
 \end{figure}
-\\Como se puede ver en la imagen anterior se utiliza la palanca izquierda para desplazarse y los dos gatillos (el izquierdo para moverse hacia abajo y el derecho para moverse hacia arriba). A su vez se puede utilizar la palanca derecha para mover la posición de la luz en la escena.
+Como se puede ver en la imagen anterior se utiliza la palanca izquierda para desplazarse y los dos gatillos (el izquierdo para moverse hacia abajo y el derecho para moverse hacia arriba). A su vez se puede utilizar la palanca derecha para mover la posición de la luz en la escena.
 \clearpage
 \section{Ejemplo de cómo agregar un nuevo shader}
 Este anexo tiene la intención de explicar como sería posible extender la aplicación de forma de agregar otro shader a la misma.
@@ -1468,7 +1482,42 @@ Para cada una de las siguientes pruebas tomamos el tiempo que le llevó a la per
 \textbf{¿Cuál es su opinión general de la aplicación?}
 \clearpage
 \section{Devolución de los usuarios}
-En este anexo se presenta un breve resumen de lo que se obtuvo al presentarle a los usuarios el cuestionario presentado en el anexo anterior. Se realizaron pruebas con 15 individuos.
+En este anexo se presenta un breve resumen de lo que se obtuvo al presentarle a los usuarios el cuestionario presentado en el anexo anterior. Se realizaron pruebas con 13 individuos.
+\\En las siguientes tablas se muestra las respuestas recibidas a la primer y segunda pregunta respectivamente.
+\begin{table}[h!]
+  \centering
+  \label{tab:table1}
+  \begin{tabular}{ccc}
+    \toprule
+    Número de opción &  Texto de la opción &Cantidad\\
+    \midrule
+    1 & Muy Mala & 0 \\
+    2 & Mala & 0 \\
+    3 & Ni buena ni mala & 1 \\
+    4 & Buena & 5\\
+    5 & Muy Buena & 7\\
+    \bottomrule
+  \end{tabular}
+  \caption{Calidad de la interfaz.}
+\end{table}
+\begin{table}[h!]
+  \centering
+  \label{tab:table1}
+  \begin{tabular}{ccc}
+    \toprule
+    Número de opción &  Texto de la opción &Cantidad\\
+    \midrule
+    1 & Muy Mala & 0 \\
+    2 & Mala & 0 \\
+    3 & Ni buena ni mala & 1 \\
+    4 & Buena & 5\\
+    5 & Muy Buena & 7\\
+    \bottomrule
+  \end{tabular}
+  \caption{Calidad de la interfaz.}
+\end{table}
+\\PONER ALGO DE LA CALIDAD DE LAS SUPERFICIES
+\\La mayoría de los usuarios encontró interesante los efectos visuales aplicados a las superficies a través de los shaders.
 \\Ninguno de los usuarios que probó la aplicación sufrío ningún tipo de malestar o mareo. Todos los usuarios dijeron haber experimentado una buena experiencia de realidad virtual.
 \\Una recomendación que se obtuvo por parte de uno de los usuarios, fue que para ayudar a los más inexpertos en el mundo de la matemática se podría agregar de forma similar al "Clip" de Word 2003, un asistente que brinde ayudas. Las mismas podrían ayudar a los usuarios a aprender aún más, a través de consejos y hasta ejercicios para que realice.
 \clearpage
@@ -1499,30 +1548,29 @@ En este anexo se describen los módulos del proyecto, junto con algunas funcione
 	\item loadMesh: Carga una ecuación del backend.
 	\item saveMesh: Envía al backend una ecuación junto con su información asociada para almacenar.
 	\end{itemize}
+\item ecuationListService: Este servicio provee una lista de ecuaciones de la cual el usuario puede seleccionar para visualizar cuando no se encuentra conectado a la base de datos.
 \item controller: Es el responsable de comunicarse con la única vista.
 	\\Funciones principales:
 	\begin{itemize}
 	\item onKeyDown: Es el responsable de manejar el eventos de cuando se deja de presionar una tecla.
 	\item onKeyUp: Es el responsable de manejar el eventos de cuando se comienza a presionar una tecla.
 	\end{itemize}
-\item config
+\item config: Maneja el lenguage y los mensajes de error/bienvenida.
 \item marchingcubes: Es el responsable de implementar el algoritmo Marching Cubes.
 \item marchingtetrahedra: Es el responsable de implementar el algoritmo Marching Tetrahedra.
 \item surfacenets: Es el responsable de implementar el algoritmo Naive Surface Nets.
 \item parser: Es el responsable de parsear las ecuaciones, es decir, modificarlas de a la forma que esperan los algoritmos como entrada.
 \item three: Es la librería THREE que se mencionó anteriormente.
 \item threex.dynamictexture: Librería que ayuda a generar las texturas de las geometrías en tiempo de ejecución (es utilizada para generar el texto de la ecuación en el fondo de la escena).
-\item ngToast
-\item ng-file-upload
-\item angular
-\item angular-animate
-\item angular-sanitaze
+\item ngToast: Es la librería utilizada para mostrar los mensajes.
+\item ng-file-upload: Es la librería utilizada para subir archivos.
+\item angular: Fue utilizado para utilizar MVC y reestructurar el código.
 \item gamepad: Permite acceder a los registros del joystick para poder realizar polling.
-\item bootstrap
-\item jquery
+\item bootstrap: Se utiliza para la interfaz, por el ejemplo para el acordeon.
+\item jquery: Es utilizado para las animaciones del menú. Es requerido por angularJS y bootstrap.
 \item Stats: Genera el cartel que se encuentra en la esquina inferior izquierda que muestra el framerate obtenido.
 \item VRControls: Es el responsable de rotar la cámara cuando el dispositivo de realidad virtual se rota.
-\item VREffect: Es el responsable de generar dos imágenes distorsionadas cuando se encuentra en modo VR.
+\item VREffect: Es el responsable de generar dos imágenes distorsionadas cuando se encuentra en modo VR. Utiliza los parámetros del dispositvo de realidad virtual correspondiente para la distorsión.
 \item OrbitControls: Controla la posición de la cámara cuando no se esta en modo VR, haciendola orbitar alrededor de la geometría.
 \end{itemize}
 Lista de módulos CSS:

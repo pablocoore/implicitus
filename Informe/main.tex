@@ -939,8 +939,8 @@ Tornillo: $max((x^2 + y^2 - 1) ,-((x-sin(z*10) )^2 + (y -cos (z*10))^2 -0.8))$ \
 \clearpage
 \section{Conclusiones y trabajo a futuro}
 \subsection{Conclusiones}
-Las conclusiones se dividirán en dos partes, en la primera analizaremos la performance de los meshers, comparándolos no sólo entre sí, sino contra raytracing. 
-\\En la segunda parte se analizará la performance de la aplicación en cuanto a fps y a resolución de las imágenes generadas. En esta parte se comparará contra Surfer y se analizará si el framerate y la calidad de las imágenes es lo suficientemente bueno para una experiencia positiva de realidad virtual.
+Las conclusiones se dividirán en dos partes, en la primera analizaremos la performance de los meshers, comparándolos entre sí. 
+\\En la segunda parte se analizará la performance de la aplicación en cuanto a fps y a resolución de las imágenes generadas. En esta parte se comparará contra SURFER y se analizará si el framerate y la calidad de las imágenes es lo suficientemente bueno para una experiencia positiva de realidad virtual.
 \subsubsection{Meshers}
 Cada uno de los 3 métodos tiene sus puntos fuertes y débiles. 
 \\Marching Cubes es bueno ya que existen implementaciones libres y fácilmente utilizables, y también es bastante rápido. (Sin mencionar que también es la más ampliamente conocida). Además de ser relativamente rápido no tiene el problema de repetir vértices de Naive Surface Nets, y la calidad de las mallas es superior. Los resultados no son tan agradables como los de Marching Tetrahedra, pero es considerablemente más rápido. 
@@ -958,7 +958,7 @@ Los framerates obtenidos son altos, son ampliamente superiores a 60 fps (la tasa
 
 \subsection{Trabajo a futuro}
 Para mejorar aún más la aplicación se podrían implementar una serie de cambios y agregados. A continuación se listan algunas de ellas.
-Agregar a los algoritmos para generar la malla el algoritmo de Dual Contouring\cite{dualcontour}, el cual mejoraría los resultados en cuanto a la calidad de la geometría, aunque sería más lento. 
+\\Agregar a los algoritmos para generar la malla el algoritmo de Dual Contouring\cite{dualcontour}, el cual mejoraría los resultados en cuanto a la calidad de la geometría, aunque sería más lento. 
 \\En cuanto a mejorar los algoritmos, se podría implementar diferentes versiones de Surface Nets, es decir cambiar las técnicas de selección de los vértices, utilizar algunas más complejas que obtengan mejores resultados.
 \\Agregar otros shaders de GLSL para tener más efectos de ser más atractivo visualmente, se podría permitir a los usuarios agregar sus propios shaders de forma de otorgarles aún un mayor control de cómo se visualiza la ecuación. También se podrían alterar algunos de los ya existentes de manera que los clicks en pantalla afecten el comportamiento de los shaders, por ejemplo que los clicks generen ondas en el agua, o que el movimiento de la ecuación afecte la vibración de la gelatina.
 \\Otra mejora sería mejorar la interfaz en caso que se ingrese desde un teléfono, hacerla más amigable para los dispositivos móviles.
@@ -1511,7 +1511,8 @@ Para cada una de las siguientes pruebas tomamos el tiempo que le llevó a la per
 \textbf{¿Cuál es su opinión general de la aplicación?}
 \clearpage
 \section{Devolución de los usuarios}
-En este anexo se presenta un breve resumen de lo que se obtuvo al presentarle a los usuarios el cuestionario presentado en el anexo anterior. Se realizaron pruebas con 13 individuos.
+Este anexo consiste en un breve resumen de lo que se obtuvo al presentarle a los usuarios el cuestionario presentado en el anexo anterior. Se realizaron pruebas con 13 individuos. Primero se les permitió experimentar con la aplicación libremente por unos 10 minutos, teniendo a su disposición el manual de usuario. Luego se les solicitó que realizaran la prueba presentada en el anexo G. Las pruebas se realizaron en PC con un Oculus Rift DK1.
+\\Las críticas fueron positivas en general, la mayoría de los usuarios quedaron satisfechos con la aplicación. A continuación se presenta un resumen de los principales resultados obtenidos, junto con recomendaciones recibidas.
 \\En las siguientes tablas se muestra las respuestas recibidas a la primer y segunda pregunta respectivamente.
 \begin{table}[h!]
   \centering
@@ -1550,10 +1551,12 @@ En este anexo se presenta un breve resumen de lo que se obtuvo al presentarle a 
         \addplot table {data1.txt};
       \end{axis}
     \end{tikzpicture}
-    \caption{Data plot}
+    \caption{Gráfica de la calidad de la interfaz según los usuarios entrevistados.}
     \label{fig:data}
   \end{figure}
+\\Como se puede apreciar en las gráficas los usuarios no tuvieron inconvenientes con la interfaz, pudiendola usar sin inconvenietes.
 %segunda
+\clearpage
 \begin{table}[h!]
   \centering
   \label{tab:table1}
@@ -1591,13 +1594,27 @@ En este anexo se presenta un breve resumen de lo que se obtuvo al presentarle a 
         \addplot table {data2.txt};
       \end{axis}
     \end{tikzpicture}
-    \caption{Data plot}
+    \caption{Gráfica de la calidad de la manera de ingresar la ecuación según los usuarios entrevistados.}
     \label{fig:data}
   \end{figure}
-\\PONER ALGO DE LA CALIDAD DE LAS SUPERFICIES
-\\La mayoría de los usuarios encontró interesante los efectos visuales aplicados a las superficies a través de los shaders.
-\\Ninguno de los usuarios que probó la aplicación sufrío ningún tipo de malestar o mareo. Todos los usuarios dijeron haber experimentado una buena experiencia de realidad virtual.
-\\Una recomendación que se obtuvo por parte de uno de los usuarios, fue que para ayudar a los más inexpertos en el mundo de la matemática se podría agregar de forma similar al "Clip" de Word 2003, un asistente que brinde ayudas. Las mismas podrían ayudar a los usuarios a aprender aún más, a través de consejos y hasta ejercicios para que realice.
+De la gráfica anterior se desprende de que a los usuarios les pareció buena la forma de ingresar las ecuaciones, la mayoría afirmó que era buena. Esto se debe a que la forma de ingresar las mismas es similar a la utilizada en varios programas de matemática, por lo que los usuarios la reconocieron como familiar.
+\\Los usuarios en general no tuvieron inconvenientes con las superficies generadas, aunque un usuario señalo que la esfera no era completamente esférica cuando le disminuyó el paso del algoritmo. 
+\\La mayoría de los usuarios encontró interesante los efectos visuales aplicados a las superficies a través de los shaders. Con respecto a este tema recibimos varias recomendaciones de distintos tipos de efectos que podrían ser interesantes para agregar en alguna versión futura entre ellos se encuentran: 
+\begin{itemize}
+\item que la lava se desprendiese de la ecuación
+\item generar un efecto de transición donde la ecuacion se hace de arena y se la lleva el viento
+\item cell shading
+\item que la ecuación actuase como un espejo
+\end{itemize}
+Ninguno de los usuarios que probó la aplicación sufrío ningún tipo de malestar o mareo. Todos los usuarios dijeron haber experimentado una buena experiencia de realidad virtual, aunque un usuario menciono que la densidad de píxeles del dispositivo no era la ideal.
+\\En general la aplicación fue muy bien recibida por los usuarios, estando la mayoría muy satisfechos con el funcionamiento de la aplicación.
+\\Un usuario señalo que el consideraría interesante la posibilidad de poder gráficar ecuaciones diferenciales con la aplicación. 
+\\Otro usuario recomendó que se le pusiera sonidos a la aplicación.
+\\Una recomendación que se obtuvo por parte de uno de los usuarios, fue que para ayudar a los más inexpertos en el mundo de la matemática se podría agregar de forma similar al "Clip" de Word 2003, un asistente que brinde ayudas. Las mismas podrían ayudar a los usuarios a aprender aún más, a través de consejos y hasta ejercicios para que realice. Persiguiendo este fin, diseñamos a \textit{Equationcito, tu amigo imaginario}.
+\begin{figure}[h]
+\includegraphics[width=0.3\textwidth,center]{equationcito.png}
+\caption{Equationcito la mascota oficial de Implicitus.}
+\end{figure}
 \clearpage
 \section{Descripción de módulos del proyecto}
 En este anexo se describen los módulos del proyecto, junto con algunas funciones importantes con la intención de asistir a quien quiera extender la aplicación desarrollada.

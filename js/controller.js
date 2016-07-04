@@ -1,28 +1,78 @@
   var isMenuDisplayed=true;
+  var isConfigMenuDisplayed=false;
+
   $(function(){
       $('#display').click(function(){
-        if(isMenuDisplayed){
-          $("#info").animate({
-              left:'-300px',
+        if(isConfigMenuDisplayed){
+          $("#info2").animate({
+              opacity: 0
+            },500,function(){
+              isConfigMenuDisplayed=false;
+              //mostramos el menu config
+              $("#info2").css('pointer-events', 'none');
+              $("#info").animate({
+                  opacity: 1
+              },500,function(){
+                $("#info").css('pointer-events', 'all');  
+              });
+              isMenuDisplayed=true; 
+            });
+        }else{
+          if(isMenuDisplayed){
+            $("#info").animate({
+               'pointer-events': 'true',
               opacity: 0
             },500);
             isMenuDisplayed=false;
-        }else{
+          }else{
+            $("#info").animate({
+                 'pointer-events': 'true',
+                opacity: 1
+            },500);
+            isMenuDisplayed=true; 
+          }
+        }
+      });
+  });
+
+  $(function(){
+      $('#config').click(function(){
+        if(isMenuDisplayed){
           $("#info").animate({
-              left:'10px',
-              opacity: 1
-          },500);
-          isMenuDisplayed=true; 
+              opacity: 0
+            },500,function(){
+              isMenuDisplayed=false;
+              $("#info").css('pointer-events', 'none');
+              //mostramos el menu config
+              $("#info2").animate({
+                  opacity: 1
+              },500,function(){
+                $("#info2").css('pointer-events', 'all');
+              });
+              isConfigMenuDisplayed=true; 
+            });
+        }else{
+          if(isConfigMenuDisplayed){
+            $("#info2").animate({
+              opacity: 0
+            },500);
+            isConfigMenuDisplayed=false;
+          }else{
+            $("#info2").animate({
+                opacity: 1
+            },500);
+            isConfigMenuDisplayed=true; 
+          }
         }
       });
   });
 
 angular.module('implicitus')
  
-.controller('MainCtrl', ['$scope','MainService','savingService','$timeout','ngToast','$rootScope', function($scope, MainService, savingService, $timeout, ngToast, $rootScope) {
+.controller('MainCtrl', ['$scope','MainService','savingService','$timeout','ngToast','$rootScope','$translate','equationList', function($scope, MainService, savingService, $timeout, ngToast, $rootScope, $translate, equationList) {
     $scope.vrModeEnabled=false;
-    ngToast.create('Welcome to implicitus');
-
+    ngToast.create('Bienvenido a implicitus');
+    $scope.flag="blackbritishflag.jpg";
     $scope.enterVr= function(){
       MainService.enterVr();
     }
@@ -30,7 +80,11 @@ angular.module('implicitus')
       $scope.vrModeEnabled=!$scope.vrModeEnabled;
     }
     $scope.multipleFigures=MainService.getMultipleFiguresValue();
-
+    $scope.equationList = equationList;
+    $scope.updateSelectedEquation=function(index){
+      $scope.equations[index].introducedEquation=$scope.equations[index].selectedEquation.equation;
+      $scope.updateEquation(index);
+    }
     $scope.showLoading=false;
     var functionToCallIni="";
     var functionToCallEnd= ";";
@@ -42,12 +96,12 @@ angular.module('implicitus')
       'Marching Tetraheda',
       'Naive Surface Nets'
     ];
+    $scope.selectedAlgorithm=$scope.algorithms[0];
     var equationDummy={
       boundingBox: [[-4.0, 4.0, 0.05],
                     [-4.0, 4.0, 0.05],
                     [-4.0, 4.0, 0.05]],
       name: "New Equation",
-      selectedAlgorithm: $scope.algorithms[0],
       showFacets: true,
       showEdges: true,
       dimension:[0,0,0],
@@ -260,11 +314,26 @@ angular.module('implicitus')
     }
 
     function updateBoundingBoxValues(index){
+        $scope.equations[index].boundingBox[1][0]=$scope.equations[index].boundingBox[0][0]
+        $scope.equations[index].boundingBox[1][1]=$scope.equations[index].boundingBox[0][1]
         $scope.equations[index].boundingBox[1][2]=$scope.equations[index].boundingBox[0][2]
+        $scope.equations[index].boundingBox[2][0]=$scope.equations[index].boundingBox[0][0]
+        $scope.equations[index].boundingBox[2][1]=$scope.equations[index].boundingBox[0][1]
         $scope.equations[index].boundingBox[2][2]=$scope.equations[index].boundingBox[0][2]
     }
+    $scope.changeLanguage=function(){
+      if ($scope.flag=="spainFlag.png"){
+        $translate.use('es');
+        $scope.flag="blackbritishflag.jpg"
+      }else{
+        $translate.use('en');
+        $scope.flag="spainFlag.png";  
+      }
+      
+      
+    }
 
-     $scope.updateEquation=function(index){
+    $scope.updateEquation=function(index){
       updateBoundingBoxValues(index)
       try{
         updateShowLoading();
@@ -276,7 +345,7 @@ angular.module('implicitus')
             replaceOps();  
             //$scope.functionToCall= functionToCallIni+ "return "+$scope.equations[index].introducedEquation+functionToCallEnd;
             var timeIni =(new Date()).getTime();
-            MainService.geometryHandler($scope.functionToCall, $scope.equations[index].boundingBox, $scope.equations[index].selectedAlgorithm, $scope.equations[index].introducedEquation, index).then(function(response){
+            MainService.geometryHandler($scope.functionToCall, $scope.equations[index].boundingBox, $scope.selectedAlgorithm, $scope.equations[index].introducedEquation, index).then(function(response){
                 $scope.equations[index].dimension=response.dimension
                 $scope.equations[index].vertexCount=response.vertexCount
                 $scope.equations[index].faceCount=response.faceCount
@@ -294,7 +363,7 @@ angular.module('implicitus')
         updateShowLoading();
         throw err;
       }
-     }
+    }
      
 
     if($scope.backendEnabled){
@@ -378,7 +447,7 @@ function zoom(index){
             $scope.functionToCall= functionToCallIni+ "return "+expr.toString(true)+functionToCallEnd;
             replaceOps();
             updateBoundingBoxValues(index)
-            MainService.calculateZoomBB($scope.functionToCall, $scope.equations[$scope.currentEquation].boundingBox, $scope.equations[$scope.currentEquation].selectedAlgorithm,$scope.equations[$scope.currentEquation].dimension, $scope.equations[$scope.currentEquation].introducedEquation).then(function(response){
+            MainService.calculateZoomBB($scope.functionToCall, $scope.equations[$scope.currentEquation].boundingBox, $scope.selectedAlgorithm,$scope.equations[$scope.currentEquation].dimension, $scope.equations[$scope.currentEquation].introducedEquation).then(function(response){
                 $scope.equations[$scope.currentEquation].dimension=response.dimension
                 $scope.equations[$scope.currentEquation].vertexCount=response.vertexCount
                 $scope.equations[$scope.currentEquation].faceCount=response.faceCount

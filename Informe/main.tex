@@ -85,11 +85,12 @@ Respuesta Cantidad
 \section*{Resumen}
 La visualización espacial de ecuaciones es una tarea compleja para estudiantes en todas las etapas de la formación académica. Gran parte del análisis matemático está dedicado a determinar las principales características de las  funciones matemáticas, como punto de partida para lograr su comprensión y entendimiento.
 
-La propuesta de este trabajo consiste en implementar un programa que permita la visualización de ecuaciones implícitas, utilizando tecnologías gráficas relacionadas con la visión estereoscópica.  Con esto se busca acercar al estudiante los componentes estéticos y visuales de las matemáticas. Además se quiere obtener una experiencia de realidad virtual agradable al usuario.
-%XXX dice que este parrafo es poco claro, volver a escribirlo
-En el marco de este proyecto, se concluyó que los algoritmos basados en la generación de mallas son más adecuados para la visualización estereoscópica debido a que tiene un mejor tiempo de respuesta a la hora de actualizar la posición de la cámara.
+La propuesta de este trabajo consiste en implementar un programa que permita la visualización de ecuaciones implícitas, utilizando tecnologías gráficas relacionadas con la visión estereoscópica.  Ésto  busca acercar al estudiante los componentes estéticos y visuales de las matemáticas. Además se quiere obtener una experiencia de realidad virtual agradable al usuario.
 
-Por último, se cuenta con una aplicación web\footnote{El código fuente se encuentra disponible en \cite{nuestrocodigo} y se puede acceder a la aplicación en \cite{nuestrositio}}, que funciona  tanto en PC como en celulares, siendo ésta compatible con Oculus Rift (DK1, DK2 y Consumer Version) si se utiliza Nightly, y con Google Cardboard en celulares.
+%XXX dice que este parrafo es poco claro, volver a escribirlo
+En el marco de este proyecto, se concluyó que los algoritmos basados en la generación de mallas son más adecuados para la visualización estereoscópica debido a que tienen un mejor tiempo de respuesta a la hora de actualizar la posición de la cámara.
+
+Por último, se cuenta con una aplicación web\footnote{El código fuente se encuentra disponible en \cite{nuestrocodigo} y se puede acceder a la aplicación en \cite{nuestrositio}}, que funciona  tanto en PC como en celulares,  compatible con Oculus Rift (DK1, DK2 y Consumer Version) si se utiliza Nightly, y con Google Cardboard en celulares.
 \\
 \\
 \\
@@ -104,10 +105,10 @@ Por último, se cuenta con una aplicación web\footnote{El código fuente se enc
 
 \subsection{Definición del problema y motivación}
 La visualización espacial de curvas y superficies matemáticas es un reto importante para estudiantes y docentes. Gran parte del análisis matemático está dedicado a determinar las principales características, puntos singulares, pendientes, concavidades y demás características de las  funciones matemáticas, como punto de partida para lograr su comprensión y entendimiento.
-\\En los últimos años se han desarrollado paquetes de software que facilitan la visualización computacional de diversos tipos de ecuaciones. Los paquetes de cálculo científico poseen herramientas de visualización poderosas que hacen posible graficar de forma intuitiva un volumen importante de información compleja\footnote{Por ejemplo Gnuplot es una herramienta libre ampliamente utilizada en el ámbito científico para la visualización de funciones matemáticas y se puede encontrar en \\\texttt{http://www.gnuplot.info/}\cite{gnuplot}.}.  
-\\En el área de la educación, actualmente hay experiencias exitosas, como SURFER\cite{surfer}, 3DXplorMath\cite{dxplormath}, entre otros, que permiten al estudiante introducirse en el mundo de la abstracción geométrica. 
-\\Además la visualización de superficies y curvas tridimensionales son ampliamente utilizadas en varias disciplinas para la visualización de datos: química, geofísica, meteorología y dinámica de los fluidos, permitiéndole a los ingenieros estudiar características de los mismos mediante simulaciones. Por ejemplo, se puede estudiar el flujo del viento a través de un modelo por computadora de una ala de avión \cite{aircraftwing}, también se pueden utilizar este tipo de técnicas para la visualización de pisos en videojuegos\cite{realtimerendering}\cite{engine}.
-\\En este contexto, se quieren explorar las posibilidades de desarrollar una aplicación para que sea posible visualizar de forma estereoscópica e interactiva (en tiempo real) curvas y superficies matemáticas. Para ello la idea es considerar el uso del dispositivo de visualización Oculus Rift, y de hardware gráfico (tarjetas gráficas) Nvidia.
+\\En los últimos años se han desarrollado paquetes de software que facilitan la visualización computacional de diversos tipos de ecuaciones. Los paquetes de cálculo científico poseen herramientas de visualización poderosas que hacen posible graficar de forma intuitiva un volumen importante de información compleja\footnote{Por ejemplo Gnuplot es una herramienta libre ampliamente utilizada en el ámbito científico para la visualización de funciones matemáticas y se puede encontrar en \cite{gnuplot}.}.  
+\\En el área de la educación actualmente hay experiencias exitosas, como SURFER\cite{surfer}, 3DXplorMath\cite{dxplormath}, entre otros, que permiten al estudiante introducirse en el mundo de la abstracción geométrica. 
+\\Además la visualización de superficies y curvas tridimensionales es ampliamente utilizada en varias disciplinas para la visualización de datos: química, geofísica, meteorología y dinámica de los fluidos, permitiéndo a los ingenieros estudiar características de los mismos mediante simulaciones. Por ejemplo, se puede estudiar el flujo del viento a través de un modelo por computadora de una ala de avión \cite{aircraftwing}, también se pueden utilizar este tipo de técnicas para la visualización de pisos en videojuegos\cite{realtimerendering}\cite{engine}.
+\\En este contexto, se quieren explorar las posibilidades de desarrollar una aplicación donde sea posible visualizar de forma estereoscópica e interactiva (en tiempo real) curvas y superficies matemáticas. Para ello la idea es considerar el uso del dispositivo de visualización Oculus Rift, y de hardware gráfico (tarjetas gráficas) Nvidia.
 \subsection{Objetivos}
 \begin{itemize}
 \item Desarrollar una aplicación para visualizar ecuaciones algebraicas de forma estereoscópica y en tiempo real.
@@ -119,17 +120,17 @@ La visualización espacial de curvas y superficies matemáticas es un reto impor
 \subsection{Resultados Esperados}
 \begin{itemize}
 \item Un sitio web desde donde se describan las principales características del software y se tenga acceso al paquete desarrollado para su instalación en equipos de terceros. 
-\item Un artículo y póster con las principales características del proyecto, para su presentación en actividades académicas.
+\item Un artículo y un póster con las principales características del proyecto, para su presentación en actividades académicas.
 \end{itemize}
 \clearpage
 \section{Estado del Arte}
-En esta sección se hará una breve introducción a una serie de conceptos y tecnologías que son la base del proyecto. La primer sección se definirá los distintos tipos de superficie, como base para explicar en la siguiente sección, dos técnicas para la visualización de un tipo de superficies en particular. 
-\\A continuación se presentara una serie de programas que se utilizan con el fin de visualizar superficies, así como un breve análisis de los mismos. A su vez se describirá el fenómeno de Virtual Reality Sickness (VRS) que se puede experimentar cuando se presentan determinadas condiciones a la hora de estar trabajando con visualización estereoscópica.
-\\Luego se presentaran una serie de conceptos y hardware utilizados en la visualización estereoscópica. Además, se listaran varios paquetes de software que utilizados en la realización de la aplicación, que se obtuvieron como resultado del proyecto.
+En esta sección se hará una breve introducción a una serie de conceptos y tecnologías que son la base del proyecto. En la primer sección se definirán los distintos tipos de superficies, como base para explicar en la siguiente sección, dos técnicas para la visualización de un tipo de superficie en particular. 
+\\A continuación se presentará una serie de programas utilizados con el fin de visualizar superficies, así como un breve análisis de los mismos. A su vez se describirá el fenómeno de Virtual Reality Sickness (VRS) que se puede experimentar cuando se presentan determinadas condiciones a la hora de estar trabajando con visualización estereoscópica.
+\\Luego se presentarán una serie de conceptos y hardware utilizados actualmente en la visualización estereoscópica. Además, se listarán varios paquetes de software que fueron utilizados en la realización de la aplicación obtenida como resultado del proyecto.
 \subsection{Tipos de superficies}
-Una superficie implícita es una superficie en el espacio euclidiano definida por una ecuación $F (x, y, z) =  F(p) = 0$, es decir, los  puntos $ p \in {\rm I\!R} ^3$ son parte de la suprficie $ \leftrightarrow F(p) = 0$ \cite{realtimerendering}.
+Una superficie implícita es una superficie en el espacio euclidiano definida por una ecuación $F (x, y, z) =  F(p) = 0$.  Es decir, los  puntos $ p \in {\rm I\!R} ^3$ son parte de la superficie $ \leftrightarrow F(p) = 0$ \cite{realtimerendering}.
 \\En otras palabras, una superficie implícita es el conjunto de puntos a los cuales aplicarle una función de 3 variables da cero. 
-\\La gráfica de una función se describe generalmente por una ecuación $z = f (x, y)$ y se llama una representación explícita\cite{implicitas}\cite{realtimerendering}. La tercera descripción esencial de una superficie es la paramétrica: $(x(s, t), y (s, t), z (s, t))$, donde las coordenadas de los puntos $x$, $y$, $z$ son representadas por tres funciones $x(s, t), y(s, t) , z(s, t)$ dependiendo de los parámetros que tienen en común ($s$ y $t$).
+\\La gráfica de una función se describe generalmente por una ecuación $z = f (x, y)$ y se denomina  representación explícita\cite{implicitas}\cite{realtimerendering}. La tercera descripción esencial de una superficie es la paramétrica: $(x(s, t), y (s, t), z (s, t))$, donde las coordenadas de los puntos $x$, $y$, $z$ son representadas por tres funciones $x(s, t), y(s, t) , z(s, t)$ dependiendo de los parámetros que tienen en común ($s$ y $t$).
 \begin{figure}[ht]
 \includegraphics[width =0.45\linewidth]{tetraedro.png}
 \hfill
@@ -144,14 +145,14 @@ Una superficie implícita es una superficie en el espacio euclidiano definida po
 \subsection{Técnicas para visualización de superficies implícitas}
 En este punto se presentan de forma breve dos técnicas para la visualización de superficies implícitas, así como un breve análisis de sus ventajas y desventajas.
 \subsubsection{Ray tracing}
-La técnica de ray tracing consiste en trazar rayos de modo de simular ciertos aspectos geometricos de la luz y cómo son percibidos por las personas. La forma de hacerlo es lanzando rayos desde un punto (los rayos tienen un origen común si se quiere que la imagen sea una proyección perspectiva, de lo contrario los rayos tienen como origen un píxel de la grilla y poseen la misma dirección), el cual representa el ojo o cámara,  de manera qué atraviese un píxel de la imagen que se desea generar y luego detectar con qué superficie interseca. Una vez que se obtiene el primer punto de intersección del rayo se le da un color al píxel atravesado utilizando distintas técnicas de sombreado.
+La técnica de ray tracing consiste en trazar rayos de modo de simular ciertos aspectos geométricos de la luz y cómo son percibidos por las personas. La forma de hacerlo es lanzando rayos desde un punto (los rayos tienen un origen común si se quiere que la imagen sea una proyección perspectiva, de lo contrario tienen como origen un píxel de la grilla y poseen la misma dirección), el cual representa el ojo o cámara, de manera que atraviese un píxel de la imagen que se desea generar y luego se detecta con qué superficie interseca. Una vez que se obtiene el primer punto de intersección del rayo se le da un color al píxel atravesado utilizando distintas técnicas de sombreado.
 \clearpage
 \begin{figure}[h!]
 \includegraphics[width=0.8\textwidth,center]{raytrace.png}
 \caption{Ilustración del funcionamiento de ray tracing.}
 \end{figure}
 Cada rayo se escribe $\textbf{r}(t)= o +td$ siendo $o$ el origen (el ojo) y $d$ la dirección entre el origen y el píxel que se desea calcular. Si tenemos la función implícita $F(p)=0$, donde $p \in {\rm I\!R} ^3 $, entonces para detectar la intersección de un rayo con una ecuación implícita basta con resolver $F(\textbf{r}(t))=0$.
-A continuación a modo de ejemplo presentamos como obtener la intersección entre un rayo y una esfera de forma analítica\cite{realtimerendering}.
+A continuación, a modo de ejemplo, presentamos cómo obtener la intersección entre un rayo y una esfera de forma analítica\cite{realtimerendering}.
 \\Sea la superficie implícita $F(p)=\lVert p -c \rVert - r = 0$, donde $c$ es el centro de la esfera y $r$ es el radio.
 \begin{center}
 $ F(\textbf{r}(t))= 0$
@@ -167,10 +168,10 @@ $ F(\textbf{r}(t))= 0$
 \\$t^2 + 2t(d.(o-c)) + (o-c).(o-c) - r^2=0$
 \end{center}
 Utilizando báscara se obtienen los dos valores posibles de $t$ \footnote{Notar que si $d$ está normalizado $t$ es la distancia entre $o$ y el punto de intersección. $\lVert o + td - o \rVert = \lVert td\rVert = |t|\lVert d \rVert$}.
-\\Para obtener un visualizador de ecuaciones implícitas el reto está en encontrar un método para hallar las raíces de la ecuación $F(\textbf{r}(t))=0$ para toda función implícita. El desafío es aún más complejo si se quiere lograr que éste funcione en tiempo real, ya que para cada frame se deberán realizar cientos de intersecciones entre rayos y la función.  
+\\Para obtener un visualizador de ecuaciones implícitas el reto está en encontrar un método para hallar las raíces de la ecuación $F(\textbf{r}(t))=0$ para toda función implícita. El desafío es aún más complejo si se desea lograr que éste funcione en tiempo real, ya que para cada frame se deberán realizar cientos de intersecciones entre rayos y la función.  
 \subsubsection{Meshers}
 Esta técnica consiste en obtener una aproximación poligonal de la geometría, para luego visualizarla utilizando cualquier método de visualización que soporte este tipo de geometría. Una vez realizada la aproximación poligonal ya no es necesario operar con la función para su visualización.
-\\Para realizarla primero se obtiene una aproximación de la función realizando un muestreo de la misma. Una vez que se obtiene esto se aplica un algoritmo para la obtención de los polígonos (en la sección 3 se presentan 4)\cite{mykola1}\cite{mykola2}.
+\\Para realizarla primero se obtiene una aproximación de la función realizando un muestreo de la misma. Una vez que se halla esto se aplica un algoritmo para la obtención de los polígonos (en la sección 3 se presentan 4)\cite{mykola1}\cite{mykola2}.
 \\La principal ventaja de este método sobre ray tracing es que una vez generada la aproximación no se debe trabajar más con la ecuación, esto permite que si se trabaja en tiempo real no ocurra que ecuaciones más complejas tengan framerates más bajos. Por este motivo este tipo de método es ideal para aplicaciones en tiempo real, ya que sólo se deben realizar operaciones complejas antes de iniciar la visualización, luego se puede visualizar utilizando por ejemplo la técnica del Z-buffer utilizando APIs como OpenGL o Direct3D.
 \\La principal desventaja es que la figura obtenida es una aproximación y no una figura exacta, a diferencia de ray tracing que obtiene una imagen con un mayor nivel de similitud respecto a la superficie real\cite{realtimerendering}.
 
@@ -180,32 +181,32 @@ A continuación se presentan 3 programas que son utilizados para la representaci
 SURFER es una herramienta de Imaginary desarrollada en Java que permite la visualización de superficies implícitas del tipo algebraico. La misma utiliza JavaFX para la interfaz de usuario, y las ecuaciones se muestran utilizando el motor de render JSURFER, el cual es un raytracer implementado en CPU que utiliza el algoritmo de Descartes para hallar los puntos de intersección de los rayos con las ecuaciones. La aplicación utiliza proyección ortográfica para representar las ecuaciones en el plano.
 \subsubsection{3d-XplroMath-J}
 Otra aplicación que representa superficies es 3d-XplroMath-J, la cual es una reimplementación de 3d-XplroMath implementada en Java. Esta aplicación no usa ray tracing sino que utiliza aproximaciones poligonales. La aplicación fue inicialmente diseñada para utilizar JavaGraphics2D, pero luego se modificó para funcionar con OpenGL. 3D-XplorMath-J utiliza un  renderizador definido por una interfaz, Renderer3D, para extraer sus imágenes. 
-\\OpenGL ofrece el dibujo 3D acelerados por hardware, con la posibilidad de gráficos mejorados y una gran aceleración en comparación con la aplicación de dibujo 3D con Graphics2D. OpenGL es implementado en Java utilizando la API JOGL.
-\\Esta aplicación no cuenta con un ingreso de superficies de una forma tan amigable como SURFER. Las superficies se muestran de forma estática, y cuando se rota se muestra en modo wireframe.
+\\OpenGL ofrece la posibilidad de generar dibujos 3D acelerados por hardware, con la posibilidad de gráficos mejorados y una gran aceleración en comparación con la aplicación de dibujo 3D con Graphics2D. OpenGL es implementado en Java utilizando la API JOGL.
+\\Esta aplicación no cuenta con un ingreso de superficies de forma tan amigable como SURFER. Las superficies se muestran de forma estática, y cuando se rotan se muestran en modo wireframe.
 \subsubsection{Isosurface}
-Isosurface es una aplicación web que implementa los algoritmos de Marching Cubes, Marching Tetahedra y Naive Surface Nets en Javascript. La misma muestra algunas superficies de ejemplo, pero no permite introducir ecuaciones ni tiene un menú interactivo que permita modificar las superficies mostradas . Además la aplicación muestra las superficies de una forma poligonal, resaltando los diferentes poligonos que se utilizan para aproximar la ecuación.  
+Isosurface es una aplicación web que implementa los algoritmos de Marching Cubes, Marching Tetahedra y Naive Surface Nets en Javascript. La misma muestra algunas superficies de ejemplo, pero no permite introducir ecuaciones ni tiene un menú interactivo que permita modificar las superficies mostradas . Además la aplicación muestra las superficies de una forma poligonal, resaltando los diferentes polígonos que se utilizan para aproximar la ecuación.  
 \subsection{Visión estereoscópica}
-Consiste en la percepción de la profundidad y la estructura de 3 dimensiones utilizando información derivada de los dos ojos. Debido a que los ojos de los seres humanos, se encuentran en diferentes posiciones laterales en la cabeza, los resultados de la visión binocular son dos imágenes ligeramente diferentes proyectados para las retinas de los ojos. Las diferencias están principalmente en la posición horizontal relativa de los objetos en las dos imágenes. Estas diferencias posicionales se conocen como las disparidades horizontales o, más en general, las disparidades binoculares. Las disparidades se procesan en la corteza visual del cerebro para producir la percepción de profundidad\cite{visionest}. 
+Consiste en la percepción de la profundidad y la estructura de 3 dimensiones utilizando información derivada de los dos ojos. Debido a que los ojos de los seres humanos se encuentran en diferentes posiciones laterales en la cabeza, los resultados de la visión binocular son dos imágenes ligeramente diferentes proyectadas para las retinas de los ojos. Las diferencias están principalmente en la posición horizontal relativa de los objetos en las dos imágenes. Estas diferencias posicionales se conocen como las disparidades horizontales o, más en general, las disparidades binoculares. Las disparidades se procesan en la corteza visual del cerebro para producir la percepción de profundidad\cite{visionest}. 
 \begin{figure}[h!]
 \includegraphics[width =0.7\linewidth, center]{ojos.png}
-\caption{Disparidad binocular.}
+\caption{Disparidades binoculares.}
 \label{ fig : surface }
 \end{figure}
 \\Mientras que las disparidades binoculares están naturalmente presentes durante la visualización de una escena en 3 dimensiones real con dos ojos, las mismas deben ser simuladas mediante la presentación de dos imágenes diferentes por separado a cada ojo utilizando un método llamado estereoscópica. La percepción de la profundidad en tales casos también se refiere como "profundidad estereoscópica". 
 \\La percepción de la profundidad y la estructura tridimensional  es, sin embargo, posible con la información de un ojo solamente, utilizando las diferencias en el tamaño de objeto y el paralaje de movimiento (diferencias en la imagen de un objeto a través del tiempo con el movimiento observador), aunque la impresión de profundidad en estos casos no es a menudo tan buena como la obtenida de las disparidades binoculares, por lo tanto, el término estereopsis (o profundidad estereoscópica) también puede referirse específicamente a la impresión única de profundidad asociada con la visión binocular, lo que coloquialmente se conoce como ver "en 3D".
 \\La estereoscopía es una técnica para crear o mejorar la ilusión de profundidad en una imagen por medio de la estereopsis para la visión binocular. Cualquier imagen estereoscópica se llama un estereograma. 
-\\La mayoría de los métodos estereoscópicas presentan  dos imágenes “movidas” por separado para el ojo izquierdo y derecho del espectador. Estas imágenes de dos dimensiones se combinan entonces en el cerebro para dar la percepción de la profundidad 3D.
-\\Un fenómeno que puede acontecer es virtual reality sickness (también conocida como cybersickness y como simulator sickness), el cual se produce cuando la exposición a un entorno virtual causa síntomas que son similares a los síntomas de la motion sickness\cite{VRS} (en español el fenómeno es conocido como Cinetosis). Los síntomas más comunes son malestar general, dolor de cabeza, la conciencia del estómago, náuseas, vómitos, palidez, sudoración, fatiga, somnolencia, desorientación y apatía. Otros síntomas incluyen la inestabilidad postural y las arcadas. Este fenómeno tiende a caracterizarse por la desorientación.
+\\La mayoría de los métodos estereoscópicos presentan  dos imágenes “movidas” por separado para el ojo izquierdo y derecho del espectador. Estas imágenes de dos dimensiones se combinan entonces en el cerebro para dar la percepción de la profundidad 3D.
+\\Un fenómeno que puede acontecer es virtual reality sickness (también conocido como cybersickness y como simulator sickness), el cual se produce cuando la exposición a un entorno virtual causa síntomas que son similares a los síntomas de la motion sickness\cite{VRS} (en español el fenómeno es conocido como Cinetosis). Los síntomas más comunes son malestar general, dolor de cabeza, la conciencia del estómago, náuseas, vómitos, palidez, sudoración, fatiga, somnolencia, desorientación y apatía. Otros síntomas incluyen la inestabilidad postural y las arcadas. Este fenómeno tiende a caracterizarse por la desorientación.
 \\Este efecto es diferente a la cinetosis, ya que puede ser causada por la percepción visual inducida de movimiento. No es necesaria que la persona se mueva para sufrir sus síntomas.
-\\La fisiología de la VRS actualmente no está claramente entendido. Afortunadamente, la investigación ha descubierto algunas indicaciones claras de ciertas condiciones que la causan. Parece que las imágenes proyectadas desde la realidad virtual tienen un gran impacto en la enfermedad. La frecuencia de actualización de las imágenes en pantalla a menudo no es lo suficientemente alta cuando se produce la VRS. Debido a que la frecuencia de actualización es más lenta que los procesos cerebrales, causa una descoordinación entre el tipo de procesamiento y la velocidad de actualización, lo que hace que el usuario perciba fallos en la pantalla. Cuando estos dos componentes no coinciden, puede causar al usuario las mismas sensaciones que cuando se experimenta motion sickness.
-\\La resolución sobre la animación también puede hacer que los usuarios experimentan este fenómeno\cite{oculussickness}. Cuando animaciones son pobres, que es causa de otro tipo de discordia entre lo que se espera y lo que realmente está sucediendo en la pantalla. Cuando los gráficos en pantalla no mantienen el ritmo con movimientos de la cabeza del usuario, puede desencadenar una forma de la motion sickness.
+\\La fisiología de la VRS actualmente no está claramente entendida. Afortunadamente, la investigación ha descubierto algunas indicaciones claras de ciertas condiciones que la causan. Parece que las imágenes proyectadas desde la realidad virtual tienen un gran impacto en la enfermedad. La frecuencia de actualización de las imágenes en pantalla a menudo no es lo suficientemente alta cuando se produce la VRS. Debido a que la frecuencia de actualización es más lenta que los procesos cerebrales, causa una descoordinación entre el tipo de procesamiento y la velocidad de actualización, lo que hace que el usuario perciba fallos en la pantalla. Cuando estos dos componentes no coinciden, puede causar al usuario las mismas sensaciones que cuando se experimenta motion sickness.
+\\La resolución sobre la animación también puede hacer que los usuarios experimentan este fenómeno\cite{oculussickness}. Esto puede ser cuando las animaciones son pobres, que  causa otro tipo de discordia entre lo que se espera y lo que realmente está sucediendo en la pantalla. O cuando los gráficos en pantalla no mantienen el ritmo con los movimientos de la cabeza del usuario, desencadenando una forma de motion sickness.
 \subsection{Tecnologías existentes para visión estereoscópica}
 En la actualidad está saliendo al mercado una gran serie de dispositivos que aplican los conceptos de la estereoscopía para generar el efecto de estar en un espacio virtual.
 \\Existen varios productos para dispositivos no móviles, por ejemplo  Oculus Rift\cite{oculus}, Playstation VR\cite{psvr} y HTC Vive\cite{htcvive}. A su vez existen varios para dispositivos móviles como  Google Cardboard\cite{cardboard} y  Samsung Gear VR\cite{samsungvr}, estos dispositivos requieren de celulares para funcionar (utilizándolos como pantalla y como sensor de rotación).
 \\Lo que tienen en común estos dispositivos es que todos cuentan con una pantalla, dos cristales y sensores para reconocer los movimientos de la cabeza \footnote{Particularmente rotaciones, aunque actualmente algunos de ellos utilizan cámaras de forma de poder reconocer si se mueve la cabeza hacia adelante o hacia atrás por medio del traqueo de una luz}.
-\\La resolución de las pantallas, así como su velocidad de refresco varían según el dispositivo. Este es un aspecto muy importante, ya que la calidad final de la experiencia se verá muy afectada por este factor, debido a que, si la imagen se encuentra muy pixelada, la experiencia no será agradable, y si la velocidad de refresco no es buena, se podrían producir mareos y nauseas al usuario.
+\\La resolución de las pantallas, así como su velocidad de refresco varían según el dispositivo. Éste es un aspecto muy importante, ya que la calidad final de la experiencia se verá muy afectada por este factor, debido a que, si la imagen se encuentra muy pixelada, la experiencia no será agradable, y si la velocidad de refresco no es buena, se podrían producir mareos y náuseas al usuario.
 \\Los sensores son utilizados principalmente para permitir al usuario mirar hacia “los costados” de forma de explorar la escena, generando un mayor nivel de inmersión.
-\\Los cristales de los dispositivos de visión estereoscópica proveen un campo visual (FOV) muy amplio, permitiendo una mayor inmersión, pero para lograrlo generan una distorsión\cite{oculusrendering} en la imagen como muestra la siguiente figura. Este tipo de distorsión se conoce como  distorsión de acerico (pincushion distortion en inglés), lo que provocaría que si no se utiliza ningún tipo de corrección sobre las imágenes que se le envían al dispositivo, todo se vería distorsionado como se ve en la imagen.
+\\Los cristales de los dispositivos de visión estereoscópica proveen un campo visual (FOV) muy amplio, permitiendo una mayor inmersión, pero para lograrlo generan una distorsión\cite{oculusrendering} en la imagen como muestra la siguiente figura. Este tipo de distorsión se conoce como  distorsión de acerico (pincushion distortion en inglés), lo que provocaría, que si no se utiliza ningún tipo de corrección sobre las imágenes que se le envían al dispositivo, todo se vería distorsionado como se ve en la imagen.
 \begin{figure}[h!]
 \includegraphics[width =0.6\linewidth, center]{ace-bar.png}
 \caption{ A la izquierda se puede apreciar la distorsión de acerico y a la derecha la de barril.}
@@ -228,14 +229,14 @@ La versión DK1 (Development Kit 1) utiliza una pantalla de 7 pulgadas (18 cm) c
 \end{figure}
 \\Esta versión cuenta con una pequeña “caja de control” donde se conecta lo necesario, y para su funcionamiento además de ser conectado a la computadora por medio de un cable USB y un cable de video (por ejemplo HDMI), debe ser conectado a la corriente.
 \paragraph{Development kit 2}
-Oculus comenzó a distribuir a los clientes que habían reservado DK2 ( Development Kit 2) en julio de 2014. Esta nueva versión ofrece varias mejoras clave en relación al primer kit de desarrollo, tales como tener una mayor resolución (960x1080 por ojo, es decir 1920x1080 en total, la resolución que se conoce como FullHD), una pantalla OLED, una mayor frecuencia de refresco de 75 Hz, el seguimiento de posición a través de un sensor externo al Rift, un cable desmontable,  la omisión de la necesidad de la caja de control externa y finalmente ya no es más necesario conectarlo a la corriente.
+Oculus comenzó a distribuir a los clientes que habían reservado DK2 ( Development Kit 2) en julio de 2014. Esta nueva versión ofrece varias mejoras clave en relación al primer kit de desarrollo, tales como tener una mayor resolución (960x1080 por ojo, es decir 1920x1080 en total, la resolución que se conoce como FullHD), una pantalla OLED, una mayor frecuencia de refresco de 75 Hz, el seguimiento de posición a través de un sensor externo al Rift, un cable desmontable,  la omisión de la necesidad de la caja de control externa y finalmente ya no es necesario conectarlo a la corriente.
 \begin{figure}[h!]
 \includegraphics[width=0.8\textwidth,center]{dk2.jpg}
 \caption{Oculus Rift Development Kit 2.}
 \end{figure}
 \\La pantalla pasó de ser de 7 a 5.7 pulgadas. Una exploración del dispositivo, reveló que incorpora un smartphone Samsung Galaxy Note 3 modificado como pantalla.
 \paragraph{Consumer version}
-La versión que fue lanzada para el público en general tiene una pantalla OLED de 1080x1200 por ojo, una tasa de refresco de 90 Hz y 110 $^{\circ}$ campo de visión. Posee auriculares integrados que proporcionan un sonido con efecto 3D, efecto de rotación y de seguimiento de posición. El sistema de seguimiento de posición, denominada "Constellation", se realiza mediante un sensor IR LED USB que se encuentra apuntando hacia el dispositivo Rift, que normalmente se encuentra en el escritorio del usuario, e identifica toda la habitación con luces infrarrojas y LED, lo que crea un espacio 3D, permitiendo al usuario utilizar el dispositivo mientras se está sentado, de pie o caminar alrededor de la misma habitación. 
+La versión que fue lanzada para el público en general tiene una pantalla OLED de 1080x1200 por ojo, una tasa de refresco de 90 Hz y 110 $^{\circ}$ campo de visión. Posee auriculares integrados que proporcionan un sonido con efecto 3D, efecto de rotación y de seguimiento de posición. El sistema de seguimiento de posición, denominado "Constellation", se realiza mediante un sensor IR LED USB que se encuentra apuntando hacia el dispositivo Rift, que normalmente se encuentra en el escritorio del usuario, e identifica toda la habitación con luces infrarrojas y LED, lo que crea un espacio 3D, permitiendo al usuario utilizar el dispositivo mientras se está sentado, de pie o caminar alrededor de la misma habitación. 
 \begin{figure}[h!]
 \includegraphics[width=0.8\textwidth,center]{cv.jpg}
 \caption{Oculus Rift Consumer Version.}
@@ -262,13 +263,13 @@ La versión que fue lanzada para el público en general tiene una pantalla OLED 
 \end{table}
 \clearpage
 \subsubsection{HTC Vive}
-Este dispositivo posee una resolución de 2160 x 1200, un campo visual de 110 grados y una tasa de refresco de 90 Hz. Este dispositivo es comercializado con dos controles que rastrean el movimiento de las manos para poder brindar experiencias más inmersivas\cite{htcvive}.
+Este dispositivo posee una resolución de 2160 x 1200, un campo visual de 110 grados y una tasa de refresco de 90 Hz. Es comercializado con dos controles que rastrean el movimiento de las manos para poder brindar experiencias más inmersivas\cite{htcvive}.
 \begin{figure}[h!]
 \includegraphics[width=0.8\textwidth,center]{htc.png}
 \caption{HTC Vive.}
 \end{figure}
 \subsubsection{PlaystationVR}
-Es el dispositivo para la visión estereoscópica de Sony para ser utilizado con su consola de videojuegos PlaySation 4. A diferencia de los otros equipos, no ha sido lanzada al mercado, se prevee que sea lanzado en octubre del presente año. Por más que no este disponible, la empresa anunció que no será compatible con PC.
+Es el dispositivo para la visión estereoscópica de Sony para ser utilizado con su consola de videojuegos PlaySation 4. A diferencia de los otros equipos, no ha sido lanzado al mercado, se prevee que sea lanzado en octubre del presente año. Por más que no se encuentre disponible, la empresa anunció que no será compatible con PC.
 \\Posee una pantalla de 5,7 pulgadas, y una resolución de 1920x1080, es decir 960x1080 por ojo. La velocidad de refresco es de 90 Hz o 120 Hz y tiene un campo visual de 100 grados\cite{psvrspecs}.
 \clearpage
 \begin{figure}[h!]
@@ -276,7 +277,7 @@ Es el dispositivo para la visión estereoscópica de Sony para ser utilizado con
 \caption{PlaystationVR.}
 \end{figure}
 \subsubsection{Google Cardboard}
-Es una plataforma de realidad virtual desarrollada por Google\cite{cardboard} para su uso con un visor plegable y teléfono inteligente. Llamado así por su visor de cartón plegable, pretende ser un sistema de bajo costo para estimular el interés y el desarrollo de aplicaciones de realidad virtual. Los usuarios pueden construir su propio visor de componentes simples y de bajo coste utilizando las especificaciones publicado por Google, o comprar una de las versiones pre-fabricadas. Para utilizarlo es necesario  la colocación de un dispositivo móvil en la parte posterior de la carcasa y se  visualiza a través de los lentes en la parte delantera.
+Es una plataforma de realidad virtual desarrollada por Google\cite{cardboard} para su uso con un visor plegable y teléfono inteligente. Llamado así por su visor de cartón plegable, pretende ser un sistema de bajo costo para estimular el interés y el desarrollo de aplicaciones de realidad virtual. Los usuarios pueden construir su propio visor de componentes simples y de bajo coste utilizando las especificaciones publicadas por Google, o comprar una de las versiones pre-fabricadas. Para utilizarlo es necesario  la colocación de un dispositivo móvil en la parte posterior de la carcasa y se  visualiza a través de los lentes en la parte delantera.
 \begin{figure}[h!]
 \includegraphics[width=0.7\textwidth,center]{google_cardboard.jpg}
 \caption{Ejemplo de Google Cardboard.}
@@ -296,7 +297,7 @@ En esta sección se presentan varios paquetes gráficos que fueron utilizados en
 WebGL (Web Graphics Library) es una API de JavaScript para la representación  de gráficos 3D y 2D  interactivos dentro de cualquier navegador web compatible sin el uso de plug-ins. WebGL está integrado en la mayoría de los navegadores que permiten acelerado por la GPU, el uso de la física y de procesamiento de imágenes. Los elementos de WebGL se pueden mezclar con otros elementos HTML y componerse con otras partes de la página. Los programas que utilizan WebGL tienen código escrito en JavaScript y  código de sombreado que se ejecuta en la unidad de procesamiento gráfico de un ordenador (GPU). 
 \subsubsection{THREEJS}
 
-THREEJS es una biblioteca liviana\cite{three} de JavaScript para trabajar con 3D, puede ser utilizado con un canvas de HTML5 o con WebGL. Fue creada en 2010, aunque originalmente fue desarrollada en ActionScript, pero rápidamente fue traducida a JavaScript\footnote{El código fuente se puede obtener en \cite{codigothree}}.
+THREEJS es una biblioteca liviana\cite{three} de JavaScript para trabajar con 3D, la cual puede ser utilizada con un canvas de HTML5 o con WebGL. Fue creada en 2010, aunque originalmente fue desarrollada en ActionScript, pero rápidamente fue traducida a JavaScript\footnote{El código fuente se puede obtener en \cite{codigothree}}.
 \\Posee como característica principal que es compatible con todos los navegadores compatibles con WebGL, esto permite que las aplicaciones desarrolladas con él sean posibles de ejecutar en la gran mayoría de los navegadores modernos.
 \\Además la biblioteca permite utilizar WebGL de forma más sencilla y accesible, ya que trae ciertas funcionalidades ya implementadas.
 \subsubsection{MozVR}
@@ -304,12 +305,12 @@ Es el proyecto de Mozilla para agregar la posibilidad de usar realidad virtual e
 \\Esto permite utilizar el WebGL para generar páginas web que sean experimentadas en realidad virtual de forma eficiente.
 \subsubsection{GLSL}
 OpenGL Shading Language (GLSL) es un lenguaje de programación de shaders de alto nivel el cual está basado en C. Fue creado por la OpenGL ARB ( OpenGL Architecture Review Board) para dar a los desarrolladores un control más directo del pipeline gráfico sin tener que utilizar ARB assembly o lenguajes específicos de hardware .
-\\Con este lenguaje se pueden desarrollar tanto vertex shaders como pixel shaders (fragment shaders). Ambos tipos se ejecutan en la tarjeta de video. Los vertex shaders se ejecutan en la etapa de geometría del pipeline gráfico, se ejecuta una vez por cada vértice, permitiendo cambiar la posición generando desplazamientos, con el fin de lograr efectos interesantes. Los pixels o fragment shaders se ejecutan una vez por cada pixel.
+\\Con este lenguaje se pueden desarrollar tanto vertex shaders como pixel shaders (fragment shaders). Ambos tipos se ejecutan en la tarjeta de video. Los vertex shaders se ejecutan en la etapa de geometría del pipeline gráfico, cada uno siendo ejecutado una vez por cada vértice, permitiendo cambiar la posición generando desplazamientos, con el fin de lograr efectos interesantes. Los pixels o fragment shaders se ejecutan una vez por cada fragmento de superficie.
 
 \clearpage
 \section{Aproximación de superficies algebraicas}
 Para la generación de superficies algebraicas existen diversas formas. En rasgos generales se pueden distinguir estos algoritmos en 2 categorías: los que funcionan mediante la intersección de rayos contra la superficie (Raytracing), y aquellos que generan una aproximación lineal mediante polígonos (Meshers).
-\\En el proyecto se ha decidido utilizar los algoritmos que caen en la categoría de Meshers\cite{mykola1}\cite{mykola2} a pesar de que sólo aproximan la superficie, debido a que tienen un tiempo de respuesta menor a la hora de realizar movimientos (rotación y traslación), lo cual es indispensable a la hora de evitar la Virtual Reality Sickness luego de la renderización de la superficie en el Oculus Rift.
+\\En el proyecto se decidió utilizar los algoritmos que caen en la categoría de Meshers\cite{mykola1}\cite{mykola2} a pesar de que sólo aproximan la superficie, debido a que tienen un tiempo de respuesta menor a la hora de realizar movimientos (rotación y traslación), lo cual es indispensable a la hora de evitar la Virtual Reality Sickness luego de la renderización de la superficie en el Oculus Rift.
 \\Existen diversos algoritmos que caen en la categoría de Meshers y realizan una aproximación por polígonos de las superficies o volúmenes de las ecuaciones. Se presentan a continuación una serie de conceptos matemáticos sobre los cuales se basan los algoritmos que se describen más adelante.
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{saturno.png}
@@ -336,25 +337,25 @@ $x(u,v) = u$
 $y(u,v) = v$
 $z(u,v) = u^2+v^2$
 \\Este tipo de funciones es trivial de dibujar (basta con tomar diferentes valores de $u$ y $v$ y formar polígonos con las coordenadas obtenidas de los mismos).
-Pero no todas las funciones se pueden parametrizar, y por lo tanto no todas son igualmente de sencillas de dibujar,como es el caso de  $f(x,y,z) = 2y(y^2-3x^2)(1-z^2)+(x^2+y^2)^2-(9z^2-1)(1-z^2)$, es por eso que existen los siguientes algoritmos \cite{implicitas}.
+Pero no todas las funciones se pueden parametrizar, y por lo tanto no todas son igualmente de sencillas de dibujar, como es el caso de  $f(x,y,z) = 2y(y^2-3x^2)(1-z^2)+(x^2+y^2)^2-(9z^2-1)(1-z^2)$, es por eso que existen los siguientes algoritmos \cite{implicitas}.
 \subsection{Interpolación trilinear}
 La interpolación trilinear\cite{inter} es un método de interpolación en una grilla regular 3-dimensional. Se aproxima al valor de un punto intermedio $(x, y, z)$ en el eje local del prisma rectangular en forma lineal, a partir de datos en los puntos de la grilla. Para realizar la interpolación trilinear se necesitan 8 puntos adyacentes.
-Considere un cubo de largo una unidad con el vértice inferior-izquierdo como origen como se muestra en la siguiente figura.
+Considerando un cubo de largo una unidad con el vértice inferior-izquierdo como origen como se muestra en la siguiente figura.
 \begin{figure}[h!]
 \includegraphics[width=0.65\textwidth,center]{inter.png}
-\caption{Caja utilizada en la iterpolación trilinear. Los valores de cada vértice se denotarán por $V_{000}$,$V_{001}$,$V_{010}$,...,$V_{111}$.}
+\caption{Caja utilizada en la interpolación trilinear. Los valores de cada vértice se denotarán por $V_{000}$,$V_{001}$,$V_{010}$,...,$V_{111}$.}
 \end{figure}
-\\El valor en la posición $(x,y,z)$ dentro del cubo se denotará por $V_{xyz}$ y está definida como
+\\El valor en la posición $(x,y,z)$ dentro del cubo se denotará por $V_{xyz}$ y está definido como
 \begin{center}
 $V_{xyz}=V_{000}(1-x)(1-y)(1-z) + V_{100}x(1-y)(1-z) + V_{010}(1-x)y(1-z) + V_{001}(1-x)(1-y)z + V_{101}x(1-y)z + V_{011}(1-x)yz + V_{110}xy(1-z) + V_{111}xyz$
 \end{center}
-Supongamos que tenemos una aproximación de f mediante el muestreo en una grilla cúbica en una resolución fija. Para obtener los valores intermedios necesitamos tan solo realizar una interpolación trilineal entre los puntos de la grilla.
+Supongamos que tenemos una aproximación de f mediante el muestreo en una grilla cúbica en una resolución fija, para obtener los valores intermedios se necesitan tan sólo realizar una interpolación trilineal entre los puntos de la grilla.
 
 
 \subsection{Marching Cubes}
-El algoritmo de Marching cubes\cite{marching}\cite{marchingcubes} consiste en la creación de superficies mediante la intersección de las aristas de una grilla tridimensional con el volumen de la superficie misma. Donde la superficie interseca una arista de la grilla, el algoritmo crea un vértice. Mediante la utilización de una tabla de diferentes triángulos dependiendo de los diferentes patrones de intersección con la arista, el algoritmo crea una superficie.
-\\El problema fundamental es formar una aproximación de una superficie a través de un campo escalar dentro de una grilla rectangular 3D. Dada una celda (cubo de la grilla), definida por sus vértices y los valores escalares en cada vértice, es necesario crear caras planas que mejor representan la superficie dentro de ese cubo de la cuadrícula. La superficie puede, o no, pasar a través del cubo de la cuadrícula, y cortar cualquiera de los vértices. Cada posibilidad de corte con el cubo de la grilla se caracteriza por el número de vértices en que la celda tiene valores por encima o por debajo de la superficie. Si un vértice está por encima de la superficie y un vértice adyacente está por debajo de la superficie, entonces sabemos que la superficie corta el borde entre estos dos vértices. La posición en la que corta el borde será interpolada linealmente, y la relación de longitud entre los dos vértices será la misma que la relación de la superficie a los valores de los vértices del cubo de la cuadrícula.
-\\Por convención se indexara los vértices y aristas del cubo de la grilla de la siguiente forma:
+El algoritmo de Marching Cubes\cite{marching}\cite{marchingcubes} consiste en la creación de superficies mediante la intersección de las aristas de una grilla tridimensional con el volumen de la superficie misma. Donde la superficie interseca una arista de la grilla, el algoritmo crea un vértice. Mediante la utilización de una tabla de diferentes triángulos dependiendo de los diferentes patrones de intersección con la arista, el algoritmo crea una superficie.
+\\El problema fundamental es formar una aproximación de una superficie a través de un campo escalar dentro de una grilla rectangular 3D. Dada una celda (cubo de la grilla), definida por sus vértices y los valores escalares en cada vértice, es necesario crear caras planas que mejor representen la superficie dentro de ese cubo de la cuadrícula. La superficie puede, o no, pasar a través del cubo de la cuadrícula, y cortar cualquiera de los vértices. Cada posibilidad de corte con el cubo de la grilla se caracteriza por el número de vértices en que la celda tiene valores por encima o por debajo de la superficie. Si un vértice está por encima de la superficie y un vértice adyacente está por debajo de la superficie, entonces sabemos que la superficie corta el borde entre estos dos vértices. La posición en la que corta el borde será interpolada linealmente, y la relación de longitud entre los dos vértices será la misma que la relación de la superficie a los valores de los vértices del cubo de la cuadrícula.
+\\Por convención se indexarán los vértices y aristas del cubo de la grilla de la siguiente forma:
 \begin{figure}[h!]
 \includegraphics[width=0.75\textwidth,center]{marchingcubes1.png}
 \caption{Cubo con la indexación utilizada en el algoritmo de Marching Cubes.}
@@ -382,7 +383,7 @@ La primera parte del algoritmo utiliza una tabla (edgeTable) que mapea los vért
 
 La búsqueda en la tabla devuelve un número de 12 bits, cada bit corresponde a una arista, 0 si la arista no se corta por la superficie, 1 si la arista se corta por la superficie. Si ninguno de las aristas retorna un corte en la tabla, se devuelve un 0, esto ocurre cuando cubeindex es 0 (todos los vértices por debajo de la superficie) o 0xff (todos los vértices por encima de la superficie).
 Utilizando el ejemplo anterior donde sólo el vértice 3 estuvo por debajo de la superficie, cubeindex sería igual a 0000, 1000 o 8. edgeTable [8] = 1000 0000 1100. Esto significa que el borde 2,3, y 11 son intersecados por la superficie.
-Los puntos de intersección se calculan ahora por interpolación lineal. Si P1 y P2 son los vértices de una arista de corte y V1 y V2 son los valores escalares en cada vértice, el punto de intersección P está dada por:
+Los puntos de intersección se calculan ahora por interpolación lineal. Si P1 y P2 son los vértices de una arista de corte y V1 y V2 son los valores escalares en cada vértice, el punto de intersección P está dado por:
 P = P1 + (isovalue - V1) (P2 - P1) / (V2 - V1)
 \begin{figure}[h!]
 \includegraphics[width=0.8\textwidth,center]{marchingcubes3.png}
@@ -392,18 +393,18 @@ P = P1 + (isovalue - V1) (P2 - P1) / (V2 - V1)
 Volviendo a nuestro ejemplo, en el paso anterior se calculan los puntos de intersección a lo largo del borde 2,3 y 11. El octavo elemento en la triTable es:
 {3, 11, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 \\Este es un ejemplo particularmente simple, pero las combinaciones que pueden surgir no son tan evidentes para muchos de los casos de la tabla.
-\\Otro ejemplo.
-\\Digamos que el vértice 0 y 3 están por debajo del superficie. Entonces cubeindex será 0000 1001 == 9. La novena entrada en la egdeTable es 905hex == 1001 0000 0101 lo que significa que las aristas 11,8,2 y 0 se cortan, por lo que trabajamos los vértices de la intersección de la superficie con esos bordes.
+\\A continuación se presenta otro ejemplo.
+\\Digamos que los vértices 0 y 3 están por debajo del superficie. Entonces cubeindex será 0000 1001 == 9. La novena entrada en la egdeTable es 905hex == 1001 0000 0101 lo que significa que las aristas 11,8,2 y 0 se cortan, por lo que trabajamos los vértices de la intersección de la superficie con esos bordes.
 A continuación, 9 en la triTable es 0, 11, 2, 8, 11, 0. Esto corresponde a 2 caras triangulares, una entre la intersección del borde de 0 11 y 2. La otra entre las intersecciones a lo largo de los bordes 8 11 y 0.
 \subsubsection{Resolución de la grilla}
 Algo deseable a controlar cuando se poligoniza una superficie es la resolución de la cuadrícula de muestreo. Esto permite elegir el grado de la aproximación a la superficie a generarse en función de la suavidad requerida y / o la potencia de procesamiento disponible para mostrar la superficie. El siguiente ejemplo ilustra una misma superficie generada a diferentes tamaños de malla:
 \clearpage
 \begin{figure}[h!]
 \includegraphics[width=0.8\textwidth,center]{marchingcubes4.png}
-\caption{Ejemplo de la misma figura utilizando diferentes tamaños de grilla, se puede notar que en la primer figura, debido a que el tamaño de celda elegido es grande, no genera una figura correctamente.}
+\caption{Ejemplo de la misma figura utilizando diferentes tamaños de grilla, se puede notar que en la primer figura, debido a que el tamaño de celda elegido es demasiado grande, no genera una figura correctamente.}
 \end{figure}
 \subsubsection{Determinación de las normales de los vértices de las caras triangulares}
-A menudo es necesario crear las normales para cada vértice de las caras triangulares para poder representar una superficie “suave” \cite{realtimerendering}. Una forma de hacer esto es ,después de que las caras han sido creadas, promediar las normales de todas las caras que comparten un vértice del triángulo. A continuación se muestra el resultado suave a la derecha, la imagen de la izquierda tiene la única normal para la faceta aplicada a cada uno de los vértices. El modelo a continuación es de una esfera.\\
+A menudo es necesario crear las normales para cada vértice de las caras triangulares para poder representar una superficie “suave” \cite{realtimerendering}. Una forma de hacer esto es, después de que las caras han sido creadas, promediar las normales de todas las caras que comparten un vértice del triángulo. A continuación se muestra el resultado suave a la derecha, la imagen de la izquierda tiene la única normal para la faceta aplicada a cada uno de los vértices. El modelo a continuación es de una esfera.\\
 \begin{figure}[h]
 \includegraphics[width =0.45\linewidth]{facetado.png}
 \hfill
@@ -417,7 +418,7 @@ El algoritmo Marching Tetrahedra\cite{marching}\cite{marchingt} muestrea el espa
 \\La aproximación de las caras se calcula para cada tetraedro de forma independiente. Los vértices de la cara son determinados por interpolación lineal dónde la superficie corta las aristas del tetraedro.
 \begin{figure}[h!]
 \includegraphics[width=0.6\textwidth,center]{mt1.png}
-\caption{Ejemplo de división de una grilla 3d rectangular en 6 tetrahedros.}
+\caption{Ejemplo de división de una grilla 3D rectangular en 6 tetrahedros.}
 \end{figure}
 \clearpage
 Hay 8 casos diferentes. Los círculos huecos y rellenos en los vértices del tetraedro indican que los vértices están en diferentes lados de la superficie, al costado de cada ejemplo se puede ver la codificación binaria utilizada para identificar el correspondiente caso. Los casos no ilustrados se dan cuando todos los vértices están por encima o por debajo de la superficie, no se generan caras en esos 2 últimos casos.\\
@@ -471,7 +472,7 @@ Inicialmente se investigó la posibilidad de extender las funcionalidades de SUR
 \includegraphics[width=\textwidth]{se_puede_doble.png}
 \caption{A la izquierda se ve la imagen una vez estabilizada con una resolución de 796x796, mientras que a la derecha durante la rotación de la cámara con una resolución de 312x312.}
 \end{figure}
-Considerando que la aplicacion genera solamente superficies algebraicas y la calidad visual obtenida cuando se generan dos imágenes de distintos puntos de vista, se decidió explorar otras opciones con la intención de poder generar un mayor número de superficies y que la experiencia de realidad virutal sea lo más placentera posible.
+Considerando que la aplicación genera solamente superficies algebraicas y la calidad visual obtenida cuando se generan dos imágenes de distintos puntos de vista, se decidió explorar otras opciones con la intención de poder generar un mayor número de superficies y que la experiencia de realidad virutal sea lo más placentera posible.
 \clearpage
 \section{Alcance del proyecto}
 A continuación se plantean los objetivos específicos que se consideraron a la hora de desarrollar la aplicación final. A su vez se presentan una serie de decisiones de diseño importantes que fueron tomadas a lo largo del proyecto, así como la justificación pertinente asociada.
@@ -520,7 +521,7 @@ Como se mencionó anteriormente considerando los resultados obtenidos con las pr
 \\El sitio desarrollado utiliza los algoritmos presentados anteriormente basados en el trabajo de Mykola Lysenko\cite{mykola1}\cite{mykola2} para generar una malla poligonal de las ecuaciones ingresadas por el usuario con el paso seleccionado por este. El paso se usa para la definición de la grilla sobre la cual se generará la malla, esta genera dividiendo el intervalo ingresado de manera que cada sección de la grilla posea la medida del paso. Se trabajó sobre el código de Lysenko y se le realizaron una serie de modificaciones para que funcionase con THREEJS, particularmente en la versión 73. Además de esas modificaciones, a la geometría devuelta por estos algoritmos, se les calculó las normales en de sus vértices, esto cómo se explicó previamente permite que la visualización no sea facetada, lo que permite que la ecuación sea visualmente más atractiva. 
 \\La geometría obtenida es mostrada en una escena tridimensional, que puede ser navegada por el usuario de distintos modos, así como se le puede modificar varios parámetros, como la luz, la textura de la ecuación y hasta puede aplicarle efectos generados por shaders programados en GLSL.
 \\Se decidió utilizar GLSL por su gran flexibilidad, ya que es el lenguage para la realización de shaders de openGL, además de por su interacción con THREEJS. Con este lenguaje se implementaron varios efectos interesantes, entre ellos se encuentran lava, agua y gelatina.  Se implementaron vertex shaders, mini programas responsables de devolver la posición de cada vértice de la geometría, para realizar efectos como la vibración en la gelatina. A su vez se utilizaron fragment shaders, mini programas encargados de retornar un color para un segmento de la superficie, para generar efectos como el de la textura del agua que actúa como si estuviese animada para generar la sensación de olas.
-\\Para la utilización de texturas, se les debió asignar coordenadas de mapeo UV a las geomtrías. Esto se debe a que la forma de proyectar texturas consiste en asignarle coordenadas a cada vértice de en que sector de la textura pertenece. Estas coordenadas son interpoladas utilizando la interpolación en perspectiva para las caras\cite{realtimerendering}\cite{engine}. Para asignarles coordenadas se utilizó la proyección planar\cite{realtimerendering}.
+\\Para la utilización de texturas, se les debió asignar coordenadas de mapeo UV a las geometrías. Esto se debe a que la forma de proyectar texturas consiste en asignarle coordenadas a cada vértice de en que sector de la textura pertenece. Estas coordenadas son interpoladas utilizando la interpolación en perspectiva para las caras\cite{realtimerendering}\cite{engine}. Para asignarles coordenadas se utilizó la proyección planar\cite{realtimerendering}.
 \begin{figure}[h!]
 \includegraphics[width =0.7\linewidth, center]{proyecciones.png}
 \caption{Tipos de proyección. De izquierda a derecha, esférica, cilíndrica, planar y natural.}
@@ -577,15 +578,15 @@ El backend de la aplicación fue realizado en el lenguaje Python con el framewor
 \\Esta parte de la aplicación presenta una ventaja sobre otro tipo de aplicaciones similares, ya que permite que usuarios de distinta parte del compartan ecuaciones interesantes. Además de que a medida de que más usuarios generar y almacenan ecuaciones la aplicación va creciendo en cuanto al catálogo de ecuaciones que ofrece.
 \clearpage
 \subsection{Interfaz}
-En este punto se muestran los distintos modos con los que se puede interactuar con la aplicación. Esta punto es una breve descripción, se puede encontrar más información en el Anexo C.
+En este punto se muestran los distintos modos con los que se puede interactuar con la aplicación. Este punto es una breve descripción, se puede encontrar más información en el Anexo C.
 \subsubsection{Menú lateral}
-La aplicación cuenta con un menú lateral, donde se puede controlar una serie de parámetros. En ese menú se ingresa la ecuación, así como se configuran una serie de parametros, como la zona que se quiere generar, el paso del algoritmo, que algoritmo se desea utilizar,etc. 
+La aplicación cuenta con un menú lateral, donde se puede controlar una serie de parámetros. En ese menú se ingresa la ecuación, así como se configura una serie de parámetros, como la zona que se quiere generar, el paso del algoritmo, qué algoritmo se desea utilizar,etc. 
 \subsubsection{Mensajes}
-La interfaz también cuenta con una serie mensajes. Estos son pequeños carteles que aparecen arriba la derecha, al momento de ingresar a la página se muestra un mensaje de bienvenida en verde. 
+La interfaz también cuenta con una serie mensajes. Estos son pequeños carteles que aparecen arriba a la derecha, al momento de ingresar a la página se muestra un mensaje de bienvenida en verde. 
 \\El manejo de errores de la aplicación se hace utilizando el mismo sistema de mensajes. En el momento en el que acontece un error se muestra en la misma posición que el mensaje de bienvenida un cartel explicando el error pero con fondo rojo. Los errores pueden variar en cuanto al tipo, por ejemplo el error podría ser que el usuario ingreso una ecuación cuyos paréntesis están desbalanceados.
 \subsubsection{Teclado y Mouse}
 También se puede interactuar con la aplicación utilizando el teclado y el mouse, aunque el uso del teclado para afectar la escena puede ser habilitado/deshabilitado utilizando el menú lateral mencionado previamente.
-\\El mouse se utiliza principalmente para controlar la cámara cuando no se esta utilizando Oculus Rift. La aplicación cuenta con dos modos, uno en el cual se orbita alrededor de la ecuación y otro donde la cámara se comporta como si fuese en primera persona, es decir permitiendo mirar hacia los costados fijando la posición de la misma.
+\\El mouse se utiliza principalmente para controlar la cámara cuando no se está utilizando Oculus Rift. La aplicación cuenta con dos modos, uno en el cual se orbita alrededor de la ecuación y otro donde la cámara se comporta como si fuese en primera persona, es decir permitiendo mirar hacia los costados fijando la posición de la misma.
 \\Por otra parte se puede utilizar el teclado para una gran cantidad de funciones. Entre ellas se encuentra desplazarse, mover las luces, cambiar el material de la ecuación, cambiar la ecuación, activar/desplazar/agrandar/achicar el cubo de zoom, etc. La matoría de las funciones de la aplicación se pueden realizar apretando una serie de teclas desde el teclado.
 \\Para más información la función de cada una de las teclas dirigirse al Anexo C, donde se encuentra un manual de usuario.
 \clearpage
@@ -610,8 +611,8 @@ En PC la aplicación se testeo utilizando Firefox Nightly 48.0a1 con el plugin M
 
 \subsection{Comparación entre meshers}
 \subsubsection{Comparación a través de sucesiones}
-La primer prueba que realizamos fue fijando la bounding box y el paso del algoritmo, utilizar una sucesión de superficies y utilizar los tres algoritmos y registrar sus tiempos. Este tipo de comparación fija la información de la función que se utiliza para la generación de la malla, pero los distintos algoritmos generan distinta cantidad de caras.
-\\Se utilizó como límites $[-4,4]$ en los tres ejes, y el paso fue 0.05. La sucesión que se utilizó fue $cos(\frac{n\pi x}{2}) + cos(\frac{n\pi y}{2}) +cos(\frac{n\pi z}{2}) =0$. Los tiempos de la tabla son en segundos y son los promedios de 10 ejecuciones.
+La primer prueba que realizamos fue fijando la bounding box y el paso del algoritmo, se utilizó una sucesión de superficies, generándolas con los tres algoritmos y registrando sus tiempos. Este tipo de comparación fija la información de la función que se utiliza para la generación de la geometría, pero los distintos algoritmos generan distinta cantidad de caras.
+\\Se utilizó como intervalo $[-4,4]$ en los tres ejes, y el paso fue 0.05. La sucesión que se utilizó fue $cos(\frac{n\pi x}{2}) + cos(\frac{n\pi y}{2}) +cos(\frac{n\pi z}{2}) =0$. Los tiempos de la tabla son en segundos y son los promedios de 10 ejecuciones.
 \begin{table}[h!]
   \centering
   \label{tab:table1}
@@ -947,7 +948,7 @@ Cada uno de los 3 métodos tiene sus puntos fuertes y débiles.
 \\Marching Tetrahedra soluciona algunos problemas de Marching Cubes a expensas de ser mucho más lento y la creación de mallas mucho más grandes. Las mallas son más suaves y mejores en general de los tres, pero contiene mucho más vértices y caras, y el algoritmo es mucho más lento.
 \\Naive Surface Nets es mucho más rápido y se puede ampliar para generar mallas de alta calidad utilizando algoritmos más sofisticados de selección de vértices. También es fácil de implementar y produce mallas ligeramente más pequeñas. Su inconveniente principal es que las superficies que genera son de peor calidad, aunque podría ser mejorado si se cambia la técnica de elección de vértices. 
 \\La elección de cual de los métodos es el superior depende de cada caso, si se quiere ahorrar en memoria y obtener el resultado los más rápido posible, se debe usar Naive Surface Nets, pero asumiendo de que la aproximación puede no ser tan buena como si se utilizase alguno de los otros dos algoritmos. Si se quiere maximizar la precisión de la aproximación se debe utilizar Marching Tetrahedra, pero demorara más tiempo y utilizará más recursos. Finalmente si se quiere una opción más equilibrada, se puede optar por Marching Cubes ya que no es tan preciso a la hora de aproximar como Marching Tetrahedra, pero es más rápido y usa menos recursos; por otra parte es más preciso que Naive Surface Nets pero es más lento. Por estos motivos se optó por dejar a Marching Cubes como algoritmo por defecto, pero permitirle al usuario cambiarlo en caso de que este lo considere necesario.
-\subsubsection{Calidad de imágen y framerate}
+\subsubsection{Calidad de imagen y framerate}
 Los framerates obtenidos son altos, son ampliamente superiores a 60 fps (la tasa de refresco que los videojuegos apuntan a obtener). Es también ampliamente superior a los 15 fps que tiene como objetivo mantener el SURFER. Esto hace que la experiencia visual sea muy fluida y agradable (tanto en el modo de realidad virtual como en el normal). 
 \\La resolución de las imágenes es alta, los framerates fueron tomados con una pantalla de resolución 1920x1080p, lo que es muy superior a las imágenes que genera SURFER (las cuales no superan 796x796). El hecho de que se pueda mantener un framerate tan alto con esa resolución permite disminuir el efecto de pixelación en Oculus Rift. 
 \\El hecho de que se tienen framerates altos y resolución alta, como se dijo anteriormente ayuda a disminuir las probabilidades de que los usuarios experimenten Virtual Reality Sickness. Lo cual es muy positivo ya que permite que la aplicación gane en usabilidad.

@@ -6,6 +6,7 @@
 \usepackage{booktabs}
 \usepackage{wrapfig}
 \usepackage{mathtools}
+\usepackage{amsmath}
 \usepackage[export]{adjustbox}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
@@ -108,7 +109,7 @@ La visualización espacial de curvas y superficies matemáticas es un reto impor
 \\En los últimos años se han desarrollado paquetes de software que facilitan la visualización computacional de diversos tipos de ecuaciones. Los paquetes de cálculo científico poseen herramientas de visualización poderosas que hacen posible graficar de forma intuitiva un volumen importante de información compleja\footnote{Por ejemplo Gnuplot es una herramienta libre ampliamente utilizada en el ámbito científico para la visualización de funciones matemáticas y se puede encontrar en \cite{gnuplot}.}.  
 \\En el área de la educación actualmente hay experiencias exitosas, como SURFER\cite{surfer}, 3DXplorMath\cite{dxplormath}, entre otros, que permiten al estudiante introducirse en el mundo de la abstracción geométrica. 
 \\Además la visualización de superficies y curvas tridimensionales es ampliamente utilizada en varias disciplinas para la visualización de datos: química, geofísica, meteorología y dinámica de los fluidos, permitiéndo a los ingenieros estudiar características de los mismos mediante simulaciones. Por ejemplo, se puede estudiar el flujo del viento a través de un modelo por computadora de una ala de avión \cite{aircraftwing}, también se pueden utilizar este tipo de técnicas para la visualización de pisos en videojuegos\cite{realtimerendering}\cite{engine}.
-\\En este contexto, se quieren explorar las posibilidades de desarrollar una aplicación donde sea posible visualizar de forma estereoscópica e interactiva (en tiempo real) curvas y superficies matemáticas. Para ello la idea es considerar el uso del dispositivo de visualización Oculus Rift, y de hardware gráfico (tarjetas gráficas) Nvidia.
+\\En este contexto, se quieren explorar las posibilidades de desarrollar una aplicación donde sea posible visualizar de forma estereoscópica e interactiva (en tiempo real) curvas y superficies matemáticas. Para ello la idea es considerar el uso del dispositivo de visualización Oculus Rift, y de hardware gráfico (tarjetas gráficas) NVIDIA.
 \subsection{Objetivos}
 \begin{itemize}
 \item Desarrollar una aplicación para visualizar ecuaciones algebraicas de forma estereoscópica y en tiempo real.
@@ -599,19 +600,19 @@ La aplicación también se puede utilizar con el joystick de XBOX ONE. El cual p
 \\El joystick permite una gran flexibilidad ya que puede utilizarse de forma más sencilla que un teclado cuando se está utilizando el Oculus Rift. Ésto se debe en parte, en que es más simple para la mayoría de los usuarios detectar dónde se encuentran los botones sin mirar por su forma ergonómica. Por este motivo, se aumenta significativamente el grado de usabilidad de la aplicación, ya que se vuelve más sencilla de utilizar para los usuarios, principalmente para los jóvenes que tienen mayor experiencia con un joystick.
 \clearpage
 \section{Pruebas}
-En esta sección se presentan las pruebas que realizamos sobre el sistema, así como los resultados obtenidos. Las pruebas se dividen en cinco tipos, el primero es una comparación entre la performance y los resultados obtenidos utilizando cada uno de los 3 algoritmos. El segundo tipo, es cuantos fps se lograron obtener para una serie de ecuaciones, considerando la cantidad de polígonos que había en la escena. El tercero es una comparación entre SURFER y nuestra aplicación cuando se trata de puntos singulares, estos son los puntos donde nuestra aplicación genera algunos artefactos. Los últimos dos tipos son una serie de operaciones interesantes que permite realizar la aplicación y una galería de imágenes.
+En esta sección se presentan las pruebas que realizamos sobre el sistema, así como los resultados obtenidos. Las pruebas se dividen en cinco tipos, el primero es una comparación entre la performance y los resultados obtenidos utilizando cada uno de los 3 algoritmos. El segundo tipo, es cuántos fps se lograron obtener para una serie de ecuaciones, considerando la cantidad de polígonos que había en la escena. El tercero es una comparación entre SURFER y nuestra aplicación cuando se trata de puntos singulares, éstos son los puntos donde nuestra aplicación genera algunos artefactos. Los últimos dos tipos son una serie de operaciones interesantes que permite realizar la aplicación y una galería de imágenes.
 \subsection{Hardware utilizado}
-Las pruebas en PC se realizaron sobre un Notebook Alienware M17xR4. El cual cuenta con un procesador Intel I7-3840QM de 2.8 GHz con Turboboost hasta 3.8 GHz. La memoria RAM es de 32 GB de 1777 MHz, y cuenta con una tarjeta de video nVidia 680M.
+Las pruebas en PC se realizaron sobre un notebook Alienware M17xR4. El cual cuenta con un procesador Intel I7-3840QM de 2.8 GHz con Turboboost hasta 3.8 GHz. La memoria RAM es de 32 GB de 1777 MHz, y cuenta con una tarjeta de video NVIDIA 680M.
 \\Se utilizó un DK1 y un DK2 como dispositivos de realidad virtual.
 \\En las plataformas móviles, se utilizó un Samsung  Galaxy S5 y un Samsung  Galaxy Note3, junto con un Google Cardboard. 
 
 \subsection{Software utilizado}
-En PC la aplicación se testeo utilizando Firefox Nightly 48.0a1 con el plugin Mozilla WebVR plus 0.5.0. Se utilizó el runtime de Oculus 0.8.0.0. Todo se corrió sobre Windows 10.
+En PC la aplicación se testeó utilizando Firefox Nightly 48.0a1 con el plugin Mozilla WebVR plus 0.5.0. Se utilizó el runtime de Oculus 0.8.0.0. Todo se corrió sobre Windows 10.
 \\En los teléfonos celulares se ejecutó sobre Google Chrome.
 
 \subsection{Comparación entre meshers}
 \subsubsection{Comparación a través de sucesiones}
-La primer prueba que realizamos fue fijando la bounding box y el paso del algoritmo, se utilizó una sucesión de superficies, generándolas con los tres algoritmos y registrando sus tiempos. Este tipo de comparación fija la información de la función que se utiliza para la generación de la geometría, pero los distintos algoritmos generan distinta cantidad de caras.
+La primer prueba que se realizó, fue fijando la bounding box y el paso del algoritmo, se utilizó una sucesión de superficies, generándolas con los tres algoritmos y registrando sus tiempos. Este tipo de comparación fija la información de la función que se utiliza para la generación de la geometría, pero los distintos algoritmos generan distintas cantidades de caras.
 \\Se utilizó como intervalo $[-4,4]$ en los tres ejes, y el paso fue 0.05. La sucesión que se utilizó fue $cos(\frac{n\pi x}{2}) + cos(\frac{n\pi y}{2}) +cos(\frac{n\pi z}{2}) =0$. Los tiempos de la tabla son en segundos y son los promedios de 10 ejecuciones.
 \begin{table}[h!]
   \centering
@@ -627,7 +628,7 @@ La primer prueba que realizamos fue fijando la bounding box y el paso del algori
   \end{tabular}
   \caption{Primera comparación con sucesiones.}
 \end{table}
-\\Luego se decidió utilizar la misma sucesión pero achicando los límites de manera que los tiempos fueran menores, con el fin de poder realizar una mayor cantidad de ejecuciones por nivel y obtener una mayor significancia estadística, esta vez se ejecutaron 15 veces. Los límites se cambiaron a $[-1,1]$. \\
+\\Luego se decidió utilizar la misma sucesión pero disminuyendo los límites de manera que los tiempos fueran menores, con el fin de poder realizar una mayor cantidad de ejecuciones por nivel y obtener una mayor significancia estadística, esta vez se ejecutaron 15 veces. Los límites se cambiaron a $[-1,1]$. \\
 \begin{table}[h!]
   \centering
   \label{tab:table1}
@@ -653,17 +654,17 @@ La primer prueba que realizamos fue fijando la bounding box y el paso del algori
 \includegraphics[width =0.45\linewidth]{n3.png}
 \hfill
 \includegraphics[width =0.45\linewidth]{n5.png}
-\caption{ A la izquierda se visualiza la función con n igual 3 y a la derecha con n igual 5.}
+\caption{ A la izquierda se visualiza la función con n igual 3, a la derecha con n igual 5.}
 \label{ fig : surface }
 \end{figure}
 \begin{figure}[h!]
 \includegraphics[width =0.45\linewidth]{n9.png}
 \hfill
 \includegraphics[width =0.45\linewidth]{n10.png}
-\caption{ A la izquierda se visualiza la función con n igual 9 y a la derecha con n igual 10.}
+\caption{ A la izquierda se visualiza la función con n igual 9, a la derecha con n igual 10.}
 \label{ fig : surface }
 \end{figure}
-\\Luego para comparar el tiempo que lleva generar la superficies con cada algoritmo cuando la cantidad de caras es similar, se crearon las mismas ecuaciones pero con distintos pasos. Esto se debe a que en general Marching Tetrahedra genera 3 veces más que los otros dos algoritmos. Se utilizó 0.05 como paso en Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra. Como las ejecuciones anteriores para Naive Surface Nets y Marching Cubes ya utilizaban ese pasa sólo se ejecutó denuevo la parte de Marching Tetrahedra.
+\\Luego para comparar el tiempo que lleva generar la superficies con cada algoritmo cuando la cantidad de caras es similar, se crearon las mismas ecuaciones pero con distintos pasos. Ésto se debe a que en general Marching Tetrahedra genera 3 veces más caras que los otros dos algoritmos. Se utilizó 0.05 como paso en Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra. Como las ejecuciones anteriores para Naive Surface Nets y Marching Cubes ya utilizaban ese paso sólo se ejecutó nuevamente la parte de Marching Tetrahedra.
 \begin{table}[h!]
   \centering
   \label{tab:table1}
@@ -687,7 +688,7 @@ La primer prueba que realizamos fue fijando la bounding box y el paso del algori
 \end{table}
 \clearpage
 \subsubsection{Comparación a través de ecuaciones puntuales}
-A continuación realizamos ciertas ecuaciones con los tres algoritmos con la intención de observar cómo se comportan, y cuál produce mejores resultados visuales. El orden de las imágenes es análogo a la tabla. Para mostrar esto además de las imágenes comparativas se colocan tablas que contienen la cantidad de vértices y caras que contiene cada figura para cada algoritmo. Las caras son todas triangulares, por lo que surface nets que genera caras rectangulares se están contando cada una como dos (se parten en dos triángulos).
+A continuación se realizaron ciertas ecuaciones con los tres algoritmos con la intención de observar cómo se comportan, y cuál produce mejores resultados visuales. El orden de las imágenes es análogo a la tabla. Para mostrar ésto además de las imágenes comparativas se colocaron tablas que contienen la cantidad de vértices y caras de cada figura para cada algoritmo. Las caras son todas triangulares, por lo que Surface Nets, que genera caras rectangulares se contó cada una como dos (se dividieron en dos triángulos).
 \\Primero se realizó una esfera con el paso en 0.1.
 \begin{table}[h!]
   \centering
@@ -729,7 +730,7 @@ Con una segunda ecuación se obtuvo lo siguiente con un paso de 0.05.
 \includegraphics[width=\linewidth,center]{compec2.png}
 \caption{Ecuación generada utilizando los 3 algoritmos.}
 \end{figure}
-\\Finalmente con un cilindro se obtuvo los siguiente y paso 0.1.
+\\Finalmente con un cilindro se obtuvo lo siguiente utilizando un paso de 0.1.
 \begin{table}[h!]
   \centering
   \label{tab:table1}
@@ -749,7 +750,7 @@ Con una segunda ecuación se obtuvo lo siguiente con un paso de 0.05.
 \end{figure}
 \\Se puede apreciar en el cilindro arriba a la izquierda como Marching Tetrahedra genera una superficie más suave.
 \clearpage
-De forma análoga a la sección anterior, luego se ejecutaron las mismas pruebas pero en lugar de fijando el paso haciendolo con la cantidad de caras, es decir manteniendo la cantidad de caras generadas por cada algoritmo relativamente iguales.
+De forma análoga a la sección anterior, se ejecutaron las mismas pruebas pero, en lugar de fijar el paso, se fijó la cantidad de caras, es decir, manteniendo la cantidad de caras generadas por cada algoritmo relativamente iguales.
 \\Primero se generó la esfera, utilizando 0.05 como paso para Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra.
 \begin{table}[h!]
   \centering
@@ -768,8 +769,8 @@ De forma análoga a la sección anterior, luego se ejecutaron las mismas pruebas
 \includegraphics[width=\linewidth,center]{esfera2.png}
 \caption{Esfera generada utilizando los 3 algoritmos.}
 \end{figure}
-\\Es notorio la peor aproximación de Marching Tetrahedra, se puede notar en el sector superior izquierdo.
-\\Luego se generó la segunda ecuación, utilizando 0.05 como paso para Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra.
+\\Es notorio que la aproximación de Marching Tetrahedra es la más deficiente, pudiendo observarse en el sector superior izquierdo.
+\\Más adelante se generó la segunda ecuación, utilizando 0.05 como paso para Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra.
 \begin{table}[h!]
   \centering
   \label{tab:table1}
@@ -788,10 +789,10 @@ De forma análoga a la sección anterior, luego se ejecutaron las mismas pruebas
 \includegraphics[width=\linewidth,center]{ecuacion2.png}
 \caption{Ecuación generada utilizando los 3 algoritmos.}
 \end{figure}
-En el sector inferior se aprecia una peor aproximación en Marching Tetrahedra.
+En el sector inferior se aprecia nuevamente una peor aproximación en Marching Tetrahedra.
 \begin{figure}[h!]
 \includegraphics[width=\linewidth,center]{zoomecuacion.png}
-\caption{Zoom a la ecuación generada utilizando los 3 algoritmos, donde se aprecia como Marching Tetrahedra genera la peor maya.}
+\caption{Zoom a la ecuación generada utilizando los 3 algoritmos donde se aprecia como Marching Tetrahedra genera la peor maya.}
 \end{figure}
 \\Por último se generó el cilindro, utilizando 0.05 como paso para Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra.
 \begin{table}[h!]
@@ -812,8 +813,8 @@ En el sector inferior se aprecia una peor aproximación en Marching Tetrahedra.
 \caption{Cilindro generado utilizando los 3 algoritmos.}
 \end{figure}
 \\En el sector inferior se aprecia una peor aproximación en Marching Tetrahedra.
-\\En estas pruebas se puede apreciar que el algoritmo Marching Tetrahedra cuando se utiliza el mismo paso genera aproximaciones levemente mejores, ya que son más suaves que las obtenidas con los otros dos algoritmos. Por otro lado es el más lento de los tres y genera una mayor cantidad de vértices y caras. Naive Surface Nets es el más rápido de los tres, y las mallas que generan son un poco inferiores a las de Marching Cubes, pero considerando su velocidad es una buena opción. Además de que sus geometrías son las más pequeñas, por lo que se ahorra en memoria. Marching Cubes se ubica en el medio entre los algoritmos, ya que no es el más rápido pero tampoco el más lento, y sus aproximaciones no son las mejores pero tampoco las peores.
-\\ A igual cantidad de caras, se puede notar que Marching Tetrahedra es inferior, ya que sus mallas son de peor calidad. Esto se debe a que al tener un paso distinto recibe menos información de laa función ya que la misma se discretiza considerando el paso. Cuando se fija la cantidad de caras, se puede apreciar que Marching Tetrahedra se vuelve más rápido que Marching Cubes en algunos escenarios, pero no que Naive Surface Nets.
+\\En estas pruebas se puede apreciar que el algoritmo Marching Tetrahedra, cuando se utiliza el mismo paso, genera aproximaciones levemente mejores, ya que son más suaves que las obtenidas con los otros dos algoritmos. Sin embargo lado es el más lento de los tres y genera una mayor cantidad de vértices y caras. Por otro lado, Naive Surface Nets es el más rápido de los tres, y las mallas que generan son levemente inferiores a las de Marching Cubes, pero considerando su velocidad es una buena opción. Además de que sus geometrías ocupan menos memoria. Marching Cubes se ubica en el medio entre los algoritmos, ya que no es el más rápido pero tampoco el más lento, y sus aproximaciones no son las mejores pero tampoco las peores.
+\\ A igual cantidad de caras, se puede notar que Marching Tetrahedra es inferior, ya que sus mallas son de peor calidad. Esto se debe a que al tener un paso distinto recibe menos información de la función ya que la misma se discretiza considerando el paso. Cuando se fija la cantidad de caras, se puede apreciar que Marching Tetrahedra se vuelve más rápido que Marching Cubes en algunos escenarios, pero no que Naive Surface Nets.
 
 \subsection{ Estudio de framerate}
 Para realizar un análisis del framerate se colocaron distintas ecuaciones y se registró el framerate promedio luego de 1 minuto de rotar la cámara alrededor de ellas. A continuación se presenta una tabla con la cantidad de caras de la ecuación y el framerate promedio obtenido en Nightly. La resolución de la pantalla es de 1920x1080p.
@@ -834,33 +835,33 @@ Para realizar un análisis del framerate se colocaron distintas ecuaciones y se 
   \end{tabular}
   \caption{Comparación entre la cantidad de caras de la ecuación y framerate obtenido.}
 \end{table}
-\\Estas pruebas se realizaron generando solo un punto de vista, por lo que en modo VR, el framerate sería menor. Aún así la mayoría de las pruebas poseen resultados muy superiores a los 120$fps$ (60Hz es la velocidad de refresco del DK1). Utilizando esto como refencia la única escena que generaría problemas es la de casi tres millones de triángulos.
+\\Estas pruebas se realizaron generando sólo un punto de vista, por lo que, en modo VR, el framerate sería menor. Aún así la mayoría de las pruebas poseen resultados muy superiores a los 120$fps$ (60Hz es la velocidad de refresco del DK1). Utilizando esto como refencia la única escena que generaría problemas es la de casi tres millones de triángulos.
 \subsection{Comparación con SURFER en puntos singulares}
-Los puntos singulares presentan inconvenientes para los algoritmos presentados, ya que los mismos no los generan de la forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando Surfer con nuestra aplicación. 
-\\Para hacerlo se utilizará una ecuación con 216 puntos singulares.\\
+Los puntos singulares presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando Surfer con nuestra aplicación. 
+\\Para hacerlo se utilizó una ecuación con 216 puntos singulares.\\
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{comp1.png}
 \caption{Comparación de una figura con 216 puntos singulares utilizando SURFER y la aplicación desarrollada.}
 \end{figure}
-\\En la figura 30 a la izquierda se puede apreciar la imagen generada con Surfer y a la derecha la imagen generada con Marching Tetrahedra en nuestra aplicación. Se puede apreciar como Surfer resuelve los puntos singulares de mejor forma. También se puede apreciar como nuestra aplicación posee sombras.
+\\En la figura 46 a la izquierda se puede apreciar la imagen generada con SURFER y a la derecha la misma imagen generada con Marching Tetrahedra en nuestra aplicación. Se puede apreciar cómo SURFER resuelve los puntos singulares de mejor forma. A su vez se puede apreciar cómo nuestra aplicación posee sombras.
 \clearpage
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{comp2.png}
 \caption{Comparación cuando se realiza zoom hacia un punto singular de la figura anterior.}
 \end{figure}
-Se aprecia a la izquierda de la figura 31 como se visualiza cuando se utiliza el zoom de SURFER, y a la derecha lo que sucede si se utiliza la herramienta de corte para realizar un recálculamiento de la zona problemática. 
-\\De estas pruebas se desprende que los puntos singulares son problematicos, y que los resultados obtenidos no son tan buenos como los de SURFER, pero si se quiere visualizar esa zona en particular se puede recalcuar con mayor calidad obteniendo resultados de una calidad similar a la de SURFER.
+Se aprecia a la izquierda de la figura 47 cómo se visualiza cuando se utiliza el zoom de SURFER, y a la derecha lo que sucede si se utiliza la herramienta de corte para realizar un recálculamiento de la zona problemática. 
+\\De estas pruebas se desprende que los puntos singulares son problemáticos, así como los resultados obtenidos no son tan precisos como los de SURFER, pero si se quiere visualizar esa zona en particular se puede recalcular con mayor calidad obteniendo resultados de una calidad similar a la de SURFER.
 
 \subsection{Composición de ecuaciones}
 La aplicación desarrollada puede ser utilizada con fines pedagógicos. En esta sección se muestran algunas formas de utilizar el programa para motivar a jóvenes a realizar ecuaciones de forma sencilla e intuitiva, de manera de atraerlos al mundo de la matemática.
-\\Una manera interesante de utilizar este software es utilizar la matemática para generar objetos conocidos del mundo real, es decir objetos cotidianos como un tornillo. Una forma de lograr esto es por medio de la unión, intersección y resta de superficies. Esta aplicación puede lograr cada uno de las 3 operaciones de 3 formas distintas.
+\\Uno de los más útiles usos para el software desarrollado es utilizar la matemática para generar objetos conocidos del mundo real, es decir objetos cotidianos como un tornillo. Una forma de lograr ésto es por medio de la unión, intersección y resta de superficies. Esta aplicación puede lograr cada una de las 3 operaciones de 3 formas distintas.
 \\Estas tres operaciones permiten una increíble flexibilidad, y se pueden aprovechar para generar una gran cantidad de superficies. Con estas operaciones se pueden generar todos los cuerpos platónicos, un cilindro con “tapa”, el anillo de Saturno, un tornillo, etc. A continuación se muestran algunos ejemplos.\\
 \begin{wrapfigure}{l}{0.4\textwidth}
 \includegraphics[width=0.9\linewidth]{dodecaedro.png} 
 \caption{Dodecaedro generado con la aplicación desarrollada.}
 \label{fig:subim1}
 \end{wrapfigure}
-\\Se pueden ver dos ecuaciones generadas con nuestra aplicación con las operaciones expresadas anteriormente. Particularmente se puede apreciar un dodecaedro, que fue realizado intersecando 12 semiespacios definidos por planos y un tornillo generado a través de la resta entre un cilindro  y una ecuación similar a un resorte.
+\\Se pueden ver dos ecuaciones generadas con nuestra aplicación con las operaciones expresadas anteriormente. Particularmente se puede apreciar un dodecaedro realizado intersecando 12 semiespacios definidos por planos, y un tornillo generado a través de la resta entre un cilindro  y una ecuación similar a un resorte.
 \\
 \\
 \\
@@ -874,9 +875,9 @@ La aplicación desarrollada puede ser utilizada con fines pedagógicos. En esta 
 \caption{Tornillo generado con la aplicación desarrollada.}
 \end{figure}
 \subsubsection{Unión de ecuaciones}
-Supongamos que contamos con dos superficies $f(x,y,z)=0$ y $g(x,y,z)=0$ (para lo que sigue se asume a que el interior de las ecuaciones es negativo y el exterior positivo), si se quiere generar  $\cup(f,g)$ se puede realizar de 3 modos. 
-\\En el primer modo se le resta a la suma la resta del valor absoluto, es decir $\cup(f,g) =  f(x,y,z) + g(x,y,z) - |f(x,y,z) - g(x,y,z)|$. 
- En el segundo caso se le resta a la suma la raíz cuadrada de la suma de los cuadrados de las funciones  $\cup(f,g) = f(x,y,z) + g(x,y,z) -\sqrt[2]{f^2(x,y,z) + g^2(x,y,z)}$.
+Supongamos que contamos con dos superficies $f(x,y,z)=0$ y $g(x,y,z)=0$ (para lo que sigue se asume que el interior de las ecuaciones es negativo y el exterior positivo), si se quiere generar  $\cup(f,g)$ se puede realizar de 3 modos. 
+\\En el primer modo se le resta a la suma, la resta del valor absoluto, es decir $\cup(f,g) =  f(x,y,z) + g(x,y,z) - |f(x,y,z) - g(x,y,z)|$. 
+\\En el segundo caso se le resta a la suma la raíz cuadrada de la suma de los cuadrados de las funciones  $\cup(f,g) = f(x,y,z) + g(x,y,z) -\sqrt[2]{f^2(x,y,z) + g^2(x,y,z)}$.
 \\En el tercer tipo se toma el mínimo de las dos  $\cup(f,g)=min(f(x,y,z),g(x,y,z))$
 \clearpage
 \begin{figure}[h]
@@ -885,10 +886,10 @@ Supongamos que contamos con dos superficies $f(x,y,z)=0$ y $g(x,y,z)=0$ (para lo
 \end{figure}
 
 \subsubsection{Intersección de ecuaciones}
-Supongamos que se cuenta con dos superficies iguales a las del punto anterior y se desea intersecar, es decir calcular $\cap(f,g)$. A continuación se listan tres métodos.
-\\Este método consiste en sumarle a la suma el valor absoluto de la resta  $\cap(f,g)= f(x,y,z) + g(x,y,z)+ |f(x,y,z) - g(x,y,z)|$ 
+Supongamos que se cuenta con dos superficies iguales a las del punto anterior y se desea intersecar, es decir calcular $\cap(f,g)$. Nuevamente se presentan tres métodos.
+\\El primero consiste en agregarle a la suma el valor absoluto de la resta  $\cap(f,g)= f(x,y,z) + g(x,y,z)+ |f(x,y,z) - g(x,y,z)|$ 
 \\El segundo método consiste en sumarle a la suma la raíz cuadrada de la suma de los cuadrados de las funciones   $\cap(f,g)= f(x,y,z) + g(x,y,z)+ \sqrt[2]{f^2(x,y,z) +g^2(x,y,z)}$ 
-\\El tercer método es tomar el máximo de las dos   $\cap(f,g)= max(f(x,y,z) , g(x,y,z))$
+\\Por último, el tercer método toma el máximo de las dos   $\cap(f,g)= max(f(x,y,z) , g(x,y,z))$
 \clearpage
 \begin{figure}[h]
 \includegraphics[width=\linewidth,center]{oi2.png}
@@ -896,7 +897,7 @@ Supongamos que se cuenta con dos superficies iguales a las del punto anterior y 
 \end{figure}
 
 \subsubsection{Resta de ecuaciones}
-Nuevamente supondremos que contamos con dos superficies f y g que cumplen lo mismo que las anteriores, esta vez obtendremos la diferencia entre ellas, $dif(f,g)$.
+Nuevamente, partiendo de dos superficies, f y g, que cumplen las mismas propiedades que las anteriores, se desea obtener la diferencia entre ellas, $dif(f,g)$.
 \\La primer opción consiste en sumarle a la resta el valor absoluto de la suma $dif(f,g) = f(x,y,z) - g(x,y,z) + |f(x,y,z) + g(x,y,z)|$
 \\La segunda consiste en sumarle a la resta la raíz cuadrada de la suma de los cuadrados $dif(f,g) = f(x,y,z) - g(x,y,z) + \sqrt[2]{f^2(x,y,z) + g^2(x,y,z)}$ 
 \\Finalmente también es posible tomar el máximo entre $f$ y menos $g$, $max(f(x,y,z),-g(x,y,z))$
@@ -916,13 +917,13 @@ En esta sección se muestran una serie de imágenes de superficies generadas con
 Cubo con bordes redondeados intersecado con una esfera, al que se le restan 3 cilindros: $((x^6+y^6+z^6-1) +(x^2+y^2+z^2-1.3) +abs((x^6+y^6+z^6-1) -(x^2+y^2+z^2-1.3 ))) -(((y^2+z^2-.5) +(x^2+z^2-.5) -abs((y^2+z^2-.5)-(x^2+z^2-.5))) +(x^2+y^2-.5) -abs(((y^2+z^2-.5)+ (x^2+z^2-.5) - abs ((y^2+z^2-.5) - (x^2+z^2-.5))) -(x^2+y^2-.5))) + abs(((x^6+y^6+z^6-1) +(x^2+y^2+z^2-1.3) + abs((x^6+y^6+z^6-1) -(x^2+y^2+z^2-1.3))) +(((y^2+z^2-.5) +(x^2+z^2-.5)-abs((y^2+z^2-.5)-(x^2+z^2-.5)))+(x^2+y^2-.5)-abs(((y^2+z^2-.5)+(x^2+z^2-.5)-abs((y^2+z^2-.5)-(x^2+z^2-.5)))-(x^2+y^2-.5))))$\\ 
 \begin{figure}[h!]
 \includegraphics[width=0.7\linewidth,center]{g2.png}
-\caption{La resta entre la intersección de una esfera y un cubo con bordes redondeados; y 3 cilindros.}
+\caption{La resta de tres cilindros a la intresección de una esfera y un cubo con los bordes redondeados.}
 \end{figure}
 \clearpage
 Anillo: $max(max(max(y,- (x^2 + y^2 + z^2-1)), -y- 0.01), (x^2 +y^2 +z^2 - 3))$ \\
 \begin{figure}[h!]
 \includegraphics[width=0.7\linewidth,center]{g3.png}
-\caption{Plano que se interseca con una esfera grande y se le resta una esfera más pequeña.}
+\caption{Plano que se interseca con una esfera grande y se le resta una esfera de menor radio.}
 \end{figure}
 \clearpage
 Cilindro con tapas: $((x^2/2 + y^2/2 - 1) + (z) + abs((x^2/2 + y^2/2 - 1)-(z)))+(-z-2)+abs(((x^2/2 + y^2/2 - 1) + (z) + abs((x^2/2 + y^2/2 - 1)-(z)))-(-z-2))$ \\
@@ -940,37 +941,38 @@ Tornillo: $max((x^2 + y^2 - 1) ,-((x-sin(z*10) )^2 + (y -cos (z*10))^2 -0.8))$ \
 \clearpage
 \section{Conclusiones y trabajo a futuro}
 \subsection{Conclusiones}
-Las conclusiones se dividirán en dos partes, en la primera analizaremos la performance de los meshers, comparándolos entre sí. 
-\\En la segunda parte se analizará la performance de la aplicación en cuanto a fps y a resolución de las imágenes generadas. En esta parte se comparará contra SURFER y se analizará si el framerate y la calidad de las imágenes es lo suficientemente bueno para una experiencia positiva de realidad virtual.
+Las conclusiones se presentarán en dos partes, en la primera se analiza la performance de los meshers, comparándolos entre sí. 
+\\En la segunda parte se analiza la performance de la aplicación en cuanto a fps y a la resolución de las imágenes generadas. En esta parte se comparará contra SURFER y se analizará si el framerate y la calidad de las imágenes es lo suficientemente bueno para una experiencia positiva de realidad virtual.
 \subsubsection{Meshers}
 Cada uno de los 3 métodos tiene sus puntos fuertes y débiles. 
-\\Marching Cubes es bueno ya que existen implementaciones libres y fácilmente utilizables, y también es bastante rápido. (Sin mencionar que también es la más ampliamente conocida). Además de ser relativamente rápido no tiene el problema de repetir vértices de Naive Surface Nets, y la calidad de las mallas es superior. Los resultados no son tan agradables como los de Marching Tetrahedra, pero es considerablemente más rápido. 
-\\Marching Tetrahedra soluciona algunos problemas de Marching Cubes a expensas de ser mucho más lento y la creación de mallas mucho más grandes. Las mallas son más suaves y mejores en general de los tres, pero contiene mucho más vértices y caras, y el algoritmo es mucho más lento.
-\\Naive Surface Nets es mucho más rápido y se puede ampliar para generar mallas de alta calidad utilizando algoritmos más sofisticados de selección de vértices. También es fácil de implementar y produce mallas ligeramente más pequeñas. Su inconveniente principal es que las superficies que genera son de peor calidad, aunque podría ser mejorado si se cambia la técnica de elección de vértices. 
-\\La elección de cual de los métodos es el superior depende de cada caso, si se quiere ahorrar en memoria y obtener el resultado los más rápido posible, se debe usar Naive Surface Nets, pero asumiendo de que la aproximación puede no ser tan buena como si se utilizase alguno de los otros dos algoritmos. Si se quiere maximizar la precisión de la aproximación se debe utilizar Marching Tetrahedra, pero demorara más tiempo y utilizará más recursos. Finalmente si se quiere una opción más equilibrada, se puede optar por Marching Cubes ya que no es tan preciso a la hora de aproximar como Marching Tetrahedra, pero es más rápido y usa menos recursos; por otra parte es más preciso que Naive Surface Nets pero es más lento. Por estos motivos se optó por dejar a Marching Cubes como algoritmo por defecto, pero permitirle al usuario cambiarlo en caso de que este lo considere necesario.
+\\Marching Cubes es bueno ya que existen implementaciones libres y fácilmente utilizables, y también es bastante rápido. Sin mencionar que también es la más ampliamente conocida. Además de ser relativamente rápido no tiene el problema de repetir vértices como es el caso de Naive Surface Nets, y la calidad de las mallas es superior. Los resultados no son tan agradables a la vista como los de Marching Tetrahedra, pero es considerablemente más veloz. 
+\\Marching Tetrahedra soluciona algunos problemas de Marching Cubes a expensas de ser mucho más lento y la creación de mallas de mayor tamaño. A su vez, estas últimas poseen una mayor suavidad, pero contienen mucho más caras y vértices, además  el algoritmo es mucho más lento.
+\\Naive Surface Nets posee una velocidad significativamente superior y se puede ampliar para generar mallas de alta calidad utilizando algoritmos más sofisticados de selección de vértices. También es fácil de implementar y produce mallas ligeramente más pequeñas en cuanto a su costo de almacenamiento. Su inconveniente principal es que las superficies que genera son de inferior calidad, aunque podría mejorarse si se cambia la técnica de elección de vértices. 
+\\La elección de cual de los métodos es el superior depende de cada caso. Si se quiere ahorrar en memoria y obtener el resultado con mayor rapidez, se debe usar Naive Surface Nets, pero asumiendo que la aproximación se vería comprometida con respecto al uso de cualquiera de los otros dos algoritmos. Sin embargo, si se quiere maximizar la precisión de la aproximación se debe utilizar Marching Tetrahedra, pero demorara más tiempo y utilizará más recursos. Finalmente, si se quiere una opción más equilibrada, se puede optar por Marching Cubes ya que no es tan preciso a la hora de aproximar como Marching Tetrahedra, pero es más rápido y usa menos recursos; además de que es más preciso que Naive Surface Nets aunque es más lento. Por estos motivos se optó por dejar a Marching Cubes como algoritmo por defecto, pero permitirle al usuario cambiarlo en caso de que éste lo considere necesario.
 \subsubsection{Calidad de imagen y framerate}
-Los framerates obtenidos son altos, son ampliamente superiores a 60 fps (la tasa de refresco que los videojuegos apuntan a obtener). Es también ampliamente superior a los 15 fps que tiene como objetivo mantener el SURFER. Esto hace que la experiencia visual sea muy fluida y agradable (tanto en el modo de realidad virtual como en el normal). 
+Los framerates obtenidos son altos, ampliamente superiores a 60 fps (la tasa de refresco que los videojuegos apuntan a obtener). Son también ampliamente superiores a los 15 fps que tiene como objetivo mantener el SURFER. Ésto hace que la experiencia visual sea muy fluida y agradable (tanto en el modo de realidad virtual como en el normal). 
 \\La resolución de las imágenes es alta, los framerates fueron tomados con una pantalla de resolución 1920x1080p, lo que es muy superior a las imágenes que genera SURFER (las cuales no superan 796x796). El hecho de que se pueda mantener un framerate tan alto con esa resolución permite disminuir el efecto de pixelación en Oculus Rift. 
-\\El hecho de que se tienen framerates altos y resolución alta, como se dijo anteriormente ayuda a disminuir las probabilidades de que los usuarios experimenten Virtual Reality Sickness. Lo cual es muy positivo ya que permite que la aplicación gane en usabilidad.
-\\La experiencia obtenida utilizando la aplicación con DK1 y con DK2 ha sido muy buena, ya que ninguno de los usuarios sufrió ningún tipo de inconveniente, ni sensación de mareo. 
-\\Luego de las pruebas con Google Cardboard también fueron favorables, ninguno de los usuarios sufrió ningún tipo de inconveniente.
-\\También hay que destacar que aunque se tienen esas ventajas, existe una desventaja con respecto a la utilización de raytracing, la cual es que algunas ecuaciones (particularmente aquellas con muchos puntos singulares) no se visualizan de forma tan precisa, sufriendo algunos artefactos en dichos puntos. Aún así la aproximación es buena, pero la que genera SURFER es superior. También hay que considerar si se utiliza la funcionalidad de cortar y se acerca a las zonas problemáticas el resultado que se obtiene es muy bueno, ya que se disminuye la aparición de la deformación.
+\\El hecho de que se tienen framerates altos y resolución alta, como se dijo anteriormente, ayuda a disminuir la probabilidad de que los usuarios experimenten Virtual Reality Sickness. Lo cual es muy positivo ya que permite que la aplicación gane en usabilidad.
+\\La experiencia obtenida utilizando la aplicación con DK1 y con DK2 ha sido muy positiva, ya que ninguno de los usuarios sufrió ningún tipo de inconveniente, ni sensación de mareo. 
+\\Luego, las pruebas con Google Cardboard también fueron favorables, ninguno de los usuarios sufrió ningún tipo de inconveniente.
+\\A su vez hay que destacar que, aunque se presenten dichas ventajas, el uso de raytracing hubiese permitido visualizar de forma más precisa algunas ecuaciones, particularmente aquellas con múltiples puntos singulares, y evitar algunos artefactos en dichos puntos. Aún así la aproximación es buena, pero la que genera SURFER es superior. Sin embargo, si se utiliza la funcionalidad de cortar y se acerca a las zonas problemáticas, el resultado obtienido es muy bueno, ya que se disminuye la aparición de la deformación.
 
 
 \subsection{Trabajo a futuro}
-Para mejorar aún más la aplicación se podrían implementar una serie de cambios y agregados. A continuación se listan algunas de ellas.
-\\Agregar a los algoritmos para generar la malla el algoritmo de Dual Contouring\cite{dualcontour}, el cual mejoraría los resultados en cuanto a la calidad de la geometría, aunque sería más lento. 
-\\En cuanto a mejorar los algoritmos, se podría implementar diferentes versiones de Surface Nets, es decir cambiar las técnicas de selección de los vértices, utilizar algunas más complejas que obtengan mejores resultados.
-\\Agregar otros shaders de GLSL para tener más efectos de ser más atractivo visualmente, se podría permitir a los usuarios agregar sus propios shaders de forma de otorgarles aún un mayor control de cómo se visualiza la ecuación. También se podrían alterar algunos de los ya existentes de manera que los clicks en pantalla afecten el comportamiento de los shaders, por ejemplo que los clicks generen ondas en el agua, o que el movimiento de la ecuación afecte la vibración de la gelatina.
-\\Otra mejora sería mejorar la interfaz en caso que se ingrese desde un teléfono, hacerla más amigable para los dispositivos móviles.
-También se podrían desarrollar aplicaciones para celular (aprovechando la existencia de herramientas para utilizar HTML, CSS y Javascript para hacer aplicaciones para estos dispositivos) tanto para Android como para iOS. 
-\\Se podría traducir el código a C++ utilizando OpenGL, haciendo una versión de escritorio, de esta forma se mejoraría la performance porque se obtendría código compilado además se disminuiría el overhead. Así como se tendría un mayor control del framerate ya que no se dependería del loop de refresco del navegador.
-\\Una mejora que se podría realizar es utilizar técnicas de simplificación\cite{simplificacion}\cite{realtimerendering}, con el fin de simplificar la geometría con la menor pérdida de calidad posible. Esto permitiría disminuir considerablemente la cantidad de polígonos en varias de las ecuaciones, por ejemplo si se simplificase la ecuación del plano $x-3=0$ idealmente en lugar de tener una gran cantidad de triángulos dependiendo del paso seleccionado por el usuario, simplemente se tendrían 2.
+%Para mejorar aún más la aplicación se podrían implementar una serie de cambios y agregados. 
+A continuación se listan una serie de mejoras y modificaciones que se podrían implementar sobre la aplicación.
+\\Agregar a la lista de algoritmos de generación de malla, el algoritmo de Dual Contouring\cite{dualcontour}, el cual mejoraría los resultados en cuanto a la calidad de la geometría, aunque aumentaría el tiempo de cálculo. 
+\\En cuanto a la mejora de los algoritmos, se podrían implementar diferentes versiones de Surface Nets, es decir, cambiar las técnicas de selección de los vértices, utilizar algunas más complejas que obtengan mejores resultados.
+\\Agregar otros shaders de GLSL permitiría incorporar nuevos efectos volviéndolo más atractivo visualmente, se podría, por ejemplo, permitir al usuario agregar sus propios shaders, de forma de otorgarle  mayor control de cómo se visualiza la ecuación. También se podría alterar algunos de los shaders existentes de manera que los clicks en pantalla afecten su comportamiento, por ejemplo que los clicks generen ondas en el agua, o que el movimiento de la ecuación afecte la vibración de la gelatina.
+\\Otra posibilidad sería mejorar la interfaz en caso que se ingrese desde un teléfono, hacerla más amigable para los dispositivos móviles.
+Aparte se podrían desarrollar aplicaciones para celular (aprovechando la existencia de herramientas para utilizar HTML, CSS y Javascript para hacer aplicaciones para estos dispositivos) tanto para Android como para iOS. 
+\\A su vez se podría traducir el código a C++ utilizando OpenGL, haciendo una versión de escritorio. De esta forma se mejoraría la performance, porque se obtendría código compilado, además se disminuiría el overhead. Por otro lado se tendría un mayor control del framerate ya que no se dependería del loop de refresco del navegador.
+\\Por último se podría utilizar técnicas de simplificación\cite{simplificacion}\cite{realtimerendering}, con el fin de simplificar la geometría con la menor pérdida de calidad posible. Ésto permitiría disminuir considerablemente la cantidad de polígonos en varias de las ecuaciones, por ejemplo, si se simplificase la ecuación del plano $x-3=0$, en lugar de tener una gran cantidad de triángulos dependiendo del paso seleccionado por el usuario, simplemente se tendrían 2.
 
 
 \clearpage
 \section{Glosario}
-\textbf{\textit{AngularJS}} es un framework de JavaScript de código abierto, mantenido por Google, que se utiliza para crear y mantener aplicaciones web de una sola página. Su objetivo es aumentar las aplicaciones basadas en navegador con capacidad de Modelo Vista Controlador (MVC), en un esfuerzo para hacer que el desarrollo y las pruebas sean más fáciles.\\
+\textbf{\textit{AngularJS}} es un framework de JavaScript de código abierto, mantenido por Google, que se utiliza para crear y mantener aplicaciones web de una sola página. Su objetivo es crear aplicaciones basadas para navegadores utilizando el patrón Modelo Vista Controlador (MVC), su objetivo es hacer que el desarrollo y las pruebas unitarias sean más fáciles.\\
 \textbf{\textit{Base de datos}} son bancos de información que contienen datos relativos a diversas temáticas y categorizados de distinta manera, pero que comparten entre sí algún tipo de vínculo o relación que busca ordenarlos y clasificarlos en conjunto\\
 \textbf{\textit{Bootstrap}} es un framework o conjunto de herramientas de Código abierto para diseño de sitios y aplicaciones web. Contiene plantillas de diseño con tipografía, formularios, botones, cuadros, menús de navegación y otros elementos de diseño basado en HTML y CSS, así como, extensiones de JavaScript opcionales adicionales.\\
 \textbf{\textit{CSS}} en inglés la sigla significa Cascading Style Sheets, es un lenguaje usado para definir y crear la presentación de un documento estructurado escrito en HTML o XML (y por extensión en XHTML). El World Wide Web Consortium (W3C) es el encargado de formular la especificación de las hojas de estilo que servirán de estándar para los agentes de usuario o navegadores.\\
@@ -1186,18 +1188,23 @@ SIGGRAPH '78.
 \section*{Anexos}
 \appendix
 \section{Teorema de la función Implícita.}
-Dados:
-\begin{center}
-$F_{1}(x,y,z,u,v,w)=0$\\
-$F_{2}(x,y,z,u,v,w)=0$\\
-$F_{3}(x,y,z,u,v,w)=0$\\
-\end{center}
+Sea A un subconjunto de  ${\rm I\!R} ^N \times {\rm I\!R} ^M$, $(a,b) \in A, n \in N \cup(\infty)$ y $f: A\,\to\,{\rm I\!R} ^M$ una función de clase $C^n$ en $A$. Supongamos que $f(a,b)=0$ y 
 
-Si el determinante de la Jacobiana:
+\[
+\begin{vmatrix}
+\frac{\partial f_{1}}{ \partial y_{1}}(a,b) & \dots & \frac{\partial f_{1}}{ \partial y_{M}}(a,b) \\
+\vdots &&\vdots \\
+\frac{\partial f_{M}}{ \partial y_{1}}(a,b) &\dots& \frac{\partial f_{M}}{ \partial y_{M}}(a,b) \\
+\end{vmatrix}
+\neq 0
+\]
+
+
+Entonces existe un entorno abierto $U$ de $a$ en$ {\rm I\!R} ^N$ y un entorno abierto $V$ de $b$ en ${\rm I\!R} ^M$ tales que $U \times V \subseteq A$ y una única función $\varphi: U \,\to\, V$ tal que $f(x,\varphi(x))=0$ para todo $x \in U$. De hecho,\\
 \begin{center}
-$|J F(u,v,w)|=|\frac{\partial(F_{1},F_{2},F_{3})}{\partial(u,v,w)}|\neq 0$\\
+$\{ (x,y)  \in U \times V: f(x,y)=0 \} =\{ (x,y)  \in U \times V: y= \varphi (x) \}$.
 \end{center}
-Entonces $u$, $v$ y $w$ pueden ser resueltos en función de $x$,$y$,$z$ y las derivadas parciales de $u$,$v$,$w$ con respecto a $x$,$y$,$z$ se hallan mediante la diferenciación de las mismas.
+En particular, $ \varphi (a)=b$. Además  $\varphi$ es de clase ${\rm \!C} ^n$ en $U$
 \clearpage
 \section{Cronograma del proyecto}
 A continuación se presenta una tabla que muestra las principales actividades realizadas de forma mensual.

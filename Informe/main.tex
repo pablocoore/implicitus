@@ -477,17 +477,7 @@ Algo deseable a controlar cuando se poligoniza una superficie es la resolución 
 \caption{Ejemplo de la misma figura utilizando diferentes tamaños de grilla.}
 \label{mani}
 \end{figure}
-\subsubsection{Determinación de las normales de los vértices de las caras triangulares}
-A menudo es necesario crear las normales para cada vértice de las caras triangulares para poder representar una superficie “suave” \cite{realtimerendering}. Una forma de hacer esto es, después de que las caras han sido creadas, promediar las normales de todas las caras que comparten un vértice del triángulo. A continuación, en la Figura \ref{normales}, se muestra el resultado suave a la derecha, la imagen de la izquierda tiene la única normal para la faceta aplicada a cada uno de los vértices. El modelo a continuación es de una esfera.\\
-\begin{figure}[h]
-\includegraphics[width =0.45\linewidth]{facetado.png}
-\hfill
-\includegraphics[width =0.45\linewidth]{noFacetado.png}
-\caption{ Ejemplos de distintas configuraciones de normales de la misma figura.}
-\label{normales}
-\end{figure}
 
-Un enfoque común es asignar a cada vértice una media ponderada de las normales de los polígonos que comparten el vértice. El peso es  inversamente proporcional al área del polígono, por lo que pequeños polígonos tienen mayor peso. La idea es que estos últimos pueden ocurrir en las regiones de alta curvatura de la superficie.
 \subsection{Marching Tetrahedra}
 El algoritmo Marching Tetrahedra\cite{marching}\cite{marchingt} muestrea el espacio en los vértices de una malla 3D rectangular. Cada celda de la malla se divide en 6 tetraedros como se muestra en la Figura \ref{6tet}. Hay que tener en cuenta que las aristas del tetraedro se alinean con las de las celdas de las cajas adyacentes, y existe un método de dividir la caja en 5 tetraedros que no tiene esta propiedad.
 
@@ -528,7 +518,28 @@ Para lograrlo se pueden utilizar distintas técnicas de selección de los vérti
 
 La idea de Naive Surface Nets (el método propuesto por Lysenko\cite{mykola2} que está disponible en la aplicación Isosurface) es elegir el vértice de forma más simple  en lugar de encontrar el vértice óptimo, se computan las intersecciones con las aristas de las celdas (como en Marching cubes) y luego se toma su centro de masa como el vértice en cada cubo (o celda). La malla que se obtiene de este proceso es similar a la de Marching Cubes, sólo que con un menor número de vértices y caras. Elegir el vértice de esta forma permite hacer el algoritmo mucho más rápido, aunque se pierde calidad.
 \subsection{Dual Contouring}
-Este algoritmo es una extensión del algoritmo de Marching cubes y Surface Nets. Mantiene un vértice en el centro del cubo de la grilla, pero añade la generación de superficies a través de octrees, para poder dibujar más precisamente aquellas superficies “ásperas”\cite{dualcontour}.
+Este algoritmo es una extensión del algoritmo de Marching Cubes y Surface Nets. Mantiene un vértice en el centro del cubo de la grilla, pero añade la generación de superficies a través de octrees, para poder dibujar más precisamente aquellas superficies “ásperas”\cite{dualcontour}. En la Figura \ref{dual} una comparación entre éste algoritmo y Marching Cubes, donde se puede apreciar cómo Dual Contouring puede generar vértices dentro de las celdas para una aproximación más suave.
+
+\begin{figure}[h!]
+\includegraphics[width =\linewidth]{dualc.png}
+\caption{ Comparación entre Marching Cubes (centro) y Dual Contouring (derecha), dadas las intersecciones que se muestran a la izquierda con la grilla.}
+\label{dual}
+\end{figure}
+
+\subsection{Determinación de las normales de los vértices de las caras triangulares}
+A menudo es necesario crear las normales para cada vértice de las caras triangulares para poder representar una superficie “suave” \cite{realtimerendering}. Ésto se debe a que para utilizar ciertas técnicas de sombreado, por ejemplo Phong, se interpola para todo el poligono el valor de la normal en cada punto a partir de la de los vértices del mismo. Si no se cálculan las normales para cada vértice cada cara utilizará la misma normal, lo que provocará que se visualice de forma facetada.
+
+Una forma de realizar el cálculo de las normales para cada vértice es, después de que las caras han sido creadas, promediar las normales de todas las caras que comparten un vértice del triángulo. A continuación, en la Figura \ref{normales}, se muestra el resultado de generar una esfera utilizando el sombreado de Phong\cite{realtimerendering}, a la derecha se muestra como se visualiza suave por contar con las normales para cada vértice, mientras que a la izquierda aprecia facetada ya que se tiene una única normal cada poligono.
+\begin{figure}[h]
+\includegraphics[width =0.45\linewidth]{facetado.png}
+\hfill
+\includegraphics[width =0.45\linewidth]{noFacetado.png}
+\caption{ Ejemplos de distintas configuraciones de normales de la misma figura utilizando el sombreado de Phong.}
+\label{normales}
+\end{figure}
+
+Otro enfoque común es asignar a cada vértice una media ponderada de las normales de los polígonos que comparten el vértice. El peso es  inversamente proporcional al área del polígono, por lo que pequeños polígonos tienen mayor peso. La idea es que estos últimos pueden ocurrir en las regiones de alta curvatura de la superficie.
+
 \clearpage
 \section{Exploración de SURFER}
 Inicialmente se investigó la posibilidad de extender las funcionalidades de SURFER para que soportase la visualización estereoscópica, por este motivo se realizaron una serie de pruebas para determinar su viabilidad. En esta sección se presentan más funcionalidades del programa junto con una explicación de las pruebas realizadas.
@@ -543,21 +554,21 @@ El programa cuenta con una interfaz amigable, a través de la cual es muy sencil
 
 El motor utiliza el sombreado de Phong\cite{Phong} para la iluminación, por este motivo las figuras no proyectan sombras.
 
-Al ser una aplicación que utiliza ray casting la representación de las ecuaciones que se obtiene es muy fidedigna, pero para lograr funcionar en tiempo real muestra imágenes con una baja resolución mientras se está moviendo la cámara de forma de mantener 15 fps.
+Al ser una aplicación que utiliza ray casting la representación de las ecuaciones que se obtiene es muy fidedigna, pero para lograr funcionar en tiempo real muestra imágenes con una baja resolución mientras se está moviendo la cámara. De esta forma se intenta mantener unos 15 fps.
 
-Hay que destacar que en cada frame la aplicación interseca muchos rayos con la ecuación, por lo que la complejidad de la ecuación afecta la performance, es decir la calidad la imagen  y el framerate que se obtiene depende de la ecuación. Ésto se debe a que SURFER decide la resolución de la imagen a generar de forma dinámica dependiendo del tiempo que le lleva hacerla y de si la misma se está moviendo o no, de forma de no bajar demasiado de los 15 fps.
+Hay que destacar que en cada frame la aplicación interseca muchos rayos con la ecuación, por lo que la complejidad de la ecuación afecta la performance, es decir, la calidad la imagen  y el framerate que se obtiene depende de la ecuación. Ésto se debe a que SURFER decide la resolución de la imagen a generar de forma dinámica dependiendo del tiempo que le lleva hacerla y de si la misma se está moviendo o no, de forma de no bajar demasiado de los 15 fps.
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{surfer_en_movimiento.png}
 \caption{A la izquierda se ve la imagen una vez estabilizada, la cual posee una resolución de 796x796, mientras que a la derecha durante la rotación de la cámara la cual posee una resolución de 300x300.}
 \label{malaRES1}
 \end{figure}
 
-En la Figura \ref{malaRES1} se puede apreciar cómo baja la resolución de la ecuación cuando se rota la cámara de forma  que el framerate no sufra un impacto tan grande. Hay que destacar que cuánto más cerca de la pantalla se encuentre el observador, se volverá aún más notorio el efecto de pixelación de la imagen producto de su baja resolución, perjudicando la experiencia de realidad virtual. También será muy notoria la inestabilidad en cuanto a la resolución, ya que cada vez que se rota la cámara la misma se reduce de forma drástica. Considerando que es muy difícil que un  usuario de Oculus Rift o similar mantenga la cabeza lo suficientemente inmóvil de manera que no baje la resolución, la mayoría del tiempo se estaría visualizando las superficies en baja resolución. El hecho de que la resolución de las imágenes es cercana a 300x300 probablemente provoque Virtual Reality Sickness\footnote{Este fenómeno se presenta en la sección 2.4}.
+En la Figura \ref{malaRES1} se puede apreciar cómo baja la resolución de la ecuación cuando se rota la cámara de forma  que el framerate no sufra un impacto tan grande. Hay que destacar que cuánto más cerca de la pantalla se encuentre el observador, se volverá aún más notorio el efecto de pixelación de la imagen producto de su baja resolución, perjudicando la experiencia de realidad virtual. También será muy notoria la inestabilidad en cuanto a la resolución, ya que cada vez que se rota la cámara, la resolución se reduce de forma drástica. Considerando que es muy difícil que un  usuario de Oculus Rift o similar mantenga la cabeza lo suficientemente inmóvil de manera que no baje la resolución, la mayoría del tiempo se estaría visualizando las superficies en baja resolución. El hecho de que la resolución de las imágenes es cercana a 300x300 probablemente provoque Virtual Reality Sickness (Sección 2.4).
 
-Se intentó extender esta aplicación para darle soporte al Oculus Rift. Persiguiendo este fin se realizaron una serie de pruebas, donde se detectó que la resolución de las imágenes es demasiado pequeña cuando se intenta generar dos imágenes (una desde el punto de vista de cada ojo) aunque fuesen ecuaciones sencillas. El efecto se puede apreciar en la Figura \ref{malaRES2} donde en una versión modificada de SURFER se colocaron dos imágenes y a ambas se les aplicó la distorsión de barril. La imagen de la izquierda es cuando están quietas, la de la derecha cuando hay movimiento\footnote{Para obtener estos valores se modificó el nivel al que intenta mantener el framerate SURFER, el cual fue disminuido a 12fps.}.
+Se intentó extender esta aplicación para darle soporte al Oculus Rift. Persiguiendo este fin se realizaron una serie de pruebas, donde se detectó que la resolución de las imágenes es demasiado pequeña cuando se intentan generar dos imágenes (una desde el punto de vista de cada ojo), aunque fuesen ecuaciones sencillas. El efecto se puede apreciar en la Figura \ref{malaRES2} donde en una versión modificada de SURFER se colocaron dos imágenes y a ambas se les aplicó la distorsión de barril. La imagen de la izquierda es cuando están quietas, la de la derecha cuando hay movimiento\footnote{Para obtener estas imágenes se modificó el nivel al que intenta mantener el framerate SURFER, el cual fue disminuido a 12fps.}.
 \clearpage
 \begin{figure}[h!]
-\includegraphics[width=\textwidth]{se_puede_doble.png}
+\includegraphics[width=\textwidth]{se_puede_doble2.png}
 \caption{A la izquierda se ve la imagen una vez estabilizada con una resolución de 796x796, mientras que a la derecha durante la rotación de la cámara con una resolución de 312x312.}
 \label{malaRES2}
 \end{figure}
@@ -986,7 +997,9 @@ En estas pruebas se puede apreciar que el algoritmo Marching Tetrahedra, cuando 
 A igual cantidad de caras, se puede notar que Marching Tetrahedra es inferior, ya que sus mallas son de peor calidad. Esto se debe a que al tener un paso distinto recibe menos información de la función ya que la misma se discretiza considerando el paso. Cuando se fija la cantidad de caras, se puede apreciar que Marching Tetrahedra se vuelve más rápido que Marching Cubes en algunos escenarios, pero no que Naive Surface Nets.
 
 \subsection{ Estudio de framerate}
-Para realizar un análisis del framerate se colocaron distintas ecuaciones y se registró el framerate promedio luego de 1 minuto de rotar la cámara alrededor de ellas. A continuación se presenta una tabla con la cantidad de caras de la ecuación y el framerate promedio obtenido en Nightly. La resolución de la pantalla es de 1920x1080p.
+Para realizar un análisis del framerate se colocaron distintas ecuaciones y se registró el framerate promedio luego de 1 minuto de rotar la cámara alrededor de ellas. Al ser la cantidad de polígonos  el factor de mayor incidencia en el framerate de una aplicación de éste estilo, se registro solamente la cantidad de caras y no que ecuación se utilizó.
+
+A continuación se presenta la Tabla \ref{fps} con la cantidad de caras de la ecuación y el framerate promedio obtenido en Nightly. La resolución de la pantalla es de 1920x1080p.
 \begin{table}[h!]
   \centering
   \label{tab:table1}
@@ -1003,17 +1016,18 @@ Para realizar un análisis del framerate se colocaron distintas ecuaciones y se 
     \bottomrule
   \end{tabular}
   \caption{Comparación entre la cantidad de caras de la ecuación y framerate obtenido.}
+\label{fps}
 \end{table}
 
-Estas pruebas se realizaron generando sólo un punto de vista, por lo que, en modo VR, el framerate sería menor. Aún así la mayoría de las pruebas poseen resultados muy superiores a los 120$fps$ (60Hz es la velocidad de refresco del DK1). Utilizando esto como refencia la única escena que generaría problemas es la de casi tres millones de triángulos.
-\\\\\\\\
-\subsection{Comparación con SURFER en puntos singulares}
-Los puntos singulares presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando Surfer con nuestra aplicación. 
+Estas pruebas se realizaron generando sólo un punto de vista, por lo que, en modo VR, el framerate sería menor. Aún así la mayoría de las pruebas poseen resultados muy superiores a los 120$fps$ (60Hz es la velocidad de refresco del DK1). Utilizando esto como refencia la única escena que generaría problemas es la de casi tres millones de triángulos, para llegar a esa cantidad es necesario tener una gran cantidad de ecuaciones o poner un paso muy pequeño.
 
-Para hacerlo se utilizó una ecuación con 216 puntos singulares.\\
+\subsection{Comparación con SURFER en puntos singulares}
+Los puntos singulares, puntos donde PONER DEFINICIÖN DECENTE, presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando SURFER con nuestra aplicación. 
+
+Para hacerlo se utilizó una ecuación con 216 puntos singulares creada por Breske, Labs y van Straten \cite{216s}.\\
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{comp1.png}
-\caption{Comparación de una figura con 216 puntos singulares utilizando SURFER y la aplicación desarrollada.}
+\caption{Comparación de una figura con 216 puntos singulares creada por Breske, Labs y van Straten utilizando SURFER y la aplicación desarrollada.}
 \label{svi1}
 \end{figure}
 
@@ -1024,23 +1038,23 @@ En la Figura \ref{svi1} a la izquierda se puede apreciar la imagen generada con 
 \caption{Comparación cuando se realiza zoom hacia un punto singular de la figura anterior.}
 \label{svi2}
 \end{figure}
-Se aprecia a la izquierda de la Figura \ref{svi2} cómo se visualiza cuando se utiliza el zoom de SURFER, y a la derecha lo que sucede si se utiliza la herramienta de corte para realizar un recálculamiento de la zona problemática. 
+Se aprecia a la izquierda de la Figura \ref{svi2} cómo se visualiza cuando se utiliza el zoom de SURFER, y a la derecha lo que sucede si se utiliza la herramienta de zoom presentada en la Sección 5, para realizar un recálculo de la zona problemática. 
 
-De estas pruebas se desprende que los puntos singulares son problemáticos, así como los resultados obtenidos no son tan precisos como los de SURFER, pero si se quiere visualizar esa zona en particular se puede recalcular con mayor calidad obteniendo resultados de una calidad similar a la de SURFER.
+De estas pruebas se desprende que los puntos singulares son problemáticos, así como los resultados obtenidos no son tan precisos como los de SURFER. Por otra parte, si se quiere visualizar algún punto singular en particular se puede recalcular con mayor calidad obteniendo resultados de una calidad similar a la de SURFER.
 
 \subsection{Composición de ecuaciones}
-La aplicación desarrollada puede ser utilizada con fines pedagógicos. En esta sección se muestran algunas formas de utilizar el programa para motivar a jóvenes a realizar ecuaciones de forma sencilla e intuitiva, de manera de atraerlos al mundo de la matemática.
+La aplicación desarrollada puede ser utilizada con fines pedagógicos. En esta sección se muestran algunas formas de utilizar el programa para  realizar ecuaciones de forma sencilla e intuitiva, de manera de de poder generar superficies a partir de algunas más simples.
 
-Uno de los más útiles usos para el software desarrollado es utilizar la matemática para generar objetos conocidos del mundo real, es decir objetos cotidianos como un tornillo. Una forma de lograr ésto es por medio de la unión, intersección y resta de superficies. Esta aplicación puede lograr cada una de las 3 operaciones de 3 formas distintas.
+Uno de los más útiles usos para el software desarrollado es utilizar la matemática para generar objetos conocidos del mundo real, es decir objetos cotidianos. Una forma de lograr ésto es por medio de la unión, intersección y resta de superficies. Esta aplicación puede lograr cada una de las 3 operaciones de 3 formas distintas.
 
-Estas tres operaciones permiten una increíble flexibilidad, y se pueden aprovechar para generar una gran cantidad de superficies. Con estas operaciones se pueden generar todos los cuerpos platónicos, un cilindro con “tapa”, el anillo de Saturno, un tornillo, etc. A continuación se muestran algunos ejemplos.\\
+Estas tres operaciones permiten una increíble flexibilidad, y se pueden aprovechar para generar una gran cantidad de superficies. A continuación se muestran algunos ejemplos.\\
 \begin{wrapfigure}{l}{0.4\textwidth}
 \includegraphics[width=0.9\linewidth]{dodecaedro.png} 
 \caption{Dodecaedro generado con la aplicación desarrollada.}
 \label{dode}
 \end{wrapfigure}
 
-Se pueden ver dos ecuaciones generadas con nuestra aplicación con las operaciones expresadas anteriormente. Particularmente, en la Figura \ref{dode}, se puede apreciar un dodecaedro realizado intersecando 12 semiespacios definidos por planos, y en la Figura \ref{tornillo} un tornillo generado a través de la resta entre un cilindro  y una ecuación similar a un resorte.
+Se pueden ver dos ecuaciones generadas con nuestra aplicación con las operaciones expresadas anteriormente. Particularmente, en la Figura \ref{dode}, se puede apreciar un dodecaedro realizado intersecando 12 semiespacios definidos por planos, y en la Figura \ref{tornillo} un "tirabuzón" generado a través de la resta entre un cilindro  y una ecuación similar a un resorte.
 \\
 \\
 \\
@@ -1051,17 +1065,17 @@ Se pueden ver dos ecuaciones generadas con nuestra aplicación con las operacion
 
 \begin{figure}[h]
 \includegraphics[width=0.7\linewidth,center]{tornillo.png}
-\caption{Tornillo generado con la aplicación desarrollada.}
+\caption{Tirabuzón generado con la aplicación desarrollada.}
 \label{tornillo}
 \end{figure}
 \subsubsection{Unión de ecuaciones}
-Supongamos que contamos con dos superficies $f(x,y,z)=0$ y $g(x,y,z)=0$ (para lo que sigue se asume que el interior de las ecuaciones es negativo y el exterior positivo), si se quiere generar  $\cup(f,g)$ se puede realizar de 3 modos. En la Figura \ref{union} se puede ver el resultado de unir dos esferas.
+Supongamos que contamos con dos volúmenes $f(x,y,z)=0$ y $g(x,y,z)=0$ (para lo que sigue se asume que el interior de las ecuaciones es negativo y el exterior positivo), si se quiere generar  $\cup(f,g)$ se puede realizar de 3 modos. En la Figura \ref{union} se puede ver el resultado de unir dos esferas.
 \\En el primer modo se le resta a la suma, la resta del valor absoluto, es decir $\cup(f,g) =  f(x,y,z) + g(x,y,z) - |f(x,y,z) - g(x,y,z)|$. 
 \\En el segundo caso se le resta a la suma la raíz cuadrada de la suma de los cuadrados de las funciones  $\cup(f,g) = f(x,y,z) + g(x,y,z) -\sqrt[2]{f^2(x,y,z) + g^2(x,y,z)}$.
 \\En el tercer tipo se toma el mínimo de las dos  $\cup(f,g)=min(f(x,y,z),g(x,y,z))$
 \clearpage
 \begin{figure}[h]
-\includegraphics[width=\linewidth,center]{oi1.png}
+\includegraphics[width=0.7\linewidth,center]{oi1.png}
 \caption{Unión de dos esferas generada con la aplicación desarrollada.}
 \label{union}
 \end{figure}
@@ -1071,9 +1085,9 @@ Supongamos que se cuenta con dos superficies iguales a las del punto anterior y 
 \\El primero consiste en agregarle a la suma el valor absoluto de la resta  $\cap(f,g)= f(x,y,z) + g(x,y,z)+ |f(x,y,z) - g(x,y,z)|$ 
 \\El segundo método consiste en sumarle a la suma la raíz cuadrada de la suma de los cuadrados de las funciones   $\cap(f,g)= f(x,y,z) + g(x,y,z)+ \sqrt[2]{f^2(x,y,z) +g^2(x,y,z)}$ 
 \\Por último, el tercer método toma el máximo de las dos   $\cap(f,g)= max(f(x,y,z) , g(x,y,z))$
-\clearpage
+%\clearpage
 \begin{figure}[h]
-\includegraphics[width=\linewidth,center]{oi2.png}
+\includegraphics[width=0.7\linewidth,center]{oi2.png}
 \caption{Intersección de dos esferas generada con la aplicación desarrollada.}
 \label{inter}
 \end{figure}
@@ -1084,7 +1098,7 @@ Nuevamente, partiendo de dos superficies, f y g, que cumplen las mismas propieda
 \\La segunda consiste en sumarle a la resta la raíz cuadrada de la suma de los cuadrados $dif(f,g) = f(x,y,z) - g(x,y,z) + \sqrt[2]{f^2(x,y,z) + g^2(x,y,z)}$ 
 \\Finalmente también es posible tomar el máximo entre $f$ y menos $g$, $max(f(x,y,z),-g(x,y,z))$
 \begin{figure}[h]
-\includegraphics[width=\linewidth,center]{oi3.png}
+\includegraphics[width=0.7\linewidth,center]{oi3.png}
 \caption{Resta de dos esferas generada con la aplicación desarrollada.}
 \label{resta}
 \end{figure}
@@ -1231,6 +1245,10 @@ Descargado 2016-05-27
 Bourke, P., (1997) \textit{Trilinear Interpolation},
 Vistado 2016-05-24 
 \\\url{http://paulbourke.net/miscellaneous/interpolation/}
+
+\bibitem{216s} 
+Breske, S., Labs, O., van Straten, D., (2005) \textit{REAL LINE ARRANGEMENTS AND SURFACES WITH MANY REAL NODES},\\
+Institut fur Mathematik, Johannes Gutenberg Universitat Mainz.
 
 \bibitem{surfacenets} 
 Gibson, S., (1999) \textit{Constrained Elastic SurfaceNets: Generating Smooth Models from Binary Segmented Data},\\
@@ -1758,7 +1776,7 @@ En las Tablas \ref{enc1} y \ref{enc2} se muestran las respuestas recibidas a la 
     ]{data1.txt}
  \caption{Calidad de la interfaz.}
   \end{table}
-\fi
+%grafica
   \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}
@@ -1769,10 +1787,12 @@ En las Tablas \ref{enc1} y \ref{enc2} se muestran las respuestas recibidas a la 
     \caption{Gráfica de la calidad de la interfaz según los usuarios entrevistados.}
   \label{enc1G}
   \end{figure}
+\fi
 
-Como se puede apreciar en la gráfica de la Figura \ref{enc1G} los usuarios no tuvieron inconvenientes con la interfaz, pudiéndola usar sin problemas.
+Como se puede apreciar en la Tabla \ref{enc1} los usuarios no tuvieron inconvenientes con la interfaz, pudiéndola usar sin problemas.
+
 %segunda
-\clearpage
+%\clearpage
 \begin{table}[h!]
   \centering
   \begin{tabular}{ccc}
@@ -1791,7 +1811,7 @@ Como se puede apreciar en la gráfica de la Figura \ref{enc1G} los usuarios no t
 \end{table}
 %tabla que se genera utilizando el archivo pero queda fea
 \iffalse
-\begin{table}[!ht]
+\begin{table}[!h]
     \label{tab:data}
     \centering
     \pgfplotstabletypeset[
@@ -1802,7 +1822,7 @@ Como se puede apreciar en la gráfica de la Figura \ref{enc1G} los usuarios no t
     ]{data2.txt}
     \caption{Forma de ingresar ecuación.}
   \end{table}
-\fi
+%grafica
   \begin{figure}[!ht]
     \centering
     \begin{tikzpicture}
@@ -1813,8 +1833,8 @@ Como se puede apreciar en la gráfica de la Figura \ref{enc1G} los usuarios no t
     \caption{Gráfica de la calidad de la manera de ingresar la ecuación según los usuarios entrevistados.}
   \label{enc2G}
   \end{figure}
-
-De la gráfica de la Figura \ref{enc2G} se desprende que a los usuarios les pareció satisfactoria la forma de ingresar las ecuaciones, siendo capaces de incorporarlas de forma bastante intuitiva . Ésto se debe a que la forma de ingresarlas es similar a la utilizada en varios programas de matemática, por lo que les fue sencillo a los usuarios reconocerla como familiar.
+\fi
+De la Tabla \ref{enc2} se desprende que a los usuarios les pareció satisfactoria la forma de ingresar las ecuaciones, siendo capaces de incorporarlas de forma bastante intuitiva . Ésto se debe a que la forma de ingresarlas es similar a la utilizada en varios programas de matemática, por lo que les fue sencillo a los usuarios reconocerla como familiar.
 
 Los usuarios en general no tuvieron inconvenientes con las superficies generadas, aunque un usuario señaló que la esfera no era completamente esférica cuando le disminuyó el paso del algoritmo. 
 
@@ -1837,7 +1857,7 @@ Otro usuario recomendó que se le pusiera sonido a la aplicación.
 
 Una recomendación que se obtuvo por parte de uno de los usuarios, fue que para ayudar a los más inexpertos en el mundo de la matemática se podría agregar de forma similar al "Clip" de Word 2003, un asistente que brinde ayudas. Las mismas podrían ayudar a los usuarios a aprender aún más, a través de consejos y hasta ejercicios para que realice. Persiguiendo este fin, diseñamos a \textit{Equationcito, tu amigo imaginario}, el cual se puede apreciar en la Figura \ref{equationcito}.
 \begin{figure}[h]
-\includegraphics[width=0.3\textwidth,center]{equationcito.png}
+\includegraphics[width=0.2\textwidth,center]{equationcito.png}
 \caption{Equationcito la mascota oficial de Implicitus.}
 \label{equationcito}
 \end{figure}

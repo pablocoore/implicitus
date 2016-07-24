@@ -635,7 +635,7 @@ Para que la aplicación funcione con Oculus Rift, se utilizó MozVR lo que permi
 
  Para tener una arquitectura MVC bien definida se utilizó AngularJS. Se decidió utilizar este framework con la intención de que la arquitectura obtenida fuese más clara y extendible de manera más sencilla.
 
-El sitio desarrollado utiliza los algoritmos presentados anteriormente basados en el trabajo de Mykola Lysenko\cite{mykola1}\cite{mykola2} para generar una malla poligonal de las ecuaciones ingresadas por el usuario con el paso seleccionado por éste. El paso se usa para la definición de la grilla sobre la cual se generará la malla, ésta genera dividiendo el intervalo ingresado de manera que cada sección de la grilla posea la medida del paso. Se trabajó sobre el código de Lysenko y se le realizaron una serie de modificaciones para que funcionase con THREEJS, particularmente en la versión 73. Además de esas modificaciones, a la geometría devuelta por estos algoritmos, se les calculó las normales en de sus vértices, ésto, cómo se explicó previamente permite que la visualización no sea facetada, lo que permite que la ecuación sea visualmente más atractiva. 
+El sitio desarrollado utiliza los algoritmos presentados anteriormente basados en el trabajo de Lysenko\cite{mykola1}\cite{mykola2} para generar una malla poligonal de las ecuaciones ingresadas por el usuario con el paso seleccionado por éste. El paso se usa para la definición de la grilla sobre la cual se generará la malla, ésta genera dividiendo el intervalo ingresado de manera que cada sección de la grilla posea la medida del paso. Se trabajó sobre el código de Lysenko y se le realizaron una serie de modificaciones para que funcionase con THREEJS, particularmente en la versión 73. Además de esas modificaciones, a la geometría devuelta por estos algoritmos, se les calculó las normales en de sus vértices, ésto, cómo se explicó previamente permite que la visualización no sea facetada, lo que permite que la ecuación sea visualmente más atractiva. 
 
 La geometría obtenida es mostrada en una escena tridimensional, que puede ser navegada por el usuario de distintos modos, así como se le puede modificar varios parámetros, como la luz, la textura de la ecuación y hasta puede aplicarle efectos generados por shaders programados en GLSL.
 
@@ -727,7 +727,14 @@ El backend de la aplicación fue realizado en el lenguaje Python con el framewor
 Esta parte de la aplicación presenta una ventaja sobre otro tipo de aplicaciones similares, ya que permite que usuarios de distintas partes de mundol compartan ecuaciones interesantes. Además de que a medida de que más usuarios generan y almacenan ecuaciones la aplicación va creciendo en cuanto al catálogo de ecuaciones que ofrece.
 \clearpage
 \subsection{Interfaz}
-En este punto se muestran los distintos modos con los que se puede interactuar con la aplicación. Este punto es una breve descripción, se puede encontrar más información en el Anexo C.
+En este punto se muestran los distintos modos con los que se puede interactuar con la aplicación. Este punto es una breve descripción, se puede encontrar más información en el Anexo C. En la Figura \ref{pantalla} se observa la aplicación y se marcan los distintos componentes.
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth,center]{pantalla-aplicacion.png}
+\caption{Captura de pantalla que muestra la aplicación que muestra los distintos sectores.}
+\label{pantalla}
+\end{figure}
+
 \subsubsection{Menú lateral}
 La aplicación cuenta con un menú lateral, donde se puede controlar una serie de parámetros. En ese menú se ingresa la ecuación, así como se configura una serie de parámetros, como la zona que se quiere generar, el paso del algoritmo, qué algoritmo se desea utilizar,etc. 
 \subsubsection{Mensajes}
@@ -742,52 +749,32 @@ El mouse se utiliza principalmente para controlar la cámara cuando no se está 
 Por otra parte se puede utilizar el teclado para una gran cantidad de funciones. Entre ellas se encuentra desplazarse, mover las luces, cambiar el material de la ecuación, cambiar la ecuación, activar/desplazar/agrandar/achicar el cubo de zoom, etc. La mayoría de las funciones de la aplicación se pueden realizar apretando una serie de teclas.
 
 Para más información acerca de la función de cada una de las teclas dirigirse al Anexo C, donde se encuentra un manual de usuario.
-\clearpage
+
+%\clearpage
+
 \subsubsection{Joystick}
 La aplicación también se puede utilizar con el joystick de XBOX ONE (Figura \ref{xbox}). El cual permite, cuando se encuentra en modo VR, desplazarse de forma más intuitiva y cómoda que si se utilizase el teclado. El mismo puede conectarse de forma inalámbrica.\\
 \begin{figure}[h!]
-\includegraphics[width=0.7\textwidth,center]{joystickPosta.png}
+\includegraphics[width=0.5\textwidth,center]{joystickPosta.png}
 \caption{Joystick de XBOX ONE.}
 \label{xbox}
 \end{figure}
 
 El joystick permite una gran flexibilidad ya que puede utilizarse de forma más sencilla que un teclado cuando se está utilizando el Oculus Rift. Ésto se debe en parte, en que es más simple para la mayoría de los usuarios detectar dónde se encuentran los botones sin mirar por su forma ergonómica. Por este motivo, se aumenta significativamente el grado de usabilidad de la aplicación, ya que se vuelve más sencilla de utilizar para los usuarios, principalmente para los jóvenes que tienen mayor experiencia con un joystick.
 \clearpage
-\section{Pruebas}
-En esta sección se presentan las pruebas que realizamos sobre el sistema, así como los resultados obtenidos. Las pruebas se dividen en cinco tipos, el primero es una comparación entre la performance y los resultados obtenidos utilizando cada uno de los 3 algoritmos. El segundo tipo, es cuántos fps se lograron obtener para una serie de ecuaciones, considerando la cantidad de polígonos que había en la escena. El tercero es una comparación entre SURFER y nuestra aplicación cuando se trata de puntos singulares, éstos son los puntos donde nuestra aplicación genera algunos artefactos. Los últimos dos tipos son una serie de operaciones interesantes que permite realizar la aplicación y una galería de imágenes.
-\subsection{Hardware utilizado}
-Las pruebas en PC se realizaron sobre un notebook Alienware M17xR4. El cual cuenta con un procesador Intel I7-3840QM de 2.8 GHz con Turboboost hasta 3.8 GHz. La memoria RAM es de 32 GB de 1777 MHz, y cuenta con una tarjeta de video NVIDIA 680M.
+\section{Análisis experimental}
+En esta sección se presentan los experimentos que realizamos sobre el sistema, así como los resultados obtenidos. Las pruebas se dividen en cinco tipos, el primero es una comparación entre la performance y los resultados obtenidos utilizando cada uno de los 3 algoritmos. El segundo tipo, es cuántos fps se lograron obtener para una serie de ecuaciones, considerando la cantidad de polígonos que había en la escena. El tercero es una comparación entre SURFER y nuestra aplicación cuando se trata de puntos singulares, éstos son los puntos donde nuestra aplicación genera algunos artefactos. Los últimos dos tipos son una serie de operaciones interesantes que permite realizar la aplicación y una galería de imágenes.
+\subsection{Hardware y Software utilizado}
+Las pruebas en PC se realizaron sobre un notebook Alienware M17xR4. El cual cuenta con un procesador Intel I7-3840QM de 2.8 GHz con Turboboost hasta 3.8 GHz. La memoria RAM es de 32 GB de 1777 MHz, y cuenta con una tarjeta de video NVIDIA 680M. Se utilizó un Oculus DK1 y un Oculus DK2 como dispositivos de realidad virtual. La aplicación se testeó utilizando Firefox Nightly 48.0a1 con el plugin Mozilla WebVR plus 0.5.0. Se utilizó el runtime de Oculus 0.8.0.0. Todo se corrió sobre Windows 10.
 
-Se utilizó un DK1 y un DK2 como dispositivos de realidad virtual.
-
-En las plataformas móviles, se utilizó un Samsung  Galaxy S5 y un Samsung  Galaxy Note3, junto con un Google Cardboard. 
-
-\subsection{Software utilizado}
-En PC la aplicación se testeó utilizando Firefox Nightly 48.0a1 con el plugin Mozilla WebVR plus 0.5.0. Se utilizó el runtime de Oculus 0.8.0.0. Todo se corrió sobre Windows 10.
-
-En los teléfonos celulares se ejecutó sobre Google Chrome.
+En las plataformas móviles, se utilizó un Samsung  Galaxy S5 y un Samsung  Galaxy Note3, junto con un Google Cardboard. La ejecución fue sobre Google Chrome.
 
 \subsection{Comparación entre meshers}
 \subsubsection{Comparación a través de sucesiones}
-La primer prueba que se realizó, fue fijando la bounding box y el paso del algoritmo, se utilizó una sucesión de superficies, generándolas con los tres algoritmos y registrando sus tiempos. Este tipo de comparación fija la información de la función que se utiliza para la generación de la geometría, pero los distintos algoritmos generan distintas cantidades de caras.
+La primer prueba que se realizó persiguió medir el tiempo que le lleva a cada algoritmo generar superficies. Para medirlo se fijó la bounding box y el paso del algoritmo, se utilizó una sucesión de superficies, generándolas con los tres meshers y registrando sus tiempos. Este tipo de comparación fija la información de la función que se utiliza para la generación de la geometría, pero los distintos algoritmos generan distintas cantidades de caras.
 
-Se utilizó como intervalo $[-4,4]$ en los tres ejes, y el paso fue 0.05. La sucesión que se utilizó fue $cos(\frac{n\pi x}{2}) + cos(\frac{n\pi y}{2}) +cos(\frac{n\pi z}{2}) =0$, en las Figuras \ref{ejsuc1} y \ref{ejsuc2} se aprecian algunas de las superficies que forman parte de la sucesión. Los tiempos de la Tabla \ref{suc1} son en segundos y son los promedios de 10 ejecuciones.
-\begin{table}[h!]
-  \centering
-  \begin{tabular}{cccc}
-    \toprule
-    Valor de n & Surface Nets (s) & Marching Tetrahedra (s) & Marching Cubes (s)\\
-    \midrule
-    1 & 2,859 & 19,276 & 3,937\\
-    2 & 5,406 & 42,700 & 15,972\\
-    3 & 11,348 & 105,802 & 25,328\\
-    \bottomrule
-  \end{tabular}
-  \caption{Primera comparación con sucesiones.}
-  \label{suc1}
-\end{table}
+Se utilizó como intervalo $[-1,1]$ en los tres ejes, y el paso fue 0.05 (la variación en los tres ejes que utilizan los algoritmos para generar la grilla). La sucesión que se utilizó fue $F_n(x,y,z) = cos(\frac{n\pi x}{2}) + cos(\frac{n\pi y}{2}) +cos(\frac{n\pi z}{2}) =0$, dónde varía $n$ entre 1 y 10, en las Figuras \ref{ejsuc1} y \ref{ejsuc2} se aprecian algunas de las superficies que forman parte de la sucesión. Se decidió utilizar esa sucesión ya que es similar a la utilizada por Lysenko en una de sus pruebas. Los tiempos de la Tabla \ref{suc2} son en segundos y son el promedio de 15 ejecuciones.\\\\\\\\\\
 
-Luego se decidió utilizar la misma sucesión pero disminuyendo los límites de manera que los tiempos fueran menores, con el fin de poder realizar una mayor cantidad de ejecuciones por nivel y obtener una mayor significancia estadística, esta vez se ejecutaron 15 veces. Los límites se cambiaron a $[-1,1]$. Los resultados se presentan en la Tabla \ref{suc2} \\
 \begin{table}[h!]
   \centering
   \begin{tabular}{cccc}
@@ -806,25 +793,29 @@ Luego se decidió utilizar la misma sucesión pero disminuyendo los límites de 
     10 & 0,345 & 1,840 & 0,671\\
     \bottomrule
   \end{tabular}
-  \caption{Segunda comparación con sucesiones.}
+  \caption{Comparación con sucesiones.}
   \label{suc2}
 \end{table}
+
 \begin{figure}[h!]
 \includegraphics[width =0.45\linewidth]{n3.png}
 \hfill
 \includegraphics[width =0.45\linewidth]{n5.png}
-\caption{ A la izquierda se visualiza la función con n igual 3, a la derecha con n igual 5.}
+\caption{ A la izquierda se visualiza la función con n = 3, a la derecha con n = 5.}
 \label{ejsuc1}
 \end{figure}
+
 \begin{figure}[h!]
 \includegraphics[width =0.45\linewidth]{n9.png}
 \hfill
 \includegraphics[width =0.45\linewidth]{n10.png}
-\caption{ A la izquierda se visualiza la función con n igual 9, a la derecha con n igual 10.}
+\caption{ A la izquierda se visualiza la función con n = 9, a la derecha con n = 10.}
 \label{ejsuc2}
 \end{figure}
 
-Luego para comparar el tiempo que lleva generar la superficies con cada algoritmo cuando la cantidad de caras es similar, se crearon las mismas ecuaciones pero con distintos pasos. Ésto se debe a que en general Marching Tetrahedra genera 3 veces más caras que los otros dos algoritmos. Se utilizó 0.05 como paso en Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra. Los resultados se pueden ver en la Tabla \ref{tablaSIC}. Como las ejecuciones anteriores para Naive Surface Nets y Marching Cubes ya utilizaban ese paso sólo se ejecutó nuevamente la parte de Marching Tetrahedra.
+%\clearpage
+
+Luego para comparar el tiempo que lleva generar la superficies con cada algoritmo cuando la cantidad de caras es similar, se crearon las mismas ecuaciones pero con distintos pasos. Ésto se debe a que en general Marching Tetrahedra genera aproximadamente 3 veces más caras que los otros dos algoritmos. Se utilizó 0.05 como paso en Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra (el número se obtuvo experimentalmente). Los resultados se pueden ver en la Tabla \ref{tablaSIC}. Como las ejecuciones anteriores para Naive Surface Nets y Marching Cubes ya utilizaban ese paso sólo se ejecutó nuevamente la parte de Marching Tetrahedra.
 \begin{table}[h!]
   \centering
   \begin{tabular}{cccc}
@@ -846,7 +837,7 @@ Luego para comparar el tiempo que lleva generar la superficies con cada algoritm
   \caption{Comparación con sucesiones a similar cantidad de caras.}
   \label{tablaSIC}
 \end{table}
-\clearpage
+
 \subsubsection{Comparación a través de ecuaciones puntuales}
 A continuación se realizaron ciertas ecuaciones con los tres algoritmos con la intención de observar cómo se comportan, y cuál produce mejores resultados visuales. El orden de las imágenes es análogo a la tabla. Para mostrar ésto además de las imágenes comparativas se colocaron tablas que contienen la cantidad de vértices y caras de cada figura para cada algoritmo. Las caras son todas triangulares, por lo que Surface Nets, que genera caras rectangulares se contó cada una como dos (se dividieron en dos triángulos).
 
@@ -877,7 +868,12 @@ Se puede apreciar en el sector superior a la derecha como Marching Tetrahedra ge
 \label{acercamientoEsf}
 \end{figure}
 
-Con una segunda ecuación se obtuvo lo que se muestra en la Figura\ref{ecuacionG} y en la Tabla \ref{ecuacionT} con un paso de 0.05.
+Con una segunda ecuación perteneciente a la familia de ecuaciones de Óctica de Chmutov, la cual se puede observar generada por SURFER en la Figura \ref{CHSURFER}, se obtuvo lo que se muestra en la Figura\ref{ecuacionG} y en la Tabla \ref{ecuacionT} con un paso de 0.05.
+\begin{figure}[h!]
+\includegraphics[width=0.8\linewidth,center]{ecuacion.png}
+\caption{Ecuación  perteneciente a la familia de ecuaciones de Óctica de Chmutov generada con SURFER.}
+\label{CHSURFER}
+\end{figure}
 %\clearpage%a ver
 \begin{table}[h!]
   \centering
@@ -898,7 +894,7 @@ Con una segunda ecuación se obtuvo lo que se muestra en la Figura\ref{ecuacionG
   \label{ecuacionG}
 \end{figure}
 
-Finalmente con un cilindro se obtuvo lo que se muestra en la Table \ref{cilindro1T} y en la Figura \ref{cilindro1g}  utilizando un paso de 0.1.
+Finalmente con un cilindro se obtuvo lo que se muestra en la Table \ref{cilindro1T} y en la Figura \ref{cilindro1G}  utilizando un paso de 0.1.
 \begin{table}[h!]
   \centering
   \begin{tabular}{cccc}
@@ -919,8 +915,6 @@ Finalmente con un cilindro se obtuvo lo que se muestra en la Table \ref{cilindro
 \end{figure}
 
 Se puede apreciar en el cilindro arriba a la izquierda como Marching Tetrahedra genera una superficie más suave.
-%\clearpage ta no se queda molesto esto, por mas que no es el estandard me gusta mas
-\\\\\\\\\\\\\\\\\\
 
 De forma análoga a la sección anterior, se ejecutaron las mismas pruebas pero, en lugar de fijar el paso, se fijó la cantidad de caras, es decir, manteniendo la cantidad de caras generadas por cada algoritmo relativamente iguales.
 
@@ -1032,7 +1026,7 @@ Para hacerlo se utilizó una ecuación con 216 puntos singulares creada por Bres
 \end{figure}
 
 En la Figura \ref{svi1} a la izquierda se puede apreciar la imagen generada con SURFER y a la derecha la misma imagen generada con Marching Tetrahedra en nuestra aplicación. Se puede apreciar cómo SURFER resuelve los puntos singulares de mejor forma. A su vez se puede apreciar cómo nuestra aplicación posee sombras.
-\clearpage
+%\clearpage
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{comp2.png}
 \caption{Comparación cuando se realiza zoom hacia un punto singular de la figura anterior.}
@@ -1041,6 +1035,129 @@ En la Figura \ref{svi1} a la izquierda se puede apreciar la imagen generada con 
 Se aprecia a la izquierda de la Figura \ref{svi2} cómo se visualiza cuando se utiliza el zoom de SURFER, y a la derecha lo que sucede si se utiliza la herramienta de zoom presentada en la Sección 5, para realizar un recálculo de la zona problemática. 
 
 De estas pruebas se desprende que los puntos singulares son problemáticos, así como los resultados obtenidos no son tan precisos como los de SURFER. Por otra parte, si se quiere visualizar algún punto singular en particular se puede recalcular con mayor calidad obteniendo resultados de una calidad similar a la de SURFER.
+
+\subsection{Analisís de usuarios}
+Se presenta a continuación un breve resumen de lo obtenido al presentarle a los usuarios el cuestionario presentado en el Anexo H. Se realizaron pruebas con 13 individuos. Primero se les permitió experimentar con la aplicación libremente por unos 10 minutos, teniendo a su disposición el manual de usuario. Luego se les solicitó que realizaran la prueba presentada en el Anexo G. Las pruebas que se realizaron en PC fueron con el Oculus Rift DK1.
+
+Las críticas fueron positivas en general, la mayoría de los usuarios quedaron satisfechos con la aplicación. A continuación se presenta un resumen de los principales resultados obtenidos, junto con recomendaciones recibidas.
+
+En las Tablas \ref{enc1} y \ref{enc2} se muestran las respuestas recibidas a la primer y segunda pregunta respectivamente las cuales utilizan la escalada de Likert.
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{ccc}
+    \toprule
+    Número de opción &  Texto de la opción &Cantidad\\
+    \midrule
+    1 & Muy Mala & 0 \\
+    2 & Mala & 0 \\
+    3 & Ni buena ni mala & 1 \\
+    4 & Buena & 6\\
+    5 & Muy Buena & 6\\
+    \bottomrule
+  \end{tabular}
+  \caption{Calidad de la interfaz.}
+  \label{enc1}
+\end{table}
+%tabla que se genera utilizando el archivo pero queda fea
+\iffalse
+\begin{table}[!ht]
+    \label{tab:data}
+    \centering
+    \pgfplotstabletypeset[
+      sci zerofill,
+      precision=3,
+      columns/Respuesta/.style={column type=r},
+      columns/Cantidad/.style={dec sep align}
+    ]{data1.txt}
+ \caption{Calidad de la interfaz.}
+  \end{table}
+%grafica
+  \begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}
+        \addplot table {data1.txt};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{Gráfica de la calidad de la interfaz según los usuarios entrevistados.}
+  \label{enc1G}
+  \end{figure}
+\fi
+
+Como se puede apreciar en la Tabla \ref{enc1} los usuarios no tuvieron inconvenientes con la interfaz, pudiéndola usar sin problemas.
+
+%segunda
+%\clearpage
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{ccc}
+    \toprule
+    Número de opción &  Texto de la opción &Cantidad\\
+    \midrule
+    1 & Muy Mala & 0 \\
+    2 & Mala & 0 \\
+    3 & Ni buena ni mala & 2 \\
+    4 & Buena & 7\\
+    5 & Muy Buena & 4\\
+    \bottomrule
+  \end{tabular}
+  \caption{Forma de ingresar ecuación.}
+  \label{enc2}
+\end{table}
+%tabla que se genera utilizando el archivo pero queda fea
+\iffalse
+\begin{table}[!h]
+    \label{tab:data}
+    \centering
+    \pgfplotstabletypeset[
+      sci zerofill,
+      precision=3,
+      columns/Respuesta/.style={column type=r},
+      columns/Cantidad/.style={dec sep align}
+    ]{data2.txt}
+    \caption{Forma de ingresar ecuación.}
+  \end{table}
+%grafica
+  \begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}
+        \addplot table {data2.txt};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{Gráfica de la calidad de la manera de ingresar la ecuación según los usuarios entrevistados.}
+  \label{enc2G}
+  \end{figure}
+\fi
+De la Tabla \ref{enc2} se desprende que a los usuarios les pareció satisfactoria la forma de ingresar las ecuaciones, siendo capaces de incorporarlas de forma bastante intuitiva . Ésto se debe a que la forma de ingresarlas es similar a la utilizada en varios programas de matemática, por lo que les fue sencillo a los usuarios reconocerla como familiar.
+
+Los usuarios en general no tuvieron inconvenientes con las superficies generadas, aunque un usuario señaló que la esfera no era completamente esférica cuando le disminuyó el paso del algoritmo. 
+
+La mayoría de los usuarios encontró interesante los efectos visuales aplicados a las superficies a través de los shaders. Con respecto a este tema recibimos varias recomendaciones de distintos tipos de efectos que podrían ser interesantes para agregar en alguna versión futura entre ellos se encuentran: 
+\begin{itemize}
+\item que la lava se desprendiese de la ecuación
+\item generar un efecto de transición donde la ecuación se hace de arena y se la lleva el viento
+\item cell shading
+\item que la ecuación actuase como un espejo
+\end{itemize}
+Ninguno de los usuarios que probó la aplicación sufrío ningún tipo de malestar o mareo. Todos los usuarios dijeron haber tenido una buena experiencia de realidad virtual, aunque un usuario mencionó que la densidad de píxeles del dispositivo no era la ideal.
+
+En la versión móvil un usuario consultó por qué la ecuación se encontraba en un movimiento circular uniforme, si ésto era un error o no.
+
+En general la aplicación fue muy bien recibida por los usuarios, estando la mayoría muy satisfechos con el funcionamiento de la misma.
+
+Un usuario señaló que consideraría interesante la posibilidad de poder gráficar ecuaciones diferenciales con la aplicación. 
+
+Otro usuario recomendó que se le pusiera sonido a la aplicación.
+
+Una recomendación que se obtuvo por parte de uno de los usuarios, fue que para ayudar a los más inexpertos en el mundo de la matemática se podría agregar de forma similar al "Clip" de Word 2003, un asistente que brinde ayudas. Las mismas podrían ayudar a los usuarios a aprender aún más, a través de consejos y hasta ejercicios para que realice. Persiguiendo este fin, diseñamos a \textit{Equationcito, tu amigo imaginario}, el cual se puede apreciar en la Figura \ref{equationcito}.
+
+\begin{figure}[h]
+\includegraphics[width=0.2\textwidth,center]{equationcito.png}
+\caption{Equationcito la mascota oficial de Implicitus.}
+\label{equationcito}
+\end{figure}
+
 
 \subsection{Composición de ecuaciones}
 La aplicación desarrollada puede ser utilizada con fines pedagógicos. En esta sección se muestran algunas formas de utilizar el programa para  realizar ecuaciones de forma sencilla e intuitiva, de manera de de poder generar superficies a partir de algunas más simples.
@@ -1054,7 +1171,7 @@ Estas tres operaciones permiten una increíble flexibilidad, y se pueden aprovec
 \label{dode}
 \end{wrapfigure}
 
-Se pueden ver dos ecuaciones generadas con nuestra aplicación con las operaciones expresadas anteriormente. Particularmente, en la Figura \ref{dode}, se puede apreciar un dodecaedro realizado intersecando 12 semiespacios definidos por planos, y en la Figura \ref{tornillo} un "tirabuzón" generado a través de la resta entre un cilindro  y una ecuación similar a un resorte.
+Se pueden ver dos ecuaciones generadas con nuestra aplicación con las operaciones expresadas anteriormente. Particularmente, en la Figura \ref{dode}, se puede apreciar un dodecaedro realizado intersecando 12 semiespacios definidos por planos, y en la Figura \ref{tornillo} un "tirabuzón" generado a través de la resta entre un cilindro  y una ecuación similar a un resorte (se puede apreciar en la Figura \ref{grafobz}).
 \\
 \\
 \\
@@ -1116,6 +1233,14 @@ Cubo con bordes redondeados intersecado con una esfera, al que se le restan 3 ci
 \includegraphics[width=0.7\linewidth,center]{g2.png}
 \caption{La resta de tres cilindros a la intresección de una esfera y un cubo con los bordes redondeados.}
 \end{figure}
+
+En la Figura \ref{grafoed} se puede observar el grafo de construcción de la superficie anterior. 
+\begin{figure}[h!]
+\includegraphics[width=\linewidth,center]{figuraeduardo.png}
+\caption{Se aprecia el grafo de construcción de la figura.}
+\label{grafoed}
+\end{figure}
+
 \clearpage
 Anillo: $max(max(max(y,- (x^2 + y^2 + z^2-1)), -y- 0.01), (x^2 +y^2 +z^2 - 3))$ \\
 \begin{figure}[h!]
@@ -1129,12 +1254,18 @@ Cilindro con tapas: $((x^2/2 + y^2/2 - 1) + (z) + abs((x^2/2 + y^2/2 - 1)-(z)))+
 \caption{Intersección de un cilindro con dos planos.}
 \end{figure}
 \clearpage
-Tornillo: $max((x^2 + y^2 - 1) ,-((x-sin(z*10) )^2 + (y -cos (z*10))^2 -0.8))$ \\
+Tirabuzón: $max((x^2 + y^2 - 1) ,-((x-sin(z*10) )^2 + (y -cos (z*10))^2 -0.8))$ \\
 \begin{figure}[h!]
 \includegraphics[width=0.7\linewidth,center]{g5.png}
 \caption{Resta entre un cilindro y una ecuación similar a un resorte.}
 \end{figure}
 
+En la Figura \ref{grafobz} se puede observar el grafo de construcción de la superficie anterior. 
+\begin{figure}[h!]
+\includegraphics[width=\linewidth,center]{tirabuzongrafo.png}
+\caption{Se aprecia el grafo de construcción de la figura.}
+\label{grafobz}
+\end{figure}
 \clearpage
 \section{Conclusiones y trabajo a futuro}
 \subsection{Conclusiones}
@@ -1740,127 +1871,6 @@ A continuación se presenta la prueba que se le presentó a los usuarios para pr
 \textbf{¿Sufrío algún tipo de incomodidad o mareo durante el uso de la misma?}
 \\\\\\\\\\\\
 \textbf{¿Cuál es su opinión general de la aplicación?}
-\clearpage
-\section{Devolución de los usuarios}
-Se presenta a continuación un breve resumen de lo obtenido al presentarle a los usuarios el cuestionario presentado en el anexo anterior. Se realizaron pruebas con 13 individuos. Primero se les permitió experimentar con la aplicación libremente por unos 10 minutos, teniendo a su disposición el manual de usuario. Luego se les solicitó que realizaran la prueba presentada en el Anexo G. Las pruebas que se realizaron en PC fueron con el Oculus Rift DK1.
-
-Las críticas fueron positivas en general, la mayoría de los usuarios quedaron satisfechos con la aplicación. A continuación se presenta un resumen de los principales resultados obtenidos, junto con recomendaciones recibidas.
-
-En las Tablas \ref{enc1} y \ref{enc2} se muestran las respuestas recibidas a la primer y segunda pregunta respectivamente.
-\begin{table}[h!]
-  \centering
-  \begin{tabular}{ccc}
-    \toprule
-    Número de opción &  Texto de la opción &Cantidad\\
-    \midrule
-    1 & Muy Mala & 0 \\
-    2 & Mala & 0 \\
-    3 & Ni buena ni mala & 1 \\
-    4 & Buena & 6\\
-    5 & Muy Buena & 6\\
-    \bottomrule
-  \end{tabular}
-  \caption{Calidad de la interfaz.}
-  \label{enc1}
-\end{table}
-%tabla que se genera utilizando el archivo pero queda fea
-\iffalse
-\begin{table}[!ht]
-    \label{tab:data}
-    \centering
-    \pgfplotstabletypeset[
-      sci zerofill,
-      precision=3,
-      columns/Respuesta/.style={column type=r},
-      columns/Cantidad/.style={dec sep align}
-    ]{data1.txt}
- \caption{Calidad de la interfaz.}
-  \end{table}
-%grafica
-  \begin{figure}[!ht]
-    \centering
-    \begin{tikzpicture}
-      \begin{axis}
-        \addplot table {data1.txt};
-      \end{axis}
-    \end{tikzpicture}
-    \caption{Gráfica de la calidad de la interfaz según los usuarios entrevistados.}
-  \label{enc1G}
-  \end{figure}
-\fi
-
-Como se puede apreciar en la Tabla \ref{enc1} los usuarios no tuvieron inconvenientes con la interfaz, pudiéndola usar sin problemas.
-
-%segunda
-%\clearpage
-\begin{table}[h!]
-  \centering
-  \begin{tabular}{ccc}
-    \toprule
-    Número de opción &  Texto de la opción &Cantidad\\
-    \midrule
-    1 & Muy Mala & 0 \\
-    2 & Mala & 0 \\
-    3 & Ni buena ni mala & 2 \\
-    4 & Buena & 7\\
-    5 & Muy Buena & 4\\
-    \bottomrule
-  \end{tabular}
-  \caption{Forma de ingresar ecuación.}
-  \label{enc2}
-\end{table}
-%tabla que se genera utilizando el archivo pero queda fea
-\iffalse
-\begin{table}[!h]
-    \label{tab:data}
-    \centering
-    \pgfplotstabletypeset[
-      sci zerofill,
-      precision=3,
-      columns/Respuesta/.style={column type=r},
-      columns/Cantidad/.style={dec sep align}
-    ]{data2.txt}
-    \caption{Forma de ingresar ecuación.}
-  \end{table}
-%grafica
-  \begin{figure}[!ht]
-    \centering
-    \begin{tikzpicture}
-      \begin{axis}
-        \addplot table {data2.txt};
-      \end{axis}
-    \end{tikzpicture}
-    \caption{Gráfica de la calidad de la manera de ingresar la ecuación según los usuarios entrevistados.}
-  \label{enc2G}
-  \end{figure}
-\fi
-De la Tabla \ref{enc2} se desprende que a los usuarios les pareció satisfactoria la forma de ingresar las ecuaciones, siendo capaces de incorporarlas de forma bastante intuitiva . Ésto se debe a que la forma de ingresarlas es similar a la utilizada en varios programas de matemática, por lo que les fue sencillo a los usuarios reconocerla como familiar.
-
-Los usuarios en general no tuvieron inconvenientes con las superficies generadas, aunque un usuario señaló que la esfera no era completamente esférica cuando le disminuyó el paso del algoritmo. 
-
-La mayoría de los usuarios encontró interesante los efectos visuales aplicados a las superficies a través de los shaders. Con respecto a este tema recibimos varias recomendaciones de distintos tipos de efectos que podrían ser interesantes para agregar en alguna versión futura entre ellos se encuentran: 
-\begin{itemize}
-\item que la lava se desprendiese de la ecuación
-\item generar un efecto de transición donde la ecuación se hace de arena y se la lleva el viento
-\item cell shading
-\item que la ecuación actuase como un espejo
-\end{itemize}
-Ninguno de los usuarios que probó la aplicación sufrío ningún tipo de malestar o mareo. Todos los usuarios dijeron haber tenido una buena experiencia de realidad virtual, aunque un usuario mencionó que la densidad de píxeles del dispositivo no era la ideal.
-
-En la versión móvil un usuario consultó por qué la ecuación se encontraba en un movimiento circular uniforme, si ésto era un error o no.
-
-En general la aplicación fue muy bien recibida por los usuarios, estando la mayoría muy satisfechos con el funcionamiento de la misma.
-
-Un usuario señaló que consideraría interesante la posibilidad de poder gráficar ecuaciones diferenciales con la aplicación. 
-
-Otro usuario recomendó que se le pusiera sonido a la aplicación.
-
-Una recomendación que se obtuvo por parte de uno de los usuarios, fue que para ayudar a los más inexpertos en el mundo de la matemática se podría agregar de forma similar al "Clip" de Word 2003, un asistente que brinde ayudas. Las mismas podrían ayudar a los usuarios a aprender aún más, a través de consejos y hasta ejercicios para que realice. Persiguiendo este fin, diseñamos a \textit{Equationcito, tu amigo imaginario}, el cual se puede apreciar en la Figura \ref{equationcito}.
-\begin{figure}[h]
-\includegraphics[width=0.2\textwidth,center]{equationcito.png}
-\caption{Equationcito la mascota oficial de Implicitus.}
-\label{equationcito}
-\end{figure}
 \clearpage
 \section{Descripción de módulos del proyecto}
 En este anexo se describen los módulos del proyecto, junto con algunas funciones importantes con la intención de asistir a quien quiera extender la aplicación desarrollada.

@@ -728,52 +728,43 @@ A continuación, en la Figura \ref{arq}, se presenta una versión simplificada d
 \caption{Arquitectura del cliente web.}
 \label{arq}
 \end{figure}
+%Puso hacer descripcion general... no se que poner..
+La aplicación cuenta con tres services (MainService, SavingService y EquationListService) y un controller para una única vista. Las partes más importantes de la aplicación se encuentran en el MainService o en Controller.
 
-La aplicación cuenta con tres services y un controller para una única vista. 
+$\bullet$ El SavingService es el responsable de comunicarse con el backend para tanto almacenar como cargar las mallas junto con su información asociada. Este módulo es utilizado por el Controller el cual, utilizando las interfaces del MainService, le proporciona a éste la información de la malla que se recuperó de la base de datos.
 
-El SavingService es el responsable de comunicarse con el backend para tanto almacenar como cargar las mallas junto con su información asociada. Este módulo es utilizado por el Controller, el cual utilizando las interfaces del MainService le proporciona a éste la información de la malla que se recuperó de la base de datos.
+$\bullet$ El MainService es el responsable de generar las mallas, crear la escena, hacer las actualizaciones y efectuar el render. Este módulo es el que se comunica con más módulos, ya que es el que realiza las tareas más importantes y difíciles. También es el responsable de mostrar las ecuaciones que sean pertinentes, es decir sólo aquellas que deban ser visibles en el momento dado. En este módulo se generan las coordenadas de mapeo UV, se generan los shaders, se ejecuta el main loop de la aplicación, se generan las superficies, se realizan todas las actualizaciones (posición de cámara, posición de luz, etc), se generan las texturas, se genera el cubo de zoom para recalcular la zona de la superficie que se quiera. Éste es el módulo principal de la aplicación, que utilizando el resto, efectúa la mayoría de las operaciones importantes.
 
-El MainService es el responsable de generar las mallas, crear la escena, hacer las actualizaciones y efectuar el render. Este módulo es el que se comunica con más módulos, ya que es el que realiza las tareas más importantes y difíciles. También es el responsable de mostrar las ecuaciones que sean pertinentes, es decir sólo aquellas que deban ser visibles en el momento dado. En este módulo se generan las coordenadas de mapeo UV, se generan los shaders, se ejecuta el main loop de la aplicación, se generan las superficies, se realizan todas las actualizaciones (posición de cámara, posición de luz, etc), se generan las texturas, se genera el cubo de zoom para recalcular la zona de la superficie que se quiera. Éste es el módulo principal de la aplicación, que utilizando el resto, efectúa la mayoría de las operaciones importantes.
+$\bullet$ También se cuenta con EquationListService, que posee una lista de ecuaciones que se pueden cargar, la intención de este servicio es que el usuario pueda visualizar rápidamente una serie de ecuaciones, aunque no esté conectado a la base de datos.
 
-El Controller es el responsable de manejar la interfaz y usar los servicios que le son provistos.
+$\bullet$ El Controller es el responsable de manejar la interfaz y usar los servicios que le son provistos.
 
-También se cuenta con EcuationListService, que posee una lista de ecuaciones que se pueden cargar, la intención de este servicio es que el usuario pueda visualizar rápidamente una serie de ecuaciones, aunque no esté conectado a la base de datos.
+$\bullet$ Los módulos MarchingCubes, Marching Tetrahedra y Surface Nets implementan MarchingCubes, Marching Tetrahedra y Naive Surface Nets respectivamente, son invocados por el MainService.
 
-MarchingCubes implementa el algoritmo para generar la malla del mismo nombre, es invocado por el MainService.
+$\bullet$ AngularJS es un framework diseñado para generar páginas web dinámicas, y el mismo extiende la sintaxis utilizada por HTML y separa la lógica de acceso a los elementos HTML, de la lógica misma de la aplicación, haciendo la aplicación ms sencilla de testear y entender. En este proyecto se utilizó para facilitar las comunicaciones entre la interfaz del menú con el servidor de backend y el MainService.
 
-MarchingTetrahedra es similar a MarchingCubes, en cuanto implementa un algoritmo para generar la malla y que es invocado por el servicio principal.
+$\bullet$ Bootstrap es un framework enfocado en el diseño de sitios web, brindando diversos componentes comúnmente utilizado en otros sitios. Además contiene diversos templates, plantillas y objetos con diseños modernos y atractivos. 
 
-SurfaceNets es análogo a los dos módulos mencionados previamente, implementa el algoritmo de Naive SurfaceNets.
+$\bullet$ THREEJS es la librería presentada anteriormente, que actúa como wrapper de WebGL e implementa algunas funcionalidades de modo de permitir un uso más simple. A su vez cuenta con la ventaja de que garantiza el funcionamiento de la aplicación en los navegadores actuales, ésto permite que la misma esté disponible para la mayor cantidad de gente posible.
 
-AngularJS es un framework diseñado para generar páginas web dinámicas, y el mismo extiende la sintaxis utilizada por HTML y separa la lógica de acceso a los elementos HTML, de la lógica misma de la aplicación, haciendo la aplicación ms sencilla de testear y entender. En este proyecto se utilizó para facilitar las comunicaciones entre la interfaz del menú con el servidor de backend y el MainService.
+$\bullet$ VREffect es el módulo que se encarga de realizar el efecto estereoscópico, cuando la aplicación se encuentra en modo VR, se le invoca, para que genere las dos imágenes con la distorsión necesaria, para el dispositivo que se está utilizando, y con los parámetros que obtiene del navegador.
 
-Bootstrap es un framework enfocado en el diseño de sitios web, brindando diversos componentes comúnmente utilizado en otros sitios. Además contiene diversos templates, plantillas y objetos con diseños modernos y atractivos. 
+$\bullet$ VRControls es el responsable de que, cuando se está en modo VR, tome del dispositivo la rotación, de forma de mover la cámara de la misma forma, para poder dar la sensación de inmersión.
 
-THREEJS es la librería presentada anteriormente, que actúa como wrapper de WebGL e implementa algunas funcionalidades de modo de permitir un uso más simple. A su vez cuenta con la ventaja de que garantiza el funcionamiento de la aplicación en los navegadores actuales, ésto permite que la misma esté disponible para la mayor cantidad de gente posible.
+$\bullet$ Gamepad tiene el objetivo de exponer el estado del joystick de XBOX ONE utilizando la Gamepad API\cite{gamepadapi} a el MainService.
 
-VREffect es el módulo que se encarga de realizar el efecto estereoscópico, cuando la aplicación se encuentra en modo VR, se le invoca, para que genere las dos imágenes con la distorsión necesaria, para el dispositivo que se está utilizando, y con los parámetros que obtiene del navegador.
-
-VRControls es el responsable de que, cuando se está en modo VR, tome del dispositivo la rotación, de forma de mover la cámara de la misma forma, para poder dar la sensación de inmersión.
-
-Gamepad tiene el objetivo de exponer el estado del joystick de XBOX ONE utilizando la Gamepad API\cite{gamepadapi} a el MainService.
-
-Parser se encarga de parsear las ecuaciones ingresadas por el usuario, de manera de proveerle al MainService las ecuaciones de la forma que los algoritmos necesitan cómo entrada. Este módulo permite que el usuario no se preocupe de como requieren los algoritmos que se escriba la ecuación.
+$\bullet$ Parser se encarga de parsear las ecuaciones ingresadas por el usuario, de manera de proveerle al MainService las ecuaciones de la forma que los algoritmos necesitan cómo entrada. Este módulo permite que el usuario no se preocupe de como requieren los algoritmos que se escriba la ecuación.
 \clearpage
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{arq-esp.png}
 \caption{Estructura de MainService.}
 \label{arqMS}
 \end{figure}
-En la Figura \ref{arqMS} se aprecia cómo es la estructura interna del servicio principal. Se puede observar cómo se aplicó el \textit{Game Loop Pattern}, ya que el flujo del servicio se descompone en tres etapas: Handle input, Update y Render.
-\begin{itemize}
-\item Handle input: Es en la sección dónde se recibe lo que ingresa el usuario, ya sea a través de interrupciones (caso del teclado) o de polling (caso del joystick).
-\item Update: Es cuando se actualizan las posiciones y otros atributos que deben actualizarse antes de dibujar cada frame.
-\item Render: Se dibuja la escena.
-\end{itemize}
+En la Figura \ref{arqMS} se aprecia cómo es la estructura interna del servicio principal. Se puede observar cómo se aplicó el \textit{Game Loop Pattern} (Sección 5.2, Figura \ref{glp}), ya que el flujo del servicio se descompone en tres etapas: Handle input, Update y Render.
 
 También se cuenta con Update Mesh, que es una operación asincrónica que regenera la geometría utilizando el algoritmo seleccionado, para luego calcular sus coordenadas de mapeo UVs y las normales de los vértices.
 \subsubsection{Backend y base de datos}
-El backend de la aplicación fue realizado en el lenguaje Python con el framework de django y django rest framework para comunicarse con los clientes web. Éste se encarga de guardar datos de las superficies que se consideren interesantes, por ejemplo: coordenadas, nombre, cantidad de caras, etc. Todo ésto se encuentra guardado en la base de datos Postgres.
+El backend de la aplicación fue realizado en el lenguaje Python con el framework de django y django rest framework para comunicarse con los clientes web. Éste se encarga de guardar datos de las superficies que se consideren interesantes, por ejemplo: coordenadas, nombre, cantidad de caras, etc. Todo ésto se encuentra guardado en una base de datos Postgres.
 
 Esta parte de la aplicación presenta una ventaja sobre otro tipo de aplicaciones similares, ya que permite que usuarios de distintas partes de mundol compartan ecuaciones interesantes. Además de que a medida de que más usuarios generan y almacenan ecuaciones la aplicación va creciendo en cuanto al catálogo de ecuaciones que ofrece.
 \clearpage
@@ -787,7 +778,7 @@ En este punto se muestran los distintos modos con los que se puede interactuar c
 \end{figure}
 
 \subsubsection{Menú lateral}
-La aplicación cuenta con un menú lateral, donde se puede controlar una serie de parámetros. En ese menú se ingresa la ecuación, así como se configura una serie de parámetros, como la zona que se quiere generar, el paso del algoritmo, qué algoritmo se desea utilizar,etc. 
+La aplicación cuenta con un menú lateral, donde se puede controlar una serie de parámetros. En ese menú se ingresa la ecuación, así como se configura una serie de parámetros, como la zona que se quiere generar, el paso del algoritmo, qué algoritmo se desea utilizar, si se quiere visualizar una única ecuación o múltiples, etc. 
 \subsubsection{Mensajes}
 La interfaz también cuenta con una serie mensajes. Éstos son pequeños carteles que aparecen arriba a la derecha, al momento de ingresar a la página se muestra un mensaje de bienvenida en verde. 
 
@@ -811,7 +802,7 @@ La aplicación también se puede utilizar con el joystick de XBOX ONE (Figura \r
 \label{xbox}
 \end{figure}
 
-El joystick permite una gran flexibilidad ya que puede utilizarse de forma más sencilla que un teclado cuando se está utilizando el Oculus Rift. Ésto se debe en parte, en que es más simple para la mayoría de los usuarios detectar dónde se encuentran los botones sin mirar por su forma ergonómica. Por este motivo, se aumenta significativamente el grado de usabilidad de la aplicación, ya que se vuelve más sencilla de utilizar para los usuarios, principalmente para los jóvenes que tienen mayor experiencia con un joystick.
+El joystick permite una gran flexibilidad ya que puede utilizarse de forma más sencilla que un teclado cuando se está utilizando el Oculus Rift. Ésto se debe en parte, en que es más simple debido a su forma ergonómica, utilizarlo sin verlo. Aumenta significativamente el grado de usabilidad de la aplicación, ya que se vuelve más sencilla de utilizar para los usuarios, principalmente para los jóvenes que tienen mayor experiencia con un joystick.
 \clearpage
 \section{Análisis experimental}
 En esta sección se presentan los experimentos que realizamos sobre el sistema, así como los resultados obtenidos. Las pruebas se dividen en cinco tipos, el primero es una comparación entre la performance y los resultados obtenidos utilizando cada uno de los 3 algoritmos. El segundo tipo, es cuántos fps se lograron obtener para una serie de ecuaciones, considerando la cantidad de polígonos que había en la escena. El tercero es una comparación entre SURFER y nuestra aplicación cuando se trata de puntos singulares, éstos son los puntos donde nuestra aplicación genera algunos artefactos. Los últimos dos tipos son una serie de operaciones interesantes que permite realizar la aplicación y una galería de imágenes.
@@ -1302,7 +1293,7 @@ Anillo: $max(max(max(y,- (x^2 + y^2 + z^2-1)), -y- 0.01), (x^2 +y^2 +z^2 - 3))$ 
 Cilindro con tapas: $((x^2/2 + y^2/2 - 1) + (z) + abs((x^2/2 + y^2/2 - 1)-(z)))+(-z-2)+abs(((x^2/2 + y^2/2 - 1) + (z) + abs((x^2/2 + y^2/2 - 1)-(z)))-(-z-2))$ \\
 \begin{figure}[h!]
 \includegraphics[width=0.7\linewidth,center]{g4.png}
-\caption{Intersección de un cilindro con dos planos.}
+\caption{Intersección de un cilindro con dos semiespacios.}
 \end{figure}
 \clearpage
 Tirabuzón: $max((x^2 + y^2 - 1) ,-((x-sin(z*10) )^2 + (y -cos (z*10))^2 -0.8))$ \\
@@ -1949,7 +1940,7 @@ En este anexo se describen los módulos del proyecto, junto con algunas funcione
 	\item loadMesh: Carga una ecuación del backend.
 	\item saveMesh: Envía al backend una ecuación junto con su información asociada para almacenar.
 	\end{itemize}
-\item ecuationListService: Este servicio provee una lista de ecuaciones de la cual el usuario puede seleccionar para visualizar cuando no se encuentra conectado a la base de datos.
+\item equationListService: Este servicio provee una lista de ecuaciones de la cual el usuario puede seleccionar para visualizar cuando no se encuentra conectado a la base de datos.
 \item controller: Es el responsable de comunicarse con la única vista.
 	\\Funciones principales:
 	\begin{itemize}

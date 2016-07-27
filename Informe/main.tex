@@ -379,43 +379,18 @@ Existen diversos algoritmos que caen en la categoría de Meshers y realizan una 
 \label{saturno}
 \end{figure}
 \clearpage
-\subsection{Conjuntos de nivel}
-Son un conjunto de puntos en los que se iguala una función a una constante, es decir:
-$Lc(f) = {(x1,...,xn) | f(x1,...,xn)  = c}$ \cite{implicitas}
 
-Ejemplos de conjuntos de nivel:
-\begin{figure}[h!]
-\includegraphics[width=0.73\textwidth,center]{meshers1.png}
-\caption{Ejemplos de distintos tipos de conjuntos de nivel de funciones lineales.}
-\end{figure}
-\begin{figure}[h!]
-\includegraphics[width=0.73\textwidth,center]{meshers2.png}
-\caption{Ejemplos de distintos tipos de conjuntos de nivel de funciones no lineales.}
-\end{figure}
-\clearpage
-\subsection{Teorema de la función implícita}
-En algunas ecuaciones es sencillo convertir una función del tipo $f(x,y,z)$ en un ecuación paramétrica: por ejemplo, dado $f(x,y,z)  = z- x^2 - y^2$ , la ecuación paramétrica: 
-$x(u,v) = u$
-$y(u,v) = v$
-$z(u,v) = u^2+v^2$
+\subsection{Transformación de funciones implícitas en explícitas}
+En algunas ecuaciones es sencillo convertir una función del tipo $f(x,y,z)$ en un ecuación paramétrica, ya que estas ecuaciones se pueden representar como una variable en funcion del resto de forma simple: por ejemplo, dado $f(x,y,z)  = z- x^2 - y^2$ , la ecuación paramétrica: 
 
-Este tipo de funciones es trivial de dibujar (basta con tomar diferentes valores de $u$ y $v$ y formar polígonos con las coordenadas obtenidas de los mismos).
-Pero no todas las funciones se pueden parametrizar, y por lo tanto no todas son igualmente de sencillas de dibujar, como es el caso de  $f(x,y,z) = 2y(y^2-3x^2)(1-z^2)+(x^2+y^2)^2-(9z^2-1)(1-z^2)$, es por eso que existen los siguientes algoritmos \cite{implicitas}.
-\subsection{Interpolación trilinear}
-La interpolación trilinear\cite{inter} es un método de interpolación en una grilla regular 3-dimensional. Se aproxima al valor de un punto intermedio $(x, y, z)$ en el eje local del prisma rectangular en forma lineal, a partir de datos en los puntos de la grilla. Para realizar la interpolación trilinear se necesitan 8 puntos adyacentes.
-Considerando un cubo de largo una unidad con el vértice inferior-izquierdo como origen como se muestra en la siguiente figura.
-\begin{figure}[h!]
-\includegraphics[width=0.65\textwidth,center]{inter.png}
-\caption{Caja utilizada en la interpolación trilinear. Los valores de cada vértice se denotarán por $V_{000}$,$V_{001}$,$V_{010}$,...,$V_{111}$.}
-\end{figure}
-
-El valor en la posición $(x,y,z)$ dentro del cubo se denotará por $V_{xyz}$ y está definido como
 \begin{center}
-$V_{xyz}=V_{000}(1-x)(1-y)(1-z) + V_{100}x(1-y)(1-z) + V_{010}(1-x)y(1-z) + V_{001}(1-x)(1-y)z + V_{101}x(1-y)z + V_{011}(1-x)yz + V_{110}xy(1-z) + V_{111}xyz$
+$x(u,v) = u$\\
+$y(u,v) = v$\\
+$z(u,v) = u^2+v^2$\\
 \end{center}
 
-Supongamos que tenemos una aproximación de f mediante el muestreo en una grilla cúbica en una resolución fija, para obtener los valores intermedios se necesitan tan sólo realizar una interpolación trilineal entre los puntos de la grilla.
-
+Este tipo de funciones es trivial de dibujar (basta con tomar diferentes valores de $u$ y $v$ y formar polígonos con las coordenadas obtenidas de los mismos).
+Pero no en todas las funciones se puede obtener una representación simple donde una variable esté en función del resto, por lo tanto no se pueden parametrizar y dibujar con el método anterior, como es el caso de  $f(x,y,z) = 2y(y^2-3x^2)(1-z^2)+(x^2+y^2)^2-(9z^2-1)(1-z^2)$, es por eso que existen los siguientes algoritmos \cite{implicitas}.
 
 \subsection{Marching Cubes}
 El algoritmo de Marching Cubes\cite{marching}\cite{marchingcubes} consiste en la creación de superficies mediante la intersección de las aristas de una grilla tridimensional con el volumen de la superficie misma. Donde la superficie interseca una arista de la grilla, el algoritmo crea un vértice. Mediante la utilización de una tabla de diferentes triángulos dependiendo de los diferentes patrones de intersección con la arista, el algoritmo crea una superficie.
@@ -434,7 +409,7 @@ Si por ejemplo el valor en el vértice 3 está por debajo del valor superficie y
 \caption{Ejemplo de creación de una cara en una celda con Marching Cubes.}
 \end{figure}
 Lo que hace al algoritmo "difícil" es el gran número de combinaciones posibles (256) y la necesidad de obtener una combinación de caras consistente para cada solución de forma que las caras generadas en las celdas adyacentes se conecten entre sí correctamente.\\
-La primera parte del algoritmo utiliza una tabla (edgeTable) que mapea los vértices bajo la superficie a los bordes de intersección. Se forma un índice de 8 bits donde cada bit corresponde a un vértice.
+La primera parte del algoritmo utiliza una tabla (edgeTable) que mapea los vértices bajo la superficie a los bordes de intersección. Se forma un índice (cubeindex) de 8 bits donde cada bit corresponde a un vértice.
 \lstset{language=C}          % Set your language (you can change the language for each code-block optionally)
 
 \begin{lstlisting}[frame=single][caption=blabla, label=amb]
@@ -449,8 +424,8 @@ La primera parte del algoritmo utiliza una tabla (edgeTable) que mapea los vért
    if (grid.val[7] < isolevel) cubeindex |= 128;
 \end{lstlisting}
 
-La búsqueda en la tabla devuelve un número de 12 bits, cada bit corresponde a una arista, 0 si la arista no se corta por la superficie, 1 si la arista se corta por la superficie. Si ninguno de las aristas retorna un corte en la tabla, se devuelve un 0, esto ocurre cuando cubeindex es 0 (todos los vértices por debajo de la superficie) o 0xff (todos los vértices por encima de la superficie).
-Utilizando el ejemplo anterior donde sólo el vértice 3 estuvo por debajo de la superficie, cubeindex sería igual a 0000, 1000 o 8. edgeTable [8] = 1000 0000 1100. Esto significa que el borde 2,3, y 11 son intersecados por la superficie.
+La búsqueda en la tabla devuelve un número de 12 bits, cada bit corresponde a una arista, 0 si la arista no interseca la superficie, 1 si la arista se corta por la superficie. Si ninguna de las aristas retorna un corte en la tabla, se devuelve un 0, esto ocurre cuando cubeindex es 0000 0000 (todos los vértices por debajo de la superficie) o 1111 1111 (todos los vértices por encima de la superficie).
+Utilizando el ejemplo anterior donde sólo el vértice 3 estuvo por debajo de la superficie, cubeindex sería igual a 0000 1000 o 8, segun el pseudocódigo de arriba. Con el valor de cubeindex, se puede obtener los vertices que formaran el polígono, para ello basta con ver edgeTable [8] = 1000 0000 1100. Esto significa que el borde 2,3, y 11 son intersecados por la superficie.
 
 Los puntos de intersección se calculan ahora por interpolación lineal. Si P1 y P2 son los vértices de una arista de corte y V1 y V2 son los valores escalares en cada vértice, el punto de intersección P está dado por:
 P = P1 + (isovalue - V1) (P2 - P1) / (V2 - V1)
@@ -467,7 +442,7 @@ Este es un ejemplo particularmente simple, pero las combinaciones que pueden sur
 
 A continuación se presenta otro ejemplo.
 
-Digamos que los vértices 0 y 3 están por debajo del superficie. Entonces cubeindex será 0000 1001 == 9. La novena entrada en la egdeTable es 905hex == 1001 0000 0101 lo que significa que las aristas 11,8,2 y 0 se cortan, por lo que trabajamos los vértices de la intersección de la superficie con esos bordes.
+Digamos que los vértices 0 y 3 están por debajo del superficie. Entonces cubeindex será 0000 1001 == 9. La novena entrada en la egdeTable es 1001 0000 0101 lo que significa que las aristas 11,8,2 y 0 se cortan, por lo que trabajamos los vértices de la intersección de la superficie con esos bordes.
 A continuación, 9 en la triTable es 0, 11, 2, 8, 11, 0. Esto corresponde a 2 caras triangulares, una entre la intersección del borde de 0 11 y 2. La otra entre las intersecciones a lo largo de los bordes 8 11 y 0.
 \subsubsection{Resolución de la grilla}
 Algo deseable a controlar cuando se poligoniza una superficie es la resolución de la cuadrícula de muestreo. Esto permite elegir el grado de la aproximación a la superficie a generarse en función de la suavidad requerida y / o la potencia de procesamiento disponible para mostrar la superficie. El ejemplo de la Figura \ref{mani} ilustra una misma superficie generada a diferentes tamaños de malla, se puede notar que en la primer figura, debido a que el tamaño de celda elegido es demasiado grande, no genera una figura correctamente.

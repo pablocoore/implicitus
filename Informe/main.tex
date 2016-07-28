@@ -1,5 +1,8 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
+
+
+
 \usepackage{gensymb}
 \usepackage{titlesec}
 \usepackage{graphicx}
@@ -74,7 +77,7 @@ Respuesta Cantidad
     {\Large Proyecto de Grado\par}
     \vspace{3cm}
 %Date
-    {\Large Mayo 2016}
+    {\Large Agosto 2016}
 \end{minipage}
 \end{center}
 
@@ -89,7 +92,6 @@ La visualización espacial de ecuaciones es una tarea compleja para estudiantes 
 
 La propuesta de este trabajo consiste en implementar un programa que permita la visualización de ecuaciones implícitas, utilizando tecnologías gráficas relacionadas con la visión estereoscópica.  Ésto  busca acercar al estudiante los componentes estéticos y visuales de las matemáticas. Además se quiere obtener una experiencia de realidad virtual agradable al usuario.
 
-%XXX dice que este parrafo es poco claro, volver a escribirlo
 En el marco de este proyecto, se concluyó que los algoritmos basados en la generación de mallas son más adecuados para la visualización estereoscópica debido a que tienen un mejor tiempo de respuesta a la hora de actualizar la posición de la cámara.
 
 Por último, se cuenta con una aplicación web\footnote{El código fuente se encuentra disponible en \cite{nuestrocodigo} y se puede acceder a la aplicación en \cite{nuestrositio}}, que funciona  tanto en PC como en celulares,  compatible con Oculus Rift (DK1, DK2 y Consumer Version) si se utiliza Nightly, y con Google Cardboard en celulares.
@@ -592,7 +594,7 @@ $\bullet$ Se decidió utilizar dos patrones de diseño utilizados generalmente e
 \label{glp}
 \end{figure}
 
-$\bullet$ También se optó por utilizar una arquitectura Model-View-Controller (MVC, ver Figura \ref{mvc}). Modularizando los distintos componentes, para obtener asi una aplicación más mantenible, y fácil de entender, además de ser una arquitectura estándar en muchas aplicaciones web. Por eso, se separó el modelo, es decir, la parte de generación de los puntos y planos de la figura (por ejemplo el MarchingCubes.js, SurfaceNets.js, junto al service.js etc), de la parte que se comunica con la interfaz del usuario (controller.js), además la vista se encuentra hecha en los archivos $index.html$ y los diversos archivos dentro de la carpeta css.
+$\bullet$ Se optó por utilizar una arquitectura Model-View-Controller (MVC, ver Figura \ref{mvc}). Modularizando los distintos componentes, para obtener asi una aplicación más mantenible, y fácil de entender, además de ser una arquitectura estándar en muchas aplicaciones web. Por eso, se separó el modelo, es decir, la parte de generación de los puntos y planos de la figura (por ejemplo el MarchingCubes.js, SurfaceNets.js, junto al service.js etc), de la parte que se comunica con la interfaz del usuario (controller.js), además la vista se encuentra hecha en los archivos $index.html$ y los diversos archivos dentro de la carpeta css.
 
 %\clearpage
 
@@ -704,7 +706,7 @@ A continuación, en la Figura \ref{arq}, se presenta una versión simplificada d
 \label{arq}
 \end{figure}
 %Puso hacer descripcion general... no se que poner..
-La aplicación cuenta con tres services (MainService, SavingService y EquationListService) y un controller para una única vista. Las partes más importantes de la aplicación se encuentran en el MainService o en Controller.
+La aplicación, como se mencionó anteriormente, utiliza una arquitectura MVC. La misma  cuenta con tres services (MainService, SavingService y EquationListService), un controlador y una única vista. A su vez existen una serie de módulos que son utilizados por el MainService. Las partes más importantes de la aplicación se encuentran en el MainService o en Controller.
 
 $\bullet$ El SavingService es el responsable de comunicarse con el backend para tanto almacenar como cargar las mallas junto con su información asociada. Este módulo es utilizado por el Controller el cual, utilizando las interfaces del MainService, le proporciona a éste la información de la malla que se recuperó de la base de datos.
 
@@ -794,23 +796,26 @@ Se utilizó como intervalo $[-1,1]$ en los tres ejes, y el paso fue 0.05 (la var
 
 \begin{table}[h!]
   \centering
-  \begin{tabular}{cccc}
-    \toprule
-    Valor de n & Surface Nets (s) & Marching Tetrahedra (s) & Marching Cubes (s)\\
+\begin{tabular}{lllllll}
+\toprule 
+    Valor de n & \multicolumn{2}{c}{Surface Nets} & \multicolumn{2}{c}{Marching Tetrahedra}  & \multicolumn{2}{c}{Marching Cubes}\\
+    &Tiempo (s) &Caras
+    &Tiempo (s) &Caras
+    &Tiempo (s) &Caras \\
     \midrule
-    1 & 0,016 & 0,029 & 0,022\\
-    2 & 0,080 & 0,375 & 0,091\\
-    3 & 0,088 & 0,534 & 0,132\\
-    4 & 0,196 & 0,618 & 0,311\\
-    5 & 0,134 & 0,822 & 0,345\\
-    6 & 0,178 & 1,203 & 0,349\\
-    7 & 0,189 & 1,384 & 0,432\\
-    8 & 0,220 & 1,434 & 0,478\\
-    9 & 0,238 & 1,565 & 0,520\\
-    10 & 0,345 & 1,840 & 0,671\\
+    1 & 0,016 &6 & 0,029 &119 & 0,022 &43\\
+    2 & 0,080 &12168 & 0,375 &35544 & 0,091 &12680\\
+    3 & 0,088 &17106 & 0,534 &51047 & 0,132 &18387\\
+    4 & 0,196 &24912 & 0,618 &71520 & 0,311 &25984\\
+    5 & 0,134 &30174 & 0,822 &89599 & 0,345 &32303\\
+    6 & 0,178 &36312 & 1,203 &106512 & 0,349 &37968\\
+    7 & 0,189 &43218 & 1,384 &127987 & 0,432 &46447\\
+    8 & 0,220 &44544 & 1,434 &411264 & 0,478 &92928\\
+    9 & 0,238 &56118 & 1,565 &165653 & 0,520 &60153\\
+    10 & 0,345 &63480 & 1,840 &179352 & 0,671 &67240\\
     \bottomrule
-  \end{tabular}
-  \caption{Comparación con sucesiones.}
+\end{tabular}
+  \caption{Comparación con sucesión.}
   \label{suc2}
 \end{table}
 
@@ -830,178 +835,171 @@ Se utilizó como intervalo $[-1,1]$ en los tres ejes, y el paso fue 0.05 (la var
 \label{ejsuc2}
 \end{figure}
 
-%\clearpage
+Luego, considerando que Marching Tetrahedra genera alrededor de 3 veces más caras que el Naive Surface Nets y Marching Cubes (que genera en la mayoría de los casos una cantidad "similar"), se decidió comparar el tiempo que lleva generar la superficies con cada algoritmo cuando la cantidad de caras es similar. Para lograrlo se crearon las mismas ecuaciones pero con distintos pasos. Se utilizó 0.05 como paso en Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra (el número se obtuvo experimentalmente). Los resultados se pueden ver en la Tabla \ref{tablaSIC}. Como las ejecuciones anteriores para Naive Surface Nets y Marching Cubes ya utilizaban ese paso sólo se ejecutó nuevamente la parte de Marching Tetrahedra.
 
-Luego para comparar el tiempo que lleva generar la superficies con cada algoritmo cuando la cantidad de caras es similar, se crearon las mismas ecuaciones pero con distintos pasos. Ésto se debe a que en general Marching Tetrahedra genera aproximadamente 3 veces más caras que los otros dos algoritmos. Se utilizó 0.05 como paso en Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra (el número se obtuvo experimentalmente). Los resultados se pueden ver en la Tabla \ref{tablaSIC}. Como las ejecuciones anteriores para Naive Surface Nets y Marching Cubes ya utilizaban ese paso sólo se ejecutó nuevamente la parte de Marching Tetrahedra.
 \begin{table}[h!]
   \centering
-  \begin{tabular}{cccc}
-    \toprule
-    Valor de n & Surface Nets (s) & Marching Tetrahedra (s) & Marching Cubes (s)\\
+\begin{tabular}{lllllll}
+\toprule 
+    Valor de n & \multicolumn{2}{c}{Surface Nets} & \multicolumn{2}{c}{Marching Tetrahedra}  & \multicolumn{2}{c}{Marching Cubes}\\
+    &Tiempo (s) &Caras
+    &Tiempo (s) &Caras
+    &Tiempo (s) &Caras \\
     \midrule
-    1 & 0.016 & 0.017 & 0,022\\
-    2 & 0,080 & 0,156 & 0,091\\
-    3 & 0,088 & 0,191 & 0,132\\
-    4 & 0,196 & 0,288 & 0,311\\
-    5 & 0,134 & 0,324 & 0,345\\
-    6 & 0,178 & 0,389 & 0,349\\
-    7 & 0,189 & 0,413 & 0,432\\
-    8 & 0,220 & 0,455 & 0,478\\
-    9 & 0,238 & 0,596 & 0,520\\
-    10 & 0,345 & 0,794 & 0,671\\
+    1 & 0,016 &6 & 0,017 &286 & 0,022 &43\\
+    2 & 0,080 &12168 & 0,156 &13032 & 0,091 &12680\\
+    3 & 0,088 &17106 & 0,191 &20690 & 0,132 &18387\\
+    4 & 0,196 &24912 & 0,288 &26292 & 0,311 &25984\\
+    5 & 0,134 &30174 & 0,324 &36066 & 0,345 &32303\\
+    6 & 0,178 &36312 & 0,389 &39556 & 0,349 &37968\\
+    7 & 0,189 &43218 & 0,413 &50506 & 0,432 &46447\\
+    8 & 0,220 &44544 & 0,455 &52958 & 0,478 &92928\\
+    9 & 0,238 &56118 & 0,596 &64136 & 0,520 &60153\\
+    10 & 0,345 &63480 & 0,794 &66634 & 0,671 &67240\\
     \bottomrule
-  \end{tabular}
-  \caption{Comparación con sucesiones a similar cantidad de caras.}
+\end{tabular}
+  \caption{Comparación con la sucesión a similar cantidad de caras.}
   \label{tablaSIC}
 \end{table}
 
 \subsubsection{Comparación a través de ecuaciones puntuales}
 A continuación se realizaron ciertas ecuaciones con los tres algoritmos con la intención de observar cómo se comportan, y cuál produce mejores resultados visuales. El orden de las imágenes es análogo a la tabla. Para mostrar ésto además de las imágenes comparativas se colocaron tablas que contienen la cantidad de vértices y caras de cada figura para cada algoritmo. Las caras son todas triangulares, por lo que Surface Nets, que genera caras rectangulares se contó cada una como dos (se dividieron en dos triángulos).
 
-Primero se realizó una esfera con el paso en 0.1 cómo se aprecia en la Figura \ref{esf1g}. La Tabla \ref{esf1t} muestra los resultados obtenidos.
-\begin{table}[h!]
-  \centering
-  \begin{tabular}{cccc}
-    \toprule
-    & Surface Nets & Marching Tetrahedra & Marching Cubes\\
-    \midrule
-    Cantidad de vértices & 392 & 6840 & 1560\\
-    Cantidad de caras & 780 & 2280 & 776\\
-    \bottomrule
-  \end{tabular}
-  \caption{Comparación de cantidad de caras y vértices de la esfera utilizando los 3 algoritmos.}
-  \label{esf1t}
-\end{table}
+Primero se realizó una esfera con el paso en 0.1 cómo se aprecia en la Figura \ref{esf1g}.
+
 \begin{figure}[h!]
 \includegraphics[width=\linewidth,center]{compec1.png}
-\caption{Esfera generada utilizando los 3 algoritmos.}
+\caption{Esfera generada utilizando los 3 algoritmos. A la izquierda utilizando Naive Surface Nets, al centro Marching Tetrahedra y a la derecha Marching Cubes.}
   \label{esf1g}
 \end{figure}
 
 Se puede apreciar en el sector superior a la derecha como Marching Tetrahedra genera una superficie más suave que los otros dos. En la Figura \ref{acercamientoEsf} se muestra un acercamiento.
+
 \begin{figure}[h!]
 \includegraphics[width=\linewidth,center]{zoomesfera.png}
 \caption{Acercamiento a la esfera generada utilizando los 3 algoritmos, donde se aprecia que Naive Surface Netes genera la geometría menos suave, mientras que Marching Tetrahedra la mejor.}
 \label{acercamientoEsf}
 \end{figure}
 
-Con una segunda ecuación perteneciente a la familia de ecuaciones de Óctica de Chmutov, la cual se puede observar generada por SURFER en la Figura \ref{CHSURFER}, se obtuvo lo que se muestra en la Figura\ref{ecuacionG} y en la Tabla \ref{ecuacionT} con un paso de 0.05.
+Con una segunda ecuación perteneciente a la familia de ecuaciones de Óctica de Chmutov, la cual se puede observar generada por SURFER en la Figura \ref{CHSURFER}, se obtuvo lo que se muestra en la Figura \ref{ecuacionG} con un paso de 0.05.
+
 \begin{figure}[h!]
-\includegraphics[width=0.8\linewidth,center]{ecuacion.png}
+\includegraphics[width=0.5\linewidth,center]{ecuacion.png}
 \caption{Ecuación  perteneciente a la familia de ecuaciones de Óctica de Chmutov generada con SURFER.}
 \label{CHSURFER}
 \end{figure}
 %\clearpage%a ver
-\begin{table}[h!]
-  \centering
-  \begin{tabular}{cccc}
-    \toprule
-    & Surface Nets & Marching Tetrahedra & Marching Cubes\\
-    \midrule
-    Cantidad de vértices & 23432 & 430128 & 94368\\
-    Cantidad de caras & 47184 & 143376 & 47504\\
-    \bottomrule
-  \end{tabular}
-  \caption{Comparación de cantidad de caras y vértices utilizando los 3 algoritmos.}
-  \label{ecuacionT}
-\end{table}
+
 \begin{figure}[h!]
 \includegraphics[width=\linewidth,center]{compec2.png}
-\caption{Ecuación generada utilizando los 3 algoritmos.}
+\caption{Ecuación perteneciente a la familia de ecuaciones de Óctica de Chmutov generada utilizando (de izquierda a derecha)  Naive Surface Nets, Marching Tetrahedra y  Marching Cubes.}
   \label{ecuacionG}
 \end{figure}
 
-Finalmente con un cilindro se obtuvo lo que se muestra en la Table \ref{cilindro1T} y en la Figura \ref{cilindro1G}  utilizando un paso de 0.1.
-\begin{table}[h!]
-  \centering
-  \begin{tabular}{cccc}
-    \toprule
-    & Surface Nets & Marching Tetrahedra & Marching Cubes\\
-    \midrule
-    Cantidad de vértices & 3578 & 75960 & 14304\\
-    Cantidad de caras & 7152 & 25320 & 7148\\
-    \bottomrule
-  \end{tabular}
-  \caption{Comparación de cantidad de caras y vértices del cilindro utilizando los 3 algoritmos.}
-  \label{cilindro1T}
-\end{table}
+Finalmente con un cilindro se obtuvo lo que se muestra en la Figura \ref{cilindro1G}  utilizando un paso de 0.1.
+
 \begin{figure}[h!]
 \includegraphics[width=\linewidth,center]{compec3.png}
-\caption{Cilindro generado utilizando los 3 algoritmos.}
+\caption{Cilindro generado utilizando los 3 algoritmos.  A la izquierda utilizando Naive Surface Nets, al centro Marching Tetrahedra y a la derecha Marching Cubes.}
   \label{cilindro1G}
 \end{figure}
 
 Se puede apreciar en el cilindro arriba a la izquierda como Marching Tetrahedra genera una superficie más suave.
 
+En la Tabla \ref{cip} se observa cómo varía la cantidad de vértices y caras para las superficies de las imágenes anteriores. En la misma se puede apreciar como Marching Tetrahedra genera alrededor de 3 veces más caras que los otros dos algoritmos, que generan una cantidad similar.
+\clearpage
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{cccc}
+    \toprule
+    & Surface Nets & Marching Tetrahedra & Marching Cubes\\
+    \midrule
+    Esfera&&&\\
+    Cantidad de vértices & 392 & 6840 & 1560\\
+    Cantidad de caras & 780 & 2280 & 776\\
+\hline
+     Óctica de Chmutov&&&\\
+     Cantidad de vértices & 23432 & 430128 & 94368\\
+    Cantidad de caras & 47184 & 143376 & 47504\\
+\hline
+     Cilindro&&&\\
+    Cantidad de vértices & 3578 & 75960 & 14304\\
+    Cantidad de caras & 7152 & 25320 & 7148\\
+\bottomrule
+  \end{tabular}
+  \caption{Comparación de cantidad de caras y vértices a igual paso utilizando los 3 algoritmos.}
+  \label{cip}
+\end{table}
+
+%\clearpage
 De forma análoga a la sección anterior, se ejecutaron las mismas pruebas pero, en lugar de fijar el paso, se fijó la cantidad de caras, es decir, manteniendo la cantidad de caras generadas por cada algoritmo relativamente iguales.
 
-Primero se generó la esfera, utilizando 0.05 como paso para Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra.
-\begin{table}[h!]
-  \centering
-  \label{tab:table1}
-  \begin{tabular}{cccc}
-    \toprule
-    & Surface Nets & Marching Tetrahedra & Marching Cubes\\
-    \midrule
-    Cantidad de vértices & 1472 & 9480  & 5880 \\
-    Cantidad de caras &  2940 & 3160 & 2936 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Comparación de cantidad de caras y vértices de la esfera utilizando los 3 algoritmos.}
-\end{table}
+Primero se generó la esfera, utilizando 0.05 como paso para Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra. El resultado se aprecia en la Figura \ref{esfera22G}.
+
 \begin{figure}[h!]
 \includegraphics[width=\linewidth,center]{esfera2.png}
-\caption{Esfera generada utilizando los 3 algoritmos.}
+\caption{Esfera generada utilizando los 3 algoritmos.  A la izquierda utilizando Naive Surface Nets, al centro Marching Tetrahedra y a la derecha Marching Cubes.}
+\label{esfera22G}
 \end{figure}
 
-Es notorio que la aproximación de Marching Tetrahedra es la más deficiente, pudiendo observarse en el sector superior izquierdo.
+Es notorio que la aproximación de Marching Tetrahedra es la más deficiente, pudiendo observarse en el sector inferior izquierdo. Ésto se puede apreciar de manera más clara en la Figura \ref{sinNombre}.
 
-Más adelante se generó la segunda ecuación, utilizando 0.05 como paso para Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra.
-\begin{table}[h!]
-  \centering
-  \label{tab:table1}
-  \begin{tabular}{cccc}
-    \toprule
-    & Surface Nets & Marching Tetrahedra & Marching Cubes\\
-    \midrule
-    Cantidad de vértices & 23432 & 144408  & 94368 \\
-    Cantidad de caras &  47184 & 48136 & 47504 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Comparación de cantidad de caras y vértices de la segunda ecuación utilizando los 3 algoritmos.}
-\end{table}
-%\clearpage
+\begin{figure}[h!]
+\includegraphics[width=\linewidth,center]{zoomesferamp.png}
+\caption{Acercamiento a la esfera utilizando los 3 algoritmos.  A la izquierda utilizando Naive Surface Nets, al centro Marching Tetrahedra y a la derecha Marching Cubes.}
+\label{sinNombre}
+\end{figure}
+
+Más adelante se generó la ecuación perteneciente a la familia de Óctica de Chmutov, utilizando 0.05 como paso para Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra. Ésto se aprecia en la Figura \ref{ecuacion22G}.
+
 \begin{figure}[h!]
 \includegraphics[width=\linewidth,center]{ecuacion2.png}
-\caption{Ecuación generada utilizando los 3 algoritmos.}
+\caption{Ecuación generada utilizando los 3 algoritmos.  A la izquierda utilizando Naive Surface Nets, al centro Marching Tetrahedra y a la derecha Marching Cubes.}
+\label{ecuacion22G}
 \end{figure}
 
-En el sector inferior se aprecia nuevamente una peor aproximación en Marching Tetrahedra.
+En el sector inferior se aprecia nuevamente una peor aproximación en Marching Tetrahedra, en la Figura \ref{ecuacion22GZ} se muestra un acercamiento.
+
 \begin{figure}[h!]
 \includegraphics[width=\linewidth,center]{zoomecuacion.png}
 \caption{Zoom a la ecuación generada utilizando los 3 algoritmos donde se aprecia como Marching Tetrahedra genera la peor maya.}
+\label{ecuacion22GZ}
 \end{figure}
 
 Por último se generó el cilindro, utilizando 0.05 como paso para Marching Cubes y Naive Surface Nets; mientras que 0.085 para Marching Tetrahedra.
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth,center]{cilindro2.png}
+\caption{Cilindro generado utilizando los 3 algoritmos.  A la izquierda utilizando Naive Surface Nets, al centro Marching Tetrahedra y a la derecha Marching Cubes.}
+  \label{cilindro2G}
+\end{figure}
+
+En el sector inferior de la superficie se aprecia una peor aproximación en Marching Tetrahedra en la Figura \ref{cilindro2G}.
+
+En la Tabla \ref{cii} se aprecia la cantidad de caras y vértices que componían las imágenes anteriores.
+
 \begin{table}[h!]
   \centering
-  \label{tab:table1}
   \begin{tabular}{cccc}
     \toprule
     & Surface Nets & Marching Tetrahedra & Marching Cubes\\
     \midrule
+    Esfera&&&\\
+    Cantidad de vértices & 1472 & 9480  & 5880 \\
+    Cantidad de caras &  2940 & 3160 & 2936 \\
+\hline
+     Óctica de Chmutov&&&\\
+    Cantidad de vértices & 23432 & 144408  & 94368 \\
+    Cantidad de caras &  47184 & 48136 & 47504 \\
+\hline
+     Cilindro&&&\\
     Cantidad de vértices & 14150 &  95624 & 56592 \\
     Cantidad de caras &  28296 & 30208 & 28292 \\
-    \bottomrule
+\bottomrule
   \end{tabular}
-  \caption{Comparación de cantidad de caras y vértices del cilindro utilizando los 3 algoritmos.}
+  \caption{Comparación de cantidad de caras y vértices a igual paso utilizando los 3 algoritmos.}
+  \label{cii}
 \end{table}
-\begin{figure}[h!]
-\includegraphics[width=\linewidth,center]{cilindro2.png}
-\caption{Cilindro generado utilizando los 3 algoritmos.}
-\end{figure}
-
-En el sector inferior se aprecia una peor aproximación en Marching Tetrahedra.
 
 En estas pruebas se puede apreciar que el algoritmo Marching Tetrahedra, cuando se utiliza el mismo paso, genera aproximaciones levemente mejores, ya que son más suaves que las obtenidas con los otros dos algoritmos. Sin embargo lado es el más lento de los tres y genera una mayor cantidad de vértices y caras. Por otro lado, Naive Surface Nets es el más rápido de los tres, y las mallas que generan son levemente inferiores a las de Marching Cubes, pero considerando su velocidad es una buena opción. Además de que sus geometrías ocupan menos memoria. Marching Cubes se ubica en el medio entre los algoritmos, ya que no es el más rápido pero tampoco el más lento, y sus aproximaciones no son las mejores pero tampoco las peores.
 
@@ -1011,6 +1009,7 @@ A igual cantidad de caras, se puede notar que Marching Tetrahedra es inferior, y
 Para realizar un análisis del framerate se colocaron distintas ecuaciones y se registró el framerate promedio luego de 1 minuto de rotar la cámara alrededor de ellas. Al ser la cantidad de polígonos  el factor de mayor incidencia en el framerate de una aplicación de éste estilo, se registro solamente la cantidad de caras y no que ecuación se utilizó.
 
 A continuación se presenta la Tabla \ref{fps} con la cantidad de caras de la ecuación y el framerate promedio obtenido en Nightly. La resolución de la pantalla es de 1920x1080p.
+
 \begin{table}[h!]
   \centering
   \label{tab:table1}
@@ -1207,7 +1206,7 @@ Supongamos que contamos con dos volúmenes $f(x,y,z)=0$ y $g(x,y,z)=0$ (para lo 
 \\En el primer modo se le resta a la suma, la resta del valor absoluto, es decir $\cup(f,g) =  f(x,y,z) + g(x,y,z) - |f(x,y,z) - g(x,y,z)|$. 
 \\En el segundo caso se le resta a la suma la raíz cuadrada de la suma de los cuadrados de las funciones  $\cup(f,g) = f(x,y,z) + g(x,y,z) -\sqrt[2]{f^2(x,y,z) + g^2(x,y,z)}$.
 \\En el tercer tipo se toma el mínimo de las dos  $\cup(f,g)=min(f(x,y,z),g(x,y,z))$
-\clearpage
+%\clearpage
 \begin{figure}[h]
 \includegraphics[width=0.7\linewidth,center]{oi1.png}
 \caption{Unión de dos esferas generada con la aplicación desarrollada.}
@@ -1236,7 +1235,7 @@ Nuevamente, partiendo de dos superficies, f y g, que cumplen las mismas propieda
 \caption{Resta de dos esferas generada con la aplicación desarrollada.}
 \label{resta}
 \end{figure}
-\clearpage
+%\clearpage
 \subsection{Galería}
 En esta sección se muestran una serie de imágenes de superficies generadas con nuestra aplicación, junto con una breve descripción y la ecuación que debe ser ingresada a la aplicación para que se genere la malla.
 \\Cubo: $((((x+y+abs(x-y))+(z)+ abs((x+y+abs(x-y))-(z)))+ (-z-2)+abs(((x+y+abs (x-y))+(z)+ abs((x+y+abs(x-y))-(z))) -(-z-2)))+(-x-2)+ abs((((x+y+ abs(x-y))+(z)+ abs((x+y+abs (x-y)) -(z)))+(-z-2) +abs(((x+y+abs(x-y))+(z)+ abs((x+y+ abs(x-y)) -(z)))- (-z-2)))- (-x-2))) + (-y-2) +abs((((( x+y + abs(x-y))+(z)+ abs((x+ y+abs(x-y))-(z)))+(-z-2)+ abs(((x+ y+ abs(x-y))+ (z)+abs((x+y+abs (x-y))-(z)))-(-z-2)))+ (-x-2) +abs((((x+y+abs(x-y))+(z)+ abs((x+y+ abs(x-y))-(z)))+(-z-2)+abs(((x+y+abs(x-y))+(z)+ abs((x+y+abs (x-y))-(z)))-(-z-2)))-(-x-2)))-(-y-2))$

@@ -393,15 +393,17 @@ $z(u,v) = u^2+v^2$\\
 Este tipo de funciones es trivial de dibujar (basta con tomar diferentes valores de $u$ y $v$ y formar polígonos con las coordenadas obtenidas de los mismos).
 Pero no en todas las funciones se puede obtener una representación simple donde una variable esté en función del resto, por lo tanto no se pueden parametrizar y dibujar con el método anterior, como es el caso de  $f(x,y,z) = 2y(y^2-3x^2)(1-z^2)+(x^2+y^2)^2-(9z^2-1)(1-z^2)$, es por eso que existen los siguientes algoritmos \cite{implicitas}.
 
-\subsection{Interpolación lineal}
-CAMBIAR PABLO
-\noindent  Si $P_1=(x_1,y_1,z_1)$ y $P_2=(x_2,y_2,z_2)$ son los vértices de una arista de corte y $V_1$ y $V_2$ son los valores escalares en cada vértice, el punto de intersección P está dado por:
-$P = (x_1,y_1,z_1) + (isovalue - V_1) (x_2-x_1,y_2-y_1,z_2-z_1) / (V_2 - V_1)$ Ver Figura \ref{sdkjasdlksdjkasljlasjlkas}.
+\subsection{Interpolación lineal en una recta}
+\noindent  La interpolación lineal en ${\rm I\!R} ^3$ se define como: Dados $P_1=(x_1,y_1,z_1)$ y $P_2=(x_2,y_2,z_2)$ vértices de un segmento de recta y $V_1=f(x_1,y_1,z_1)$, $V_2=f(x_2,y_2,z_2)$ valores escalares en cada vértice, se requiere hallar el punto P dentro del segmento $\segment{P_1 P_2}$ dado el valor $F=f(P)$ para ello se utiliza la siguiente ecuación: 
+$$P=P_1 \dfrac{\vert V-V_2\vert}{\vert V_2-V_1\vert}+P_2 \dfrac{\vert V-V_1\vert}{\vert V_2-V_1\vert}$$
+
+Por ejemplo, dados $P_1=(0, 1, 0)$ y $P_2=(0, 0, 0)$ con los valores escalares $V_1=2$ y $V_2=8$ respectivamente, las coordenadas de P dado $V=4$ se pueden ver en la Figura \ref{interpolacionlineal}.
 \begin{figure}[h!]
-\includegraphics[width=0.8\textwidth,center]{interpolacion.png}
-\caption{NO PINTO PONERLE CAPTION?}
-\label{sdkjasdlksdjkasljlasjlkas}
+\includegraphics[width=0.8\textwidth,center]{interpolacion_ejemplo.png}
+\caption{Ejemplo de interpolación lineal en el espacio}
+\label{interpolacionlineal}
 \end{figure}
+En el contexto de proyecto, debido a que se esta trabajando con funciones implicitas, es decir, $f(x,y,z)=0$, se requiere hallar los puntos del espacio donde el valor de $f(x,y,z)=0$, para ello, cuando se requiere realizar interpolación lineal, se toman valores de $v=0$. Sin embargo, los siguientes algorítmos estan pensados para funcionar con $f(x,y,z)=c$ siendo c una constante cualquiera.
 \subsection{Marching Cubes}
 \noindent El algoritmo de Marching Cubes\cite{marching}\cite{marchingcubes} consiste en la creación de superficies mediante la intersección de las aristas de una grilla tridimensional con el volumen de la superficie misma. Donde la superficie interseca una arista de la grilla, el algoritmo crea un vértice. Mediante la utilización de una tabla de diferentes triángulos dependiendo de los diferentes patrones de intersección con la arista, el algoritmo crea una superficie.
 
@@ -420,7 +422,7 @@ Si por ejemplo el valor en el vértice 3 está por debajo del valor superficie y
 \end{figure}
 Lo que hace al algoritmo "difícil" es el gran número de combinaciones posibles (256) y la necesidad de obtener una combinación de caras consistente para cada solución de forma que las caras generadas en las celdas adyacentes se conecten entre sí correctamente.
 
-La primera parte del algoritmo utiliza una tabla (edgeTable) que mapea los vértices bajo la superficie a los bordes de intersección. Se forma un índice (cubeindex) de 8 bits donde cada bit corresponde a un vértice.
+La primera parte del algoritmo utiliza una tabla (edgeTable) que mapea los vértices bajo la superficie a los bordes de intersección. Se forma un índice (cubeindex) de 8 bits donde cada bit corresponde a un vértice. Además se define un umbral isolevel que determina los puntos que pertenecen a la superficie y los que no.
 \lstset{language=C}          % Set your language (you can change the language for each code-block optionally)
 
 \begin{lstlisting}[frame=single][caption=blabla, label=amb]
@@ -448,11 +450,6 @@ Volviendo a nuestro ejemplo, en el paso anterior se calculan los puntos de inter
 {3, 11, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 
 Este es un ejemplo particularmente simple, pero las combinaciones que pueden surgir no son tan evidentes para muchos de los casos de la tabla.
-
-A continuación se presenta otro ejemplo.
-
-Digamos que los vértices 0 y 3 están por debajo del superficie. Entonces cubeindex será 0000 1001 == 9. La novena entrada en la egdeTable es 1001 0000 0101 lo que significa que las aristas 11,8,2 y 0 se cortan, por lo que trabajamos los vértices de la intersección de la superficie con esos bordes.
-A continuación, 9 en la triTable es 0, 11, 2, 8, 11, 0. Esto corresponde a 2 caras triangulares, una entre la intersección del borde de 0 11 y 2. La otra entre las intersecciones a lo largo de los bordes 8 11 y 0.
 \subsubsection{Resolución de la grilla}
 \noindent Algo deseable a controlar cuando se poligoniza una superficie es la resolución de la cuadrícula de muestreo. Esto permite elegir el grado de la aproximación a la superficie a generarse en función de la suavidad requerida y / o la potencia de procesamiento disponible para mostrar la superficie. El ejemplo de la Figura \ref{mani} ilustra una misma superficie generada a diferentes tamaños de malla, se puede notar que en la primer figura, debido a que el tamaño de celda elegido es demasiado grande, no genera una figura correctamente.
 \clearpage
@@ -633,7 +630,7 @@ $\bullet$ Con la idea de permitir a los usuarios seleccionar la región que se d
 \clearpage
 
 \section{Solución propuesta}
-$\bullet$ La aplicación es un visualizador de ecuaciones implícitas que se ejecuta en un navegador web. Ésta utiliza THREEJS junto con WebGL. La decisión de usar THREEJS fue una decisión importante, ya que permite que la aplicación se pueda ejecutar en todos los navegadores modernos. Ésto busca  aumentar el atractivo de la aplicación para los jóvenes.
+$\bullet$ La aplicación es un visualizador de ecuaciones implícitas que se ejecuta en un navegador web. Ésta utiliza THREEJS junto con WebGL. La decisión de usar THREEJS fue una decisión importante, ya que permite que la aplicación se pueda ejecutar en todos los navegadores modernos. Ésto busca  aumentar el alcance de la aplicación, permitiendo que la misma sea accedida por cualquier persona con un navegador web moderno.
 
 $\bullet$ La aplicación web utiliza los algoritmos presentados anteriormente basados en el trabajo de Lysenko\cite{mykola1}\cite{mykola2}, se genera una malla poligonal de las ecuaciones.  
 
@@ -641,11 +638,11 @@ $\bullet$ Las ecuaciones son ingresadas por el usuario utilizando una sintaxis s
 
 $\bullet$ Para que la aplicación funcione con Oculus Rift, se utilizó MozVR lo que permite poder utilizar el dispositivo en el navegador Nightly. La aplicación también funciona con Google Cardboard en dispositivos móviles. Se decidió utilizar MozVR porque es de los pocos estándares que permiten utilizar Oculus Rift de buena forma en los navegadores web. Ésto es una restricción ya que si se desea utilizar la aplicación por sus capacidades estereocópicas en PC se deberá descargar ese navegador con el plugin de MozVR, pero para utilizar la aplicación en su forma no estereoscópica no será necesario.
 
-$\bullet$ Para tener una arquitectura MVC bien definida se utilizó AngularJS. Se decidió utilizar este framework con la intención de que la arquitectura obtenida fuese más clara y extendible de manera más sencilla.
+$\bullet$ Para tener una arquitectura MVC bien definida se utilizó AngularJS. Se decidió utilizar este framework porque el mismo provee estructura al lenguaje Javascript, además facilita la comunicación de la vista con el controlador y el modelo, debido a que todo cambio en el controlador afecta directamente a la vista, sin necesidad de utilizar funciones de acceso a los elementos HTML. Estó permite obtener una arquitectura clara y extensible de manera sencilla.
 
 $\bullet$ Se permite al usuario seleccionar el paso que será utilizado por el algoritmo. Es decir, el tamaño que se usa para la definición de la grilla sobre la cual se generará la malla, ésta genera dividiendo el intervalo ingresado de manera que cada sección de la grilla posea la medida del paso. 
 
-$\bullet$ Se propuso para obtener una mejor visualización calcularle las normales en cada uno  de los vértices de la superficie. Ésto, cómo se explicó previamente permite que la visualización no sea facetada, lo que provoca que la ecuación sea visualmente más atractiva y junto con la utilización de Phong cumplen el objetivo de que la visualización sea "suave". 
+$\bullet$ Se propuso para obtener una mejor visualización mediante el cálculo de las normales en cada uno  de los vértices de la superficie. Ésto, cómo se explicó previamente, permite que la visualización no sea facetada, lo que provoca que la ecuación sea visualmente más atractiva y junto con la utilización de Phong cumplen el objetivo de que la visualización sea "suave". 
 
 $\bullet$ Para lograr el objetivo de como navegar la superficie se decidió mostrar la geometría generada en una escena tridimensional la cual se visualiza normalmente en un modo donde la cámara “orbita” alrededor de ecuación. Pero cuando se ingresa al modo de realidad virtual, se visualiza como si fuese en primera persona. Cuando se encuentra en dicho modo se puede usar tanto el teclado como el joystick para desplazarse alrededor de la escena de forma de poder recorrerla completamente. Ésto le da gran libertad al usuario y permite que explore la escena sin restricciones, pudiendo observar una gran cantidad de detalles que no son posibles de otra forma.
 
@@ -653,9 +650,9 @@ $\bullet$ Para lograr el objetivo de como navegar la superficie se decidió most
 
 $\bullet$ Para conseguir los efectos interesantes sobre las ecuaciones se decidió utilizar GLSL por su gran flexibilidad, ya que es el lenguaje para la realización de shaders de openGL, además de por su interacción con THREEJS. 
 
-$\bullet$ Con el fin de obtener la visualización de varias ecuaciones a la vez se pueden almacenar tantas ecuaciones en memoria como el equipo sobre el que se ejectua permita. Se puede elegir cuales ecuaciones ver ya sea por la interfaz en pantalla o utilizando el teclado.
+$\bullet$ Con el fin de obtener la visualización de varias ecuaciones a la vez, se implemento un menú dinámico que permite la fácil adición de una superficie a la escena, además permite elegir cuales ecuaciones ver ya sea por la interfaz en pantalla o utilizando el teclado.
 
-$\bullet$ Con la intención de permitir a los usuarios elegir la zona de la ecuación que se quiere poligonizar se creó un método para lograrlo de forma visual.  
+$\bullet$ Con la intención de permitir a los usuarios elegir la zona de la ecuación que se quiere poligonizar, se creó un método para realizar zoom en el área deseada.  
 
 $\bullet$ Para cumplir el objetivo de que los usuarios puedan compartir ecuaciones se permite el almacenamiento en una base de datos de las mismas. Se propone implementar un web service que exponga una base de datos a la aplicación, permitiendo que los usuarios consideren interesantes, almacenando un nombre además de la ecuación y su geometría. Ésto es interesante ya que permite que se compartan ecuaciones atractivas y se trabaje en conjunto en la búsqueda de determinadas ecuaciones. 
 

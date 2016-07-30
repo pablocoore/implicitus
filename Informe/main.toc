@@ -1,0 +1,90 @@
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{9}
+\contentsline {subsection}{\numberline {1.1}Definici\IeC {\'o}n del problema y motivaci\IeC {\'o}n}{9}
+\contentsline {subsection}{\numberline {1.2}Objetivos}{9}
+\contentsline {subsection}{\numberline {1.3}Resultados Esperados}{10}
+\contentsline {section}{\numberline {2}Estado del Arte}{11}
+\contentsline {subsection}{\numberline {2.1}Tipos de superficies}{11}
+\contentsline {subsection}{\numberline {2.2}T\IeC {\'e}cnicas para visualizaci\IeC {\'o}n de superficies impl\IeC {\'\i }citas}{12}
+\contentsline {subsubsection}{\numberline {2.2.1}Ray casting}{12}
+\contentsline {subsubsection}{\numberline {2.2.2}Meshers}{13}
+\contentsline {subsection}{\numberline {2.3}Software de representaci\IeC {\'o}n de superficies impl\IeC {\'\i }citas}{14}
+\contentsline {subsubsection}{\numberline {2.3.1}SURFER}{14}
+\contentsline {subsubsection}{\numberline {2.3.2}3d-XplroMath-J}{14}
+\contentsline {subsubsection}{\numberline {2.3.3}Isosurface}{14}
+\contentsline {subsection}{\numberline {2.4}Visi\IeC {\'o}n estereosc\IeC {\'o}pica}{15}
+\contentsline {subsection}{\numberline {2.5}Tecnolog\IeC {\'\i }as existentes para visi\IeC {\'o}n estereosc\IeC {\'o}pica}{16}
+\contentsline {subsubsection}{\numberline {2.5.1} Oculus Rift}{17}
+\contentsline {paragraph}{\numberline {2.5.1.1}Development kit 1}{18}
+\contentsline {paragraph}{\numberline {2.5.1.2}Development kit 2}{18}
+\contentsline {paragraph}{\numberline {2.5.1.3}Consumer version}{19}
+\contentsline {subsubsection}{\numberline {2.5.2}HTC Vive}{21}
+\contentsline {subsubsection}{\numberline {2.5.3}PlaystationVR}{21}
+\contentsline {subsubsection}{\numberline {2.5.4}Google Cardboard}{22}
+\contentsline {subsubsection}{\numberline {2.5.5}Samsung Gear VR}{23}
+\contentsline {subsection}{\numberline {2.6}Otros paquetes gr\IeC {\'a}ficos}{23}
+\contentsline {subsubsection}{\numberline {2.6.1}WebGL}{23}
+\contentsline {subsubsection}{\numberline {2.6.2}THREEJS}{24}
+\contentsline {subsubsection}{\numberline {2.6.3}MozVR}{24}
+\contentsline {subsubsection}{\numberline {2.6.4}GLSL}{24}
+\contentsline {section}{\numberline {3}Aproximaci\IeC {\'o}n de superficies algebraicas a trav\IeC {\'e}s de meshers}{25}
+\contentsline {subsection}{\numberline {3.1}Transformaci\IeC {\'o}n de funciones impl\IeC {\'\i }citas en expl\IeC {\'\i }citas}{26}
+\contentsline {subsection}{\numberline {3.2}Interpolaci\IeC {\'o}n lineal en una recta}{26}
+\contentsline {subsection}{\numberline {3.3}Marching Cubes}{27}
+\contentsline {subsubsection}{\numberline {3.3.1}Resoluci\IeC {\'o}n de la grilla}{29}
+\contentsline {subsection}{\numberline {3.4}Marching Tetrahedra}{30}
+\contentsline {subsection}{\numberline {3.5}Surface Nets}{31}
+\contentsline {subsection}{\numberline {3.6}Dual Contouring}{33}
+\contentsline {subsection}{\numberline {3.7}Determinaci\IeC {\'o}n de las normales de los v\IeC {\'e}rtices de las caras triangulares}{33}
+\contentsline {section}{\numberline {4}Exploraci\IeC {\'o}n de SURFER}{36}
+\contentsline {section}{\numberline {5}Alcance del proyecto}{39}
+\contentsline {subsection}{\numberline {5.1}Objetivos}{39}
+\contentsline {subsection}{\numberline {5.2}Decisiones de dise\IeC {\~n}o}{40}
+\contentsline {section}{\numberline {6}Soluci\IeC {\'o}n propuesta}{44}
+\contentsline {subsection}{\numberline {6.1}Shaders}{46}
+\contentsline {subsection}{\numberline {6.2}Texturas}{46}
+\contentsline {subsection}{\numberline {6.3}Arquitectura}{48}
+\contentsline {subsubsection}{\numberline {6.3.1}Cliente web}{48}
+\contentsline {subsubsection}{\numberline {6.3.2}Backend y base de datos}{51}
+\contentsline {subsection}{\numberline {6.4}Interfaz}{52}
+\contentsline {subsubsection}{\numberline {6.4.1}Men\IeC {\'u} lateral}{53}
+\contentsline {subsubsection}{\numberline {6.4.2}Mensajes}{53}
+\contentsline {subsubsection}{\numberline {6.4.3}Teclado y Mouse}{53}
+\contentsline {subsubsection}{\numberline {6.4.4}Joystick}{53}
+\contentsline {section}{\numberline {7}An\IeC {\'a}lisis experimental}{55}
+\contentsline {subsection}{\numberline {7.1}Hardware y Software utilizado}{55}
+\contentsline {subsection}{\numberline {7.2}Comparaci\IeC {\'o}n entre meshers}{55}
+\contentsline {subsubsection}{\numberline {7.2.1}Comparaci\IeC {\'o}n a trav\IeC {\'e}s de sucesiones}{55}
+\contentsline {subsubsection}{\numberline {7.2.2}Comparaci\IeC {\'o}n a trav\IeC {\'e}s de ecuaciones puntuales}{57}
+\contentsline {subsection}{\numberline {7.3} Estudio de framerate}{64}
+\contentsline {subsection}{\numberline {7.4}Comparaci\IeC {\'o}n con SURFER en puntos singulares}{66}
+\contentsline {subsection}{\numberline {7.5}Analis\IeC {\'\i }s de usuarios}{68}
+\contentsline {subsection}{\numberline {7.6}Composici\IeC {\'o}n de ecuaciones}{69}
+\contentsline {subsubsection}{\numberline {7.6.1}Uni\IeC {\'o}n de ecuaciones}{70}
+\contentsline {subsubsection}{\numberline {7.6.2}Intersecci\IeC {\'o}n de ecuaciones}{71}
+\contentsline {subsubsection}{\numberline {7.6.3}Resta de ecuaciones}{71}
+\contentsline {subsection}{\numberline {7.7}Galer\IeC {\'\i }a}{73}
+\contentsline {section}{\numberline {8}Conclusiones y trabajo a futuro}{80}
+\contentsline {subsection}{\numberline {8.1}Conclusiones}{80}
+\contentsline {subsubsection}{\numberline {8.1.1}Meshers}{80}
+\contentsline {subsubsection}{\numberline {8.1.2}Calidad de imagen y framerate}{81}
+\contentsline {subsection}{\numberline {8.2}Trabajo a futuro}{81}
+\contentsline {section}{\numberline {9}Glosario}{83}
+\contentsline {section}{\numberline {10}Referencias}{86}
+\contentsline {section}{\numberline {A}Teorema de la funci\IeC {\'o}n Impl\IeC {\'\i }cita.}{89}
+\contentsline {section}{\numberline {B}Cronograma del proyecto}{90}
+\contentsline {section}{\numberline {C}Manual de Usuario}{91}
+\contentsline {subsection}{\numberline {C.1}Interfaz}{91}
+\contentsline {subsubsection}{\numberline {C.1.1}Men\IeC {\'u} lateral}{91}
+\contentsline {subsubsection}{\numberline {C.1.2}Mensajes}{92}
+\contentsline {subsubsection}{\numberline {C.1.3}Teclado y Mouse}{93}
+\contentsline {subsubsection}{\numberline {C.1.4}Joystick}{93}
+\contentsline {section}{\numberline {D}Ejemplo de c\IeC {\'o}mo agregar un nuevo shader}{95}
+\contentsline {subsection}{\numberline {D.1}Vertex Shader}{95}
+\contentsline {subsection}{\numberline {D.2}Fragment Shader}{96}
+\contentsline {subsection}{\numberline {D.3}Funci\IeC {\'o}n en MainService}{96}
+\contentsline {section}{\numberline {E}Ejemplo de c\IeC {\'o}mo agregar un nuevo idioma}{99}
+\contentsline {section}{\numberline {F}Ejemplo de c\IeC {\'o}mo agregar un nuevo algoritmo}{100}
+\contentsline {section}{\numberline {G}Pruebas para los usuarios}{101}
+\contentsline {section}{\numberline {H}Cuestionario de usabilidad de la aplicaci\IeC {\'o}n}{102}
+\contentsline {section}{\numberline {I}Descripci\IeC {\'o}n de m\IeC {\'o}dulos del proyecto}{103}
+\contentsline {section}{\numberline {J}Algoritmo Marching cubes}{106}

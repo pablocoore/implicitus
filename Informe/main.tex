@@ -25,6 +25,9 @@
 }
 \pgfplotsset{compat=1.9}
 
+
+
+
 \usepackage{array,booktabs}
 
 \usepackage{filecontents}
@@ -394,7 +397,7 @@ Este tipo de funciones es trivial de dibujar (basta con tomar diferentes valores
 Pero no en todas las funciones se puede obtener una representación simple donde una variable esté en función del resto, por lo tanto no se pueden parametrizar y dibujar con el método anterior, como es el caso de  $f(x,y,z) = 2y(y^2-3x^2)(1-z^2)+(x^2+y^2)^2-(9z^2-1)(1-z^2)$, es por eso que existen los siguientes algoritmos \cite{implicitas}.
 %\segment
 \subsection{Interpolación lineal en una recta}
-\noindent  La interpolación lineal en ${\rm I\!R} ^3$ se define como: Dados $P_1=(x_1,y_1,z_1)$ y $P_2=(x_2,y_2,z_2)$ vértices de un segmento de recta y $V_1=f(x_1,y_1,z_1)$, $V_2=f(x_2,y_2,z_2)$ valores escalares en cada vértice, se requiere hallar el punto P dentro del segmento ${P_1 P_2}$ dado el valor $F=f(P)$ para ello se utiliza la siguiente ecuación: 
+\noindent  La interpolación lineal en ${\rm I\!R} ^3$ se define como: Dados $P_1=(x_1,y_1,z_1)$ y $P_2=(x_2,y_2,z_2)$ vértices de un segmento de recta y $V_1=f(x_1,y_1,z_1)$, $V_2=f(x_2,y_2,z_2)$ valores escalares en cada vértice, se requiere hallar el punto P dentro del segmento $\overline{P_1 P_2}$ dado el valor $F=f(P)$ para ello se utiliza la siguiente ecuación: 
 $$P=P_1 \dfrac{\vert V-V_2\vert}{\vert V_2-V_1\vert}+P_2 \dfrac{\vert V-V_1\vert}{\vert V_2-V_1\vert}$$
 
 Por ejemplo, dados $P_1=(0, 1, 0)$ y $P_2=(0, 0, 0)$ con los valores escalares $V_1=2$ y $V_2=8$ respectivamente, las coordenadas de P dado $V=4$ se pueden ver en la Figura \ref{interpolacionlineal}.
@@ -409,16 +412,18 @@ En el contexto de proyecto, debido a que se esta trabajando con funciones implic
 
 El problema fundamental es formar una aproximación de una superficie a través de un campo escalar dentro de una grilla rectangular 3D. Dada una celda (cubo de la grilla), definida por sus vértices y los valores escalares en cada vértice, es necesario crear caras planas que mejor representen la superficie dentro de ese cubo de la cuadrícula. La superficie puede, o no, pasar a través del cubo de la cuadrícula, y cortar cualquiera de los vértices. Cada posibilidad de corte con el cubo de la grilla se caracteriza por el número de vértices en que la celda tiene valores por encima o por debajo de la superficie. Si un vértice está por encima de la superficie y un vértice adyacente está por debajo de la superficie, entonces sabemos que la superficie corta el borde entre estos dos vértices. La posición en la que corta el borde será interpolada linealmente, y la relación de longitud entre los dos vértices será la misma que la relación de la superficie a los valores de los vértices del cubo de la cuadrícula.
 
-Por convención se indexarán los vértices y aristas del cubo de la grilla de la siguiente forma:
+Por convención se indexarán los vértices y aristas del cubo de la grilla de la forma que se muestra en la Figura \ref{mc1}:
 \begin{figure}[h!]
 \includegraphics[width=0.75\textwidth,center]{marchingcubes1.png}
 \caption{Cubo con la indexación utilizada en el algoritmo de Marching Cubes.}
+\label{mc1}
 \end{figure}
 
-Si por ejemplo el valor en el vértice 3 está por debajo del valor superficie y todos los valores en todos los demás vértices están por encima del valor superficie, entonces se crea una cara triangular que corta a través de las aristas 2,3 y 11. La posición exacta de los vértices de la cara triangular depende de la relación del valor superficie a los valores en los vértices 3-2, 3-0, 3-7, respectivamente.
+Si por ejemplo el valor en el vértice 3 está por debajo del valor superficie y todos los valores en todos los demás vértices están por encima del valor superficie, entonces se crea una cara triangular que corta a través de las aristas 2,3 y 11 (ver Figura \ref{mc2}). La posición exacta de los vértices de la cara triangular depende de la relación del valor superficie a los valores en los vértices 3-2, 3-0, 3-7, respectivamente.
 \begin{figure}[h!]
 \includegraphics[width=0.75\textwidth,center]{marchingcubes2.png}
 \caption{Ejemplo de creación de una cara en una celda con Marching Cubes.}
+\label{mc2}
 \end{figure}
 Lo que hace al algoritmo "difícil" es el gran número de combinaciones posibles (256) y la necesidad de obtener una combinación de caras consistente para cada solución de forma que las caras generadas en las celdas adyacentes se conecten entre sí correctamente.
 
@@ -443,9 +448,10 @@ Utilizando el ejemplo anterior donde sólo el vértice 3 estuvo por debajo de la
 \begin{figure}[h!]
 \includegraphics[width=0.8\textwidth,center]{marchingcubes3.png}
 \caption{Ejemplos de formación de caras dentro de una celda.}
+\label{mc3}
 \end{figure}
 
-La última parte del algoritmo implica la formación de las caras correctas en las posiciones en que la superficie interseca los bordes del cubo de la grilla. La tabla triTable, se encuentra en el Anexo J, utiliza el cubeindex como entrada y retorna las aristas de la grilla que  formarán parte de los vértices de las caras triangulares que sean necesarias para representar la superficie dentro del cubo de la grilla. Hay como máximo 5 caras triangulares en un cubo de la grilla.
+La última parte del algoritmo implica la formación de las caras correctas en las posiciones en que la superficie interseca los bordes del cubo de la grilla, en la Figura \ref{mc3} se pueden apreciar algunos ejemplos. La tabla triTable, se encuentra en el Anexo J, utiliza el cubeindex como entrada y retorna las aristas de la grilla que  formarán parte de los vértices de las caras triangulares que sean necesarias para representar la superficie dentro del cubo de la grilla. Hay como máximo 5 caras triangulares en un cubo de la grilla.
 Volviendo a nuestro ejemplo, en el paso anterior se calculan los puntos de intersección a lo largo del borde 2,3 y 11. El octavo elemento en la triTable es:
 {3, 11, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 
@@ -1307,9 +1313,11 @@ En la Figura \ref{grafobz} se puede observar el grafo de construcción de la sup
 \clearpage
 \section{Conclusiones y trabajo a futuro}
 \subsection{Conclusiones}
-\noindent Las conclusiones se presentarán en dos partes, en la primera se analiza la performance de los meshers, comparándolos entre sí. 
+\noindent Las conclusiones se presentarán en tres partes, en la primera se analiza la performance de los meshers, comparándolos entre sí. 
 
 En la segunda parte se analiza la performance de la aplicación en cuanto a fps y a la resolución de las imágenes generadas. En esta parte se comparará contra SURFER y se analizará si el framerate y la calidad de las imágenes es lo suficientemente bueno para una experiencia positiva de realidad virtual.
+
+Finalmente se presentan las conclusiones de los experimentos con usuarios.
 \subsubsection{Meshers}
 \noindent Cada uno de los 3 métodos tiene sus puntos fuertes y débiles. 
 
@@ -1320,6 +1328,7 @@ Marching Tetrahedra soluciona algunos problemas de Marching Cubes a expensas de 
 Naive Surface Nets posee una velocidad significativamente superior y se puede ampliar para generar mallas de alta calidad utilizando algoritmos más sofisticados de selección de vértices. También es fácil de implementar y produce mallas ligeramente más pequeñas en cuanto a su costo de almacenamiento. Su inconveniente principal es que las superficies que genera son de inferior calidad, aunque podría mejorarse si se cambia la técnica de elección de vértices. 
 
 La elección de cual de los métodos es el superior depende de cada caso. Si se quiere ahorrar en memoria y obtener el resultado con mayor rapidez, se debe usar Naive Surface Nets, pero asumiendo que la aproximación se vería comprometida con respecto al uso de cualquiera de los otros dos algoritmos. Sin embargo, si se quiere maximizar la precisión de la aproximación se debe utilizar Marching Tetrahedra, pero demorara más tiempo y utilizará más recursos. Finalmente, si se quiere una opción más equilibrada, se puede optar por Marching Cubes ya que no es tan preciso a la hora de aproximar como Marching Tetrahedra, pero es más rápido y usa menos recursos; además de que es más preciso que Naive Surface Nets aunque es más lento. Por estos motivos se optó por dejar a Marching Cubes como algoritmo por defecto, pero permitirle al usuario cambiarlo en caso de que éste lo considere necesario.
+
 \subsubsection{Calidad de imagen y framerate}
 \noindent Los framerates obtenidos son altos, ampliamente superiores a 60 fps (la tasa de refresco que los videojuegos apuntan a obtener). Son también ampliamente superiores a los 15 fps que tiene como objetivo mantener el SURFER. Ésto hace que la experiencia visual sea muy fluida y agradable (tanto en el modo de realidad virtual como en el normal). 
 
@@ -1333,6 +1342,12 @@ Luego, las pruebas con Google Cardboard también fueron favorables, ninguno de l
 
 A su vez hay que destacar que, aunque se presenten dichas ventajas, el uso de ray casting hubiese permitido visualizar de forma más precisa algunas ecuaciones, particularmente aquellas con múltiples puntos singulares, y evitar algunos artefactos en dichos puntos. Aún así la aproximación es buena, pero la que genera SURFER es superior. Sin embargo, si se utiliza la funcionalidad de cortar y se acerca a las zonas problemáticas, el resultado obtienido es muy bueno, ya que se disminuye la aparición de la deformación.
 
+\subsubsection{Experiencia de los usuarios}
+\noindent Las pruebas realizadas con usurios fueron muy favorables, ya que la aplicación no sufrío críticas considerables. La mayoría de los usuarios lograron utilizar la aplicación casi sin inconvenientes, y se mostraron confromes con su interfaz y la metodología para ingresar las ecuaciones.
+
+A su vez los usuarios quedaron satisfechos con la calidad visual de las superficies, y recibimos comentarios favorables en cuanto a los shaders, texturas e iluminación dinámica.
+
+Como se mencionó anteriormente, ninguno de los usuarios sintió ningún tipo de mareo o disconformidad mientras utilizaba la aplicación.
 
 \subsection{Trabajo a futuro}
 %Para mejorar aún más la aplicación se podrían implementar una serie de cambios y agregados. 

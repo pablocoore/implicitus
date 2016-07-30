@@ -392,9 +392,9 @@ $z(u,v) = u^2+v^2$\\
 
 Este tipo de funciones es trivial de dibujar (basta con tomar diferentes valores de $u$ y $v$ y formar polígonos con las coordenadas obtenidas de los mismos).
 Pero no en todas las funciones se puede obtener una representación simple donde una variable esté en función del resto, por lo tanto no se pueden parametrizar y dibujar con el método anterior, como es el caso de  $f(x,y,z) = 2y(y^2-3x^2)(1-z^2)+(x^2+y^2)^2-(9z^2-1)(1-z^2)$, es por eso que existen los siguientes algoritmos \cite{implicitas}.
-
+%\segment
 \subsection{Interpolación lineal en una recta}
-\noindent  La interpolación lineal en ${\rm I\!R} ^3$ se define como: Dados $P_1=(x_1,y_1,z_1)$ y $P_2=(x_2,y_2,z_2)$ vértices de un segmento de recta y $V_1=f(x_1,y_1,z_1)$, $V_2=f(x_2,y_2,z_2)$ valores escalares en cada vértice, se requiere hallar el punto P dentro del segmento $\segment{P_1 P_2}$ dado el valor $F=f(P)$ para ello se utiliza la siguiente ecuación: 
+\noindent  La interpolación lineal en ${\rm I\!R} ^3$ se define como: Dados $P_1=(x_1,y_1,z_1)$ y $P_2=(x_2,y_2,z_2)$ vértices de un segmento de recta y $V_1=f(x_1,y_1,z_1)$, $V_2=f(x_2,y_2,z_2)$ valores escalares en cada vértice, se requiere hallar el punto P dentro del segmento ${P_1 P_2}$ dado el valor $F=f(P)$ para ello se utiliza la siguiente ecuación: 
 $$P=P_1 \dfrac{\vert V-V_2\vert}{\vert V_2-V_1\vert}+P_2 \dfrac{\vert V-V_1\vert}{\vert V_2-V_1\vert}$$
 
 Por ejemplo, dados $P_1=(0, 1, 0)$ y $P_2=(0, 0, 0)$ con los valores escalares $V_1=2$ y $V_2=8$ respectivamente, las coordenadas de P dado $V=4$ se pueden ver en la Figura \ref{interpolacionlineal}.
@@ -445,14 +445,14 @@ Utilizando el ejemplo anterior donde sólo el vértice 3 estuvo por debajo de la
 \caption{Ejemplos de formación de caras dentro de una celda.}
 \end{figure}
 
-La última parte del algoritmo implica la formación de las caras correctas en las posiciones en que la superficie interseca los bordes del cubo de la grilla. La tabla triTable, se encuentra en el anexo J, utiliza el cubeindex como entrada y retorna las aristas de la grilla que  formarán parte de los vértices de las caras triangulares que sean necesarias para representar la superficie dentro del cubo de la grilla. Hay como máximo 5 caras triangulares en un cubo de la grilla.
+La última parte del algoritmo implica la formación de las caras correctas en las posiciones en que la superficie interseca los bordes del cubo de la grilla. La tabla triTable, se encuentra en el Anexo J, utiliza el cubeindex como entrada y retorna las aristas de la grilla que  formarán parte de los vértices de las caras triangulares que sean necesarias para representar la superficie dentro del cubo de la grilla. Hay como máximo 5 caras triangulares en un cubo de la grilla.
 Volviendo a nuestro ejemplo, en el paso anterior se calculan los puntos de intersección a lo largo del borde 2,3 y 11. El octavo elemento en la triTable es:
 {3, 11, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 
 Este es un ejemplo particularmente simple, pero las combinaciones que pueden surgir no son tan evidentes para muchos de los casos de la tabla.
 \subsubsection{Resolución de la grilla}
 \noindent Algo deseable a controlar cuando se poligoniza una superficie es la resolución de la cuadrícula de muestreo. Esto permite elegir el grado de la aproximación a la superficie a generarse en función de la suavidad requerida y / o la potencia de procesamiento disponible para mostrar la superficie. El ejemplo de la Figura \ref{mani} ilustra una misma superficie generada a diferentes tamaños de malla, se puede notar que en la primer figura, debido a que el tamaño de celda elegido es demasiado grande, no genera una figura correctamente.
-\clearpage
+%\clearpage
 \begin{figure}[h!]
 \includegraphics[width=0.8\textwidth,center]{marchingcubes4.png}
 \caption{Ejemplo de la misma figura utilizando diferentes tamaños de grilla.}
@@ -469,7 +469,7 @@ La aproximación de las caras se calcula para cada tetraedro de forma independie
 \label{6tet}
 \end{figure}
 \clearpage
-Hay 8 casos diferentes. Los círculos huecos y rellenos en los vértices del tetraedro indican que los vértices están en diferentes lados de la superficie, al costado de cada ejemplo se puede ver la codificación binaria utilizada para identificar el correspondiente caso. Los casos no ilustrados se dan cuando todos los vértices están por encima o por debajo de la superficie, no se generan caras en esos 2 últimos casos.
+Hay 8 casos diferentes (ver Figura \ref{tet}). Los círculos huecos y rellenos en los vértices del tetraedro indican que los vértices están en diferentes lados de la superficie, al costado de cada ejemplo se puede ver la codificación binaria utilizada para identificar el correspondiente caso. Los casos no ilustrados se dan cuando todos los vértices están por encima o por debajo de la superficie, no se generan caras en esos 2 últimos casos.
 \begin{figure}[h!]
 \includegraphics[width=0.7\textwidth,center]{mt2.png}
 \caption{Ejemplos de generación de caras en el tetraedro.}
@@ -477,10 +477,11 @@ Hay 8 casos diferentes. Los círculos huecos y rellenos en los vértices del tet
 \end{figure}\\
 \textbf{Notas}
 \begin{itemize}
-\item Esta técnica no sufre de las ambigüedades a diferencia del algoritmo de Marching Cubes, como se puede observar en la Figura \ref{tet}:
+\item Esta técnica no sufre de las ambigüedades a diferencia del algoritmo de Marching Cubes, como se puede observar en la Figura \ref{ambig}:
 \begin{figure}[h!]
 \includegraphics[width=0.7\textwidth,center]{elquequieras.png}
 \caption{Ejemplo de ambigüedad del algoritmo de Marching Cubes aplicado a una figura de 2 dimensiones. Los círculos rellenos corresponden a puntos con valor positivo, mientras que los círculos sin relleno correspnde a los de valor negativo. Se puede observar que para una misma combinación de signos pueden existir 2 figuras válidas.}
+\label{ambig}
 \end{figure}
 \item Dado que se trata de un muestreo discreto, es posible que se pierda parte de la superficie si varía dentro de una celda de la caja. Aunque éste es un problema estándar en cualquier conjunto de datos muestreados de forma discreta.
 \end{itemize}
@@ -642,7 +643,7 @@ $\bullet$ Para tener una arquitectura MVC bien definida se utilizó AngularJS. S
 
 $\bullet$ Se permite al usuario seleccionar el paso que será utilizado por el algoritmo. Es decir, el tamaño que se usa para la definición de la grilla sobre la cual se generará la malla, ésta genera dividiendo el intervalo ingresado de manera que cada sección de la grilla posea la medida del paso. 
 
-$\bullet$ Se propuso para obtener una mejor visualización mediante el cálculo de las normales en cada uno  de los vértices de la superficie. Ésto, cómo se explicó previamente, permite que la visualización no sea facetada, lo que provoca que la ecuación sea visualmente más atractiva y junto con la utilización de Phong cumplen el objetivo de que la visualización sea "suave". 
+$\bullet$ Se propuso para obtener una mejor visualización realizar el cálculo de las normales en cada uno  de los vértices de la superficie. Ésto, cómo se explicó previamente  (Sección 3.7), permite que la visualización no sea facetada, lo que provoca que la ecuación sea visualmente más atractiva y junto con la utilización de Phong cumplen el objetivo de que la visualización sea "suave". 
 
 $\bullet$ Para lograr el objetivo de como navegar la superficie se decidió mostrar la geometría generada en una escena tridimensional la cual se visualiza normalmente en un modo donde la cámara “orbita” alrededor de ecuación. Pero cuando se ingresa al modo de realidad virtual, se visualiza como si fuese en primera persona. Cuando se encuentra en dicho modo se puede usar tanto el teclado como el joystick para desplazarse alrededor de la escena de forma de poder recorrerla completamente. Ésto le da gran libertad al usuario y permite que explore la escena sin restricciones, pudiendo observar una gran cantidad de detalles que no son posibles de otra forma.
 
@@ -698,7 +699,13 @@ A su vez se utilizaron fragment shaders, que son programas encargados de retorna
 \label{texturas}
 \end{figure}
 
-Se optó por este tipo de proyección ya que a diferencia de la natural, la cual debe realizarse de forma manual, es posible de automatizar, de forma de que se generen las coordenadas de manera dinámica. Se prefirió ante las esféricas y las cilíndricas, dado de que éstas sólo se ven de forma agradable sobre las figuras para las que están pensadas.
+Se optó por este tipo de proyección ya que a diferencia de la natural, la cual debe realizarse de forma manual, es posible de automatizar, de forma de que se generen las coordenadas de manera dinámica. Se prefirió ante las esféricas y las cilíndricas, dado de que éstas sólo se ven de forma agradable sobre las figuras para las que están pensadas. En la Figura \ref{sackboy} se oberva una superficie texturizada utilizando proyección planar.
+
+\begin{figure}[h!]
+\includegraphics[width =0.6\linewidth, center]{texturizada.png}
+\caption{Ejemplo de superficie texturizada generada con la aplicación.}
+\label{sackboy}
+\end{figure}
 
 \clearpage
 \subsection{Arquitectura}
@@ -1037,7 +1044,7 @@ A continuación se presenta la Tabla \ref{fps} con la cantidad de caras de la ec
 Estas pruebas se realizaron generando sólo un punto de vista, por lo que, en modo VR, el framerate sería menor. Aún así la mayoría de las pruebas poseen resultados muy superiores a los 120$fps$ (60Hz es la velocidad de refresco del DK1). Utilizando esto como refencia la única escena que generaría problemas es la de casi tres millones de triángulos, para llegar a esa cantidad es necesario tener una gran cantidad de ecuaciones o poner un paso muy pequeño.
 
 \subsection{Comparación con SURFER en puntos singulares}
-\noindent Los puntos singulares, puntos donde PONER DEFINICIÖN DECENTE, presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando SURFER con nuestra aplicación. 
+\noindent Los puntos singulares, puntos donde las tres derivadas parciales de la superficie son 0 \cite{implicitas}, presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando SURFER con nuestra aplicación. 
 
 Para hacerlo se utilizó una ecuación con 216 puntos singulares creada por Breske, Labs y van Straten \cite{216s}.
 \begin{figure}[h!]
@@ -1577,11 +1584,11 @@ Sea A un subconjunto de  ${\rm I\!R} ^N \times {\rm I\!R} ^M$, $(a,b) \in A, n \
 \]
 
 
-Entonces existe un entorno abierto $U$ de $a$ en$ {\rm I\!R} ^N$ y un entorno abierto $V$ de $b$ en ${\rm I\!R} ^M$ tales que $U \times V \subseteq A$ y una única función $\varphi: U \,\to\, V$ tal que $f(x,\varphi(x))=0$ para todo $x \in U$. De hecho,\\
+Entonces existe un entorno abierto $U$ de $a$ en$ {\rm I\!R} ^N$ y un entorno abierto $V$ de $b$ en  ${\rm I\!R} ^M$ tales que $U \times V \subseteq A$ y una única función $\varphi: U \,\to\, V$ tal que $f(x,\varphi(x))=0$ para todo $x \in U$. De hecho,\\
 \begin{center}
 $\{ (x,y)  \in U \times V: f(x,y)=0 \} =\{ (x,y)  \in U \times V: y= \varphi (x) \}$.
 \end{center}
-En particular, $ \varphi (a)=b$. Además  $\varphi$ es de clase ${\rm \!C} ^n$ en $U$
+En particular, $ \varphi (a)=b$. Además  $\varphi$ es de clase ${\rm \!C} ^n$ en $U$ \cite{implicitas}.
 \clearpage
 \section{Cronograma del proyecto}
 A continuación se presenta una tabla que muestra las principales actividades realizadas durante el proyecto de forma mensual.
@@ -1966,7 +1973,7 @@ Lista de módulos CSS:
 \clearpage
 \section{Algoritmo Marching cubes}
 Extraido de: "Polygonising a scalar field by Paul Bourke" \cite{marching}
-\begin{lstlisting}[frame=single][caption=blabla, label=amb]
+\begin{lstlisting}[frame=single, basicstyle=\scriptsize][caption=blabla, label=amb]
 
 typedef struct {
    XYZ p[3];

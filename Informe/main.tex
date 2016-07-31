@@ -681,9 +681,9 @@ $\bullet$ Por motivos de optimización se decidió sacar las sombras cuando se i
 
 \clearpage
 \subsection{Shaders}
-\noindent Aprovechando la compatibilidad entre GLSL con THREEJS y WebGl se implementaron varios efectos interesantes, entre ellos se encuentran lava, agua y gelatina. En la Figura \ref{shader} se pueden ver algunos ejemplos.
+\noindent Aprovechando la compatibilidad entre GLSL con THREEJS y WebGL se implementaron varios efectos interesantes, entre ellos se encuentran lava, agua y gelatina. En la Figura \ref{shader} se pueden ver algunos ejemplos.
 
-Se implementaron vertex shaders, que son programas responsables de devolver la posición de cada vértice de la geometría en el espacio homogéneo de clipping, para realizar efectos como la vibración en la gelatina. Este tipo de shader recibe como entrada entre otros la posición del vértice en el espacio de coordenadas del objeto, luego debe transformarlo al espacio de proyección. Al ejecutarse una vez por cada vértice permite transformarlos de manera de que el mismo parezca animado.
+Se implementaron vertex shaders, que son programas responsables de devolver la posición de cada vértice de la geometría en el espacio homogéneo de clipping, para realizar efectos como la vibración en la gelatina. Este tipo de shader recibe como entrada entre otros la posición del vértice en el espacio de coordenadas del objeto, luego debe transformarlo al espacio de proyección. Al ejecutarse una vez por cada vértice permite transformarlos de manera de que el mismo parezca animado, por ejemplo multiplicando la posición por seno del tiempo. Ésto genera que cada vértice se mueva de forma periódica.
 
 A su vez se utilizaron fragment shaders, que son programas encargados de retornar un color para un segmento de la superficie, para generar efectos como el de la textura del agua que actúa como si estuviese animada para generar la sensación de olas. Los fragment shaders reciben una serie de parámetros, como pueden ser texturas, posición del fragmento, normal de la superficie en el punto, coordenadas de textura, etc. Utilizando las cuentas que considere pertinente retorna un vector RGBA.
 
@@ -1174,6 +1174,7 @@ La mayoría de los usuarios encontró interesante los efectos visuales aplicados
 \item cell shading
 \item que la ecuación actuase como un espejo
 \end{itemize}
+
 Ninguno de los usuarios que probó la aplicación sufrío ningún tipo de malestar o mareo. Todos los usuarios dijeron haber tenido una buena experiencia de realidad virtual, aunque un usuario mencionó que la densidad de píxeles del dispositivo no era la ideal.
 
 En la versión móvil un usuario consultó por qué la ecuación se encontraba en un movimiento circular uniforme, si ésto era un error o no.
@@ -1345,9 +1346,11 @@ A su vez hay que destacar que, aunque se presenten dichas ventajas, el uso de ra
 \subsubsection{Experiencia de los usuarios}
 \noindent Las pruebas realizadas con usurios fueron muy favorables, ya que la aplicación no sufrío críticas considerables. La mayoría de los usuarios lograron utilizar la aplicación casi sin inconvenientes, y se mostraron confromes con su interfaz y la metodología para ingresar las ecuaciones.
 
-A su vez los usuarios quedaron satisfechos con la calidad visual de las superficies, y recibimos comentarios favorables en cuanto a los shaders, texturas e iluminación dinámica.
+A su vez los usuarios quedaron satisfechos con la calidad visual de las superficies. Recibimos comentarios favorables en cuanto a los shaders, texturas e iluminación dinámica. Los usuarios expresaron un particular interés por los shaders, recomendando una gran cantidad de efectos que podrían ser agregados en futuras iteraciones. 
 
-Como se mencionó anteriormente, ninguno de los usuarios sintió ningún tipo de mareo o disconformidad mientras utilizaba la aplicación.
+Los usuarios quedaron muy satisfechos con la gran libertad que se les brinda a la hora de navegar la superficie, ya que con gran facilidad pueden explorarla, logrando observarla desde cualquier ángulo.
+
+Como se mencionó anteriormente, ninguno de los usuarios sintió ningún tipo de mareo o disconformidad mientras utilizaba la aplicación. Ésto es muy importante, ya que uno de los objetivos del proyecto era poder proveer a los usuarios con una experiencia de realidad virtual de buena calidad, la cual no fuese probable que produsiese VRS. 
 
 \subsection{Trabajo a futuro}
 %Para mejorar aún más la aplicación se podrían implementar una serie de cambios y agregados. 

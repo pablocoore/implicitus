@@ -707,15 +707,23 @@ A su vez se utilizaron fragment shaders, que son programas encargados de retorna
 \subsection{Texturas}
 \noindent Para la utilización de texturas, se les debió asignar coordenadas de mapeo UV a las geometrías. Ésto se debe a que la forma de proyectar texturas consiste en asignarle coordenadas de textura a cada vértice. Es decir generar un mapeo que para cada vértice (representado por su posición), le corresponda una dupla (al soportar sólo imágenes bidimensionales) de números entre 0 y 1.  Estas coordenadas son interpoladas utilizando la interpolación en perspectiva para las caras\cite{realtimerendering}\cite{engine}. Luego que se tiene para cada fragmento sus coordenadas se utilizan las mismas para acceder a la imagen (tomando 0 como el primer píxel y 1 como el ancho o largo de la imagen se obtiene la posición en la misma). Para asignarles coordenadas se utilizó la proyección planar\cite{realtimerendering} (Figura \ref{texturas}).
 \begin{figure}[h!]
-\includegraphics[width =0.7\linewidth, center]{proyecciones.png}
+\includegraphics[width =0.5\linewidth, center]{proyecciones.png}
 \caption{Tipos de proyección. De izquierda a derecha: esférica, cilíndrica, planar y natural.}
 \label{texturas}
 \end{figure}
 
-Se optó por este tipo de proyección ya que a diferencia de la natural, la cual debe realizarse de forma manual, es posible de automatizar, de forma de que se generen las coordenadas de manera dinámica. Se prefirió ante las esféricas y las cilíndricas, dado de que éstas sólo se ven de forma agradable sobre las figuras para las que están pensadas. En la Figura \ref{sackboy} se observa una superficie texturizada utilizando proyección planar.
+Se optó por la proyección planar, debido a que es posible automatizar. La proyección natural se debe ajustar caso a caso. Se prefirió la proyección planar ante las esféricas y las cilíndricas, dado de que estas últimas sólo se ven de forma agradable sobre las figuras de características similares. En la Figura \ref{sackboy} se observa una superficie texturizada utilizando proyección planar, mientras que en la Figura \ref{sintextura} se muestra la textura utilizada y la ecución sin texturizar.
 
 \begin{figure}[h!]
-\includegraphics[width =0.6\linewidth, center]{texturizada.png}
+\includegraphics[width =0.45\linewidth]{fondoPantalla.jpg}
+\hfill
+\includegraphics[width =0.45\linewidth]{sintexoc.png}
+\caption{ A la izquierda se puede apreciar la textura y a la derecha la ecuación sin texturizar.}
+\label{sintextura}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width =0.37\linewidth, center]{texturizada.png}
 \caption{Ejemplo de superficie texturizada generada con la aplicación.}
 \label{sackboy}
 \end{figure}
@@ -733,47 +741,46 @@ Se optó por este tipo de proyección ya que a diferencia de la natural, la cual
 \end{figure}
 %Puso hacer descripcion general... no se que poner..
 
-La aplicación, como se mencionó anteriormente, utiliza una arquitectura MVC. La misma  cuenta con tres services (MainService, SavingService y EquationListService), un controlador y una única vista. A su vez existen una serie de módulos que son utilizados por el MainService. Las partes más importantes de la aplicación se encuentran en el MainService o en Controller.
+La aplicación, como se mencionó anteriormente, utiliza una arquitectura MVC. La misma  cuenta con tres services (MainService, SavingService y EquationListService que ofician de Modelo), un Controlador (Controller) y una única Vista (Interfaz). A su vez existen una serie de módulos que son utilizados por el MainService. Las partes más importantes de la aplicación se encuentran en el MainService o en Controller.
 
-$\bullet$ El SavingService es el responsable de comunicarse con el backend para tanto almacenar como cargar las mallas junto con su información asociada. Este módulo es utilizado por el Controller el cual, utilizando las interfaces del MainService, le proporciona a éste la información de la malla que se recuperó de la base de datos.
+$\bullet$ El \textbf{SavingService} es el responsable de comunicarse con el backend para tanto almacenar como cargar las mallas junto con su información asociada. Este módulo es utilizado por el Controller el cual, utilizando las interfaces del MainService, le proporciona a éste la información de la malla que se recuperó de la base de datos.
 
-$\bullet$ El MainService es el responsable de generar las mallas, crear la escena, hacer las actualizaciones y efectuar el render. Este módulo es el que se comunica con más módulos, ya que es el que realiza las tareas más importantes y difíciles. También es el responsable de mostrar las ecuaciones que sean pertinentes, es decir sólo aquellas que deban ser visibles en el momento dado. En este módulo se generan las coordenadas de mapeo UV, se generan los shaders, se ejecuta el main loop de la aplicación, se generan las superficies, se realizan todas las actualizaciones (posición de cámara, posición de luz, etc), se generan las texturas, se genera el cubo de zoom para recalcular la zona de la superficie que se quiera. Éste es el módulo principal de la aplicación, que utilizando el resto, efectúa la mayoría de las operaciones importantes.
+$\bullet$ El \textbf{MainService} es el responsable de generar las mallas, crear la escena, hacer las actualizaciones y efectuar el render. Este módulo es el que se comunica con más módulos, ya que es el que realiza las tareas más importantes y difíciles. También es el responsable de mostrar las ecuaciones que sean pertinentes, es decir sólo aquellas que deban ser visibles en el momento dado. En este módulo se generan las coordenadas de mapeo UV, se generan los shaders, se ejecuta el main loop de la aplicación, se generan las superficies, se realizan todas las actualizaciones (posición de cámara, posición de luz, etc), se generan las texturas, se genera el cubo de zoom para recalcular la zona de la superficie que se quiera. Éste es el módulo principal de la aplicación, que utilizando el resto, efectúa la mayoría de las operaciones importantes.
 
-$\bullet$ También se cuenta con EquationListService, que posee una lista de ecuaciones que se pueden cargar, la intención de este servicio es que el usuario pueda visualizar rápidamente una serie de ecuaciones, aunque no esté conectado a la base de datos.
+$\bullet$ El\textbf{ EquationListService} posee una lista de ecuaciones que se pueden cargar. La intención de este servicio es que el usuario pueda visualizar rápidamente una serie de ecuaciones, aunque no esté conectado a la base de datos.
 
-$\bullet$ El Controller es el responsable de manejar la interfaz y usar los servicios que le son provistos.
+$\bullet$ El \textbf{Controller} es el responsable de manejar la interfaz y usar los servicios que le son provistos.
 
-$\bullet$ Los módulos MarchingCubes, Marching Tetrahedra y Surface Nets implementan MarchingCubes, Marching Tetrahedra y Naive Surface Nets respectivamente, son invocados por el MainService.
+$\bullet$ Los módulos \textbf{MarchingCubes}, \textbf{Marching Tetrahedra} y \textbf{Surface Nets} implementan MarchingCubes, Marching Tetrahedra y Naive Surface Nets respectivamente, son invocados por el MainService.
 
-$\bullet$ AngularJS es un framework diseñado para generar páginas web dinámicas, y el mismo extiende la sintaxis utilizada por HTML y separa la lógica de acceso a los elementos HTML, de la lógica misma de la aplicación, haciendo la aplicación ms sencilla de testear y entender. En este proyecto se utilizó para facilitar las comunicaciones entre la interfaz del menú con el servidor de backend y el MainService.
+$\bullet$ \textbf{AngularJS} es un framework diseñado para generar páginas web dinámicas, y el mismo extiende la sintaxis utilizada por HTML y separa la lógica de acceso a los elementos HTML, de la lógica misma de la aplicación, haciendo la aplicación ms sencilla de testear y entender. En este proyecto se utilizó para facilitar las comunicaciones entre la interfaz del menú con el servidor de backend y el MainService.
 
-$\bullet$ Bootstrap es un framework enfocado en el diseño de sitios web, brindando diversos componentes comúnmente utilizado en otros sitios. Además contiene diversos templates, plantillas y objetos con diseños modernos y atractivos. 
+$\bullet$ \textbf{Bootstrap} es un framework enfocado en el diseño de sitios web, brindando diversos componentes comúnmente utilizado en otros sitios. Además contiene diversos templates, plantillas y objetos con diseños modernos y atractivos. 
 
-$\bullet$ THREEJS es la librería presentada anteriormente, que actúa como wrapper de WebGL e implementa algunas funcionalidades de modo de permitir un uso más simple. A su vez cuenta con la ventaja de que garantiza el funcionamiento de la aplicación en los navegadores actuales, ésto permite que la misma esté disponible para la mayor cantidad de gente posible.
+$\bullet$ \textbf{THREEJS} es la librería presentada anteriormente, que actúa como wrapper de WebGL e implementa algunas funcionalidades de modo de permitir un uso más simple. A su vez cuenta con la ventaja de que garantiza el funcionamiento de la aplicación en los navegadores actuales, ésto permite que la misma esté disponible para la mayor cantidad de gente posible.
 
-$\bullet$ VREffect es el módulo que se encarga de realizar el efecto estereoscópico, cuando la aplicación se encuentra en modo VR, se le invoca, para que genere las dos imágenes con la distorsión necesaria, para el dispositivo que se está utilizando, y con los parámetros que obtiene del navegador.
+$\bullet$ \textbf{VREffect} es el módulo que se encarga de realizar el efecto estereoscópico, cuando la aplicación se encuentra en modo VR, se le invoca, para que genere las dos imágenes con la distorsión necesaria, para el dispositivo que se está utilizando, y con los parámetros que obtiene del navegador.
 
-$\bullet$ VRControls es el responsable de que, cuando se está en modo VR, tome del dispositivo la rotación, de forma de mover la cámara de la misma forma, para poder dar la sensación de inmersión.
+$\bullet$ \textbf{VRControls} es el responsable de que, cuando se está en modo VR, tome del dispositivo la rotación, de forma de mover la cámara de la misma forma, para poder dar la sensación de inmersión.
 
-$\bullet$ Gamepad tiene el objetivo de exponer el estado del joystick de XBOX ONE utilizando la Gamepad API\cite{gamepadapi} a el MainService.
+$\bullet$ \textbf{Gamepad} tiene el objetivo de exponer el estado del joystick de XBOX ONE utilizando la Gamepad API\cite{gamepadapi} a el MainService.
 
-$\bullet$ Parser se encarga de parsear las ecuaciones ingresadas por el usuario, de manera de proveerle al MainService las ecuaciones de la forma que los algoritmos necesitan cómo entrada. Este módulo permite que el usuario no se preocupe de como requieren los algoritmos que se escriba la ecuación.
+$\bullet$ \textbf{Parser} se encarga de parsear las ecuaciones ingresadas por el usuario, de manera de proveerle al MainService las ecuaciones de la forma que los algoritmos necesitan cómo entrada. Este módulo permite que el usuario no se preocupe de como requieren los algoritmos que se escriba la ecuación.
 %\clearpage
 \begin{figure}[h!]
 \includegraphics[width=\textwidth]{arq-esp.png}
 \caption{Estructura de MainService.}
 \label{arqMS}
 \end{figure}
-En la Figura \ref{arqMS} se aprecia cómo es la estructura interna del servicio principal. Se puede observar cómo se aplicó el \textit{Game Loop Pattern} (Sección 5.2, Figura \ref{glp}), ya que el flujo del servicio se descompone en tres etapas: Handle input, Update y Render.
 
-También se cuenta con Update Mesh, que es una operación asincrónica que regenera la geometría utilizando el algoritmo seleccionado, para luego calcular sus coordenadas de mapeo UVs y las normales de los vértices.
+En la Figura \ref{arqMS} se aprecia cómo es la estructura interna del servicio principal. Se puede observar cómo se aplicó el \textit{Game Loop Pattern} (Sección 5.2, Figura \ref{glp}), ya que el flujo del servicio se descompone en tres etapas: \textbf{Handle input}, \textbf{Update} y \textbf{Render}. También se cuenta con \textbf{Update Mesh}, que es una operación asincrónica que regenera la geometría utilizando el algoritmo seleccionado, para luego calcular sus coordenadas de mapeo UVs y las normales de los vértices.
 \subsubsection{Backend y base de datos}
-\noindent El backend de la aplicación fue realizado en el lenguaje Python con el framework de django y django rest framework para comunicarse con los clientes web. Éste se encarga de guardar datos de las superficies que se consideren interesantes, por ejemplo: coordenadas, nombre, cantidad de caras, etc. Todo ésto se encuentra guardado en una base de datos Postgres.
+\noindent El backend de la aplicación fue realizado en el lenguaje Python con el framework de django y django rest framework para comunicarse con los clientes web. Éste se encarga de guardar datos de las superficies que se consideren interesantes, por ejemplo: coordenadas, nombre, cantidad de caras, etc. Todo esto se encuentra guardado en una base de datos Postgres.
 
 Esta parte de la aplicación presenta una ventaja sobre otro tipo de aplicaciones similares, ya que permite que usuarios de distintas partes de mundol compartan ecuaciones interesantes. Además de que a medida de que más usuarios generan y almacenan ecuaciones la aplicación va creciendo en cuanto al catálogo de ecuaciones que ofrece.
 \clearpage
 \subsection{Interfaz}
-\noindent En este punto se muestran los distintos modos con los que se puede interactuar con la aplicación. Este punto es una breve descripción, se puede encontrar más información en el Anexo C. En la Figura \ref{pantalla} se observa la aplicación y se marcan los distintos componentes.
+\noindent En este punto se muestran los distintos modos con los que se puede interactuar con la aplicación. Se puede encontrar más información en el Anexo C (Manual de usuario). En la Figura \ref{pantalla} se observa la aplicación y se marcan los distintos componentes.
 
 \begin{figure}[h]
 \includegraphics[width=\textwidth,center]{pantalla-aplicacion.png}
@@ -786,7 +793,7 @@ Esta parte de la aplicación presenta una ventaja sobre otro tipo de aplicacione
 \subsubsection{Mensajes}
 \noindent La interfaz también cuenta con una serie mensajes. Éstos son pequeños carteles que aparecen arriba a la derecha, al momento de ingresar a la página se muestra un mensaje de bienvenida en verde. 
 
-El manejo de errores de la aplicación se hace utilizando el mismo sistema de mensajes. En el momento en el que acontece un error se muestra en la misma posición que el mensaje de bienvenida, un cartel explicando el error pero con fondo rojo. Los errores pueden variar en cuanto al tipo, por ejemplo el error podría ser que el usuario ingreso una ecuación cuyos paréntesis están desbalanceados.
+El manejo de errores de la aplicación se hace utilizando el mismo sistema de mensajes. En el momento en que acontece un error se muestra en la misma posición que el mensaje de bienvenida, un cartel explicando el error pero con fondo rojo. Los errores pueden variar en cuanto al tipo, por ejemplo el error podría ser que el usuario ingreso una ecuación cuyos paréntesis están desbalanceados.
 \subsubsection{Teclado y Mouse}
 \noindent También se puede interactuar con la aplicación utilizando el teclado y el mouse, aunque el uso del teclado para afectar la escena puede ser habilitado/deshabilitado utilizando el menú lateral mencionado previamente.
 
@@ -794,7 +801,7 @@ El mouse se utiliza principalmente para controlar la cámara cuando no se está 
 
 Por otra parte se puede utilizar el teclado para una gran cantidad de funciones. Entre ellas se encuentra desplazarse, mover las luces, cambiar el material de la ecuación, cambiar la ecuación, activar/desplazar/agrandar/achicar el cubo de zoom, etc. La mayoría de las funciones de la aplicación se pueden realizar apretando una serie de teclas.
 
-Para más información acerca de la función de cada una de las teclas dirigirse al Anexo C, donde se encuentra un manual de usuario.
+Para más información acerca de la función de cada una de las teclas dirigirse al Anexo C, donde se encuentra el manual de usuario.
 
 %\clearpage
 
@@ -806,13 +813,13 @@ Para más información acerca de la función de cada una de las teclas dirigirse
 \label{xbox}
 \end{figure}
 
-El joystick permite una gran flexibilidad ya que puede utilizarse de forma más sencilla que un teclado cuando se está utilizando el Oculus Rift. Ésto se debe en parte, en que es más simple debido a su forma ergonómica, utilizarlo sin verlo. Aumenta significativamente el grado de usabilidad de la aplicación, ya que se vuelve más sencilla de utilizar para los usuarios, principalmente para los jóvenes que tienen mayor experiencia con un joystick.
+El joystick permite una gran flexibilidad ya que puede utilizarse de forma más sencilla que un teclado cuando se está utilizando el Oculus Rift. Ésto se debe en parte, en que es más simple utilizarlo sin verlo. Aumenta significativamente el grado de usabilidad de la aplicación, ya que se vuelve más sencilla de utilizar para los usuarios, principalmente para las personas que tienen mayor experiencia con un joystick.
 \clearpage
 \null\newpage
 \section{Análisis experimental}
-\noindent En esta sección se presentan los experimentos que realizamos sobre el sistema, así como los resultados obtenidos. Las pruebas se dividen en cinco tipos, el primero es una comparación entre la performance y los resultados obtenidos utilizando cada uno de los 3 algoritmos. El segundo tipo, es cuántos fps se lograron obtener para una serie de ecuaciones, considerando la cantidad de polígonos que había en la escena. El tercero es una comparación entre SURFER y nuestra aplicación cuando se trata de puntos singulares, éstos son los puntos donde nuestra aplicación genera algunos artefactos. Los últimos dos tipos son una serie de operaciones interesantes que permite realizar la aplicación y una galería de imágenes.
+\noindent En esta sección se presentan los experimentos que realizamos sobre el sistema, así como los resultados obtenidos. Las pruebas se dividen en cinco tipos, el primero es una comparación entre la performance y los resultados obtenidos utilizando cada uno de los 3 algoritmos. El segundo tipo, es cuántos fps se lograron obtener para una serie de ecuaciones, considerando la cantidad de polígonos que había en la escena. El tercero es una comparación entre SURFER y nuestra aplicación cuando se trata de puntos singulares (puntos especiales donde nuestra aplicación genera algunos artefactos). Los últimos dos tipos son una serie de operaciones interesantes que permite realizar la aplicación y una galería de imágenes.
 \subsection{Hardware y Software utilizado}
-\noindent Las pruebas en PC se realizaron sobre un notebook Alienware M17xR4. El cual cuenta con un procesador Intel I7-3840QM de 2.8 GHz con Turboboost hasta 3.8 GHz. La memoria RAM es de 32 GB de 1777 MHz, y cuenta con una tarjeta de video NVIDIA 680M. Se utilizó un Oculus DK1 y un Oculus DK2 como dispositivos de realidad virtual. La aplicación se testeó utilizando Firefox Nightly 48.0a1 con el plugin Mozilla WebVR plus 0.5.0. Se utilizó el runtime de Oculus 0.8.0.0. Todo se corrió sobre Windows 10.
+\noindent Las pruebas en PC se realizaron sobre un notebook Alienware M17xR4. El cual cuenta con un procesador Intel I7-3840QM de 2.8 GHz con Turboboost hasta 3.8 GHz. La memoria RAM es de 32 GB de 1777 MHz, y cuenta con una tarjeta de video NVIDIA 680M. Se utilizó un Oculus DK1 y un Oculus DK2 como dispositivos de realidad virtual. La aplicación se testeó utilizando Firefox Nightly 48.0a1 con el plugin Mozilla WebVR plus 0.5.0. Se utilizó el runtime de Oculus 0.8.0.0. Todo se ejecutó sobre Windows 10.
 
 En las plataformas móviles, se utilizó un Samsung  Galaxy S5 y un Samsung  Galaxy Note3, junto con un Google Cardboard. La ejecución fue sobre Google Chrome.
 
@@ -820,7 +827,7 @@ En las plataformas móviles, se utilizó un Samsung  Galaxy S5 y un Samsung  Gal
 \subsubsection{Comparación a través de sucesiones}
 \noindent La primer prueba que se realizó persiguió medir el tiempo que le lleva a cada algoritmo generar superficies. Para medirlo se fijó la bounding box y el paso del algoritmo, se utilizó una sucesión de superficies, generándolas con los tres meshers y registrando sus tiempos. Este tipo de comparación fija la información de la función que se utiliza para la generación de la geometría, pero los distintos algoritmos generan distintas cantidades de caras.
 
-Se utilizó como intervalo $[-1,1]$ en los tres ejes, y el paso fue 0.05 (la variación en los tres ejes que utilizan los algoritmos para generar la grilla). La sucesión que se utilizó fue $F_n(x,y,z) = cos(\frac{n\pi x}{2}) + cos(\frac{n\pi y}{2}) +cos(\frac{n\pi z}{2}) =0$, donde varía $n$ entre 1 y 10, en las Figuras \ref{ejsuc1} y \ref{ejsuc2} se aprecian algunas de las superficies que forman parte de la sucesión. Se decidió utilizar esa sucesión ya que es similar a la utilizada por Lysenko en una de sus pruebas. Los tiempos de la Tabla \ref{suc2} son en segundos y son el promedio de 15 ejecuciones.\\\\\\\\\\
+Se utilizó como intervalo $[-1,1]$ en los tres ejes, y el paso fue 0.05 (la variación en los tres ejes que utilizan los algoritmos para generar la grilla). La sucesión que se utilizó fue $F_n(x,y,z) = cos(\frac{n\pi x}{2}) + cos(\frac{n\pi y}{2}) +cos(\frac{n\pi z}{2}) =0$, donde $n$ varía entre 1 y 10, en las Figuras \ref{ejsuc1} y \ref{ejsuc2} se aprecian algunas de las superficies que forman parte de la sucesión. Se decidió utilizar esa sucesión ya que es similar a la utilizada por Lysenko en una de sus pruebas. Los tiempos de la Tabla \ref{suc2} son en segundos y son el promedio de 15 ejecuciones.\\\\\\\\\\
 
 \begin{table}[h!]
   \centering
@@ -1031,12 +1038,12 @@ En la Tabla \ref{cii} se aprecia la cantidad de caras y vértices que componían
 
 En estas pruebas se puede apreciar que el algoritmo Marching Tetrahedra, cuando se utiliza el mismo paso, genera aproximaciones levemente mejores, ya que son más suaves que las obtenidas con los otros dos algoritmos. Sin embargo es el más lento de los tres y genera una mayor cantidad de vértices y caras. Por otro lado, Naive Surface Nets es el más rápido de los tres, y las mallas que generan son levemente inferiores, ya que son más ``duras", a las de Marching Cubes, pero considerando su velocidad es una buena opción. Además, sus geometrías ocupan menos memoria. Marching Cubes se ubica en el medio entre los algoritmos, ya que no es el más rápido pero tampoco el más lento, y sus aproximaciones no son las mejores pero tampoco las peores.
 
-A igual cantidad de caras, se puede notar que Marching Tetrahedra es inferior, ya que sus mallas son de peor calidad. Esto puede deberse a que al tener un paso mayor, utiliza menos información de la función ya que la misma se discretiza considerando el paso. Cuando se fija la cantidad de caras, se puede apreciar que Marching Tetrahedra se vuelve más rápido que Marching Cubes en algunos escenarios, pero no que Naive Surface Nets.
+A igual cantidad de caras, se puede notar que Marching Tetrahedra es inferior, ya que sus mallas son de peor calidad. Esto puede deberse a que al tener un paso mayor, utiliza menos información de la función ya que la misma se discretiza considerando el paso. Cuando se fija la cantidad de caras, se puede apreciar que Marching Tetrahedra es más rápido que Marching Cubes en algunos escenarios, pero no es más rápido que Naive Surface Nets.
 
 \subsection{ Estudio de framerate}
 \noindent Para realizar un análisis del framerate se colocaron distintas ecuaciones y se registró el framerate promedio luego de 1 minuto de rotar la cámara alrededor de ellas. Al ser la cantidad de polígonos  el factor de mayor incidencia en el framerate de una aplicación de este estilo, se registró solamente la cantidad de caras y no qué ecuación se utilizó.
 
-A continuación se presenta la Tabla \ref{fps} con la cantidad de caras de la ecuación y el framerate promedio obtenido en Nightly. La resolución de la pantalla es de 1920x1080p.
+A continuación se presenta la Tabla \ref{fps} con la cantidad de caras de la ecuación y el framerate promedio obtenido en Firefox Nightly. La resolución de la pantalla es de 1920x1080p.
 
 \begin{table}[h!]
   \centering
@@ -1060,7 +1067,7 @@ A continuación se presenta la Tabla \ref{fps} con la cantidad de caras de la ec
 Estas pruebas se realizaron generando sólo un punto de vista, por lo que, en modo VR, el framerate sería menor. Aún así la mayoría de las pruebas poseen resultados muy superiores a los 120$fps$ (60Hz es la velocidad de refresco del DK1). Utilizando esto como refencia, la única escena que generaría problemas es la de casi tres millones de triángulos, pero para llegar a esa cantidad es necesario tener una gran cantidad de ecuaciones o poner un paso muy pequeño.
 
 \subsection{Comparación con SURFER en puntos singulares}
-\noindent Los puntos singulares, puntos donde las tres derivadas parciales de la superficie son 0 \cite{implicitas}, presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando SURFER con nuestra aplicación. 
+\noindent Los puntos singulares son puntos puntos donde no hay una única tangente. Éstos presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando SURFER con nuestra aplicación. 
 
 Para hacerlo se utilizó una ecuación con 216 puntos singulares creada por Breske, Labs y van Straten \cite{216s}.
 \begin{figure}[h!]
@@ -1078,10 +1085,10 @@ En la Figura \ref{svi1} a la izquierda se puede apreciar la imagen generada con 
 \end{figure}
 Se aprecia a la izquierda de la Figura \ref{svi2} cómo se visualiza cuando se utiliza el zoom de SURFER, y a la derecha lo que sucede si se utiliza la herramienta de zoom presentada en la Sección 5, para realizar un recálculo de la zona problemática. 
 
-De estas pruebas se desprende que los puntos singulares son problemáticos, así como que los resultados obtenidos no son tan precisos como los de SURFER. Por otra parte, si se quiere visualizar algún punto singular en particular se puede recalcular con mayor calidad obteniendo resultados de una calidad similar a la de SURFER.
+De estas pruebas se desprende que los puntos singulares pueden llegar a ser problemáticos si la malla no es lo suficientemente fina, así como que los resultados obtenidos no son tan precisos como los de SURFER. Por otra parte, si se quiere visualizar algún punto singular en particular se puede recalcular con mayor calidad obteniendo resultados de una calidad similar a la de SURFER.
 
 \subsection{Análisis de usuarios}
-\noindent Se presenta a continuación un breve resumen de lo obtenido al presentarle a los usuarios el cuestionario presentado en el Anexo H. Se realizaron pruebas con 13 individuos. Primero se les permitió experimentar con la aplicación libremente por unos 10 minutos, teniendo a su disposición el manual de usuario. Luego se les solicitó que realizaran la prueba presentada en el Anexo G. Las pruebas que se realizaron en PC fueron con el Oculus Rift DK1.
+\noindent Se presenta a continuación un breve resumen de lo obtenido al presentarle a los usuarios el cuestionario presentado en el Anexo H. Se realizaron pruebas con 13 individuos (estudiantes o egresados de la Facultad de Ingeniería). Primero se les permitió experimentar con la aplicación libremente por unos 10 minutos, teniendo a su disposición el manual de usuario. Luego se les solicitó que realizaran la prueba presentada en el Anexo G. Las pruebas que se realizaron en PC fueron con el Oculus Rift DK1.
 
 Las críticas fueron positivas en general, la mayoría de los usuarios quedaron satisfechos con la aplicación. A continuación se presenta un resumen de los principales resultados obtenidos, junto con recomendaciones recibidas.
 
@@ -1199,7 +1206,7 @@ Una recomendación que se obtuvo por parte de uno de los usuarios, fue que para 
 
 \begin{figure}[h]
 \includegraphics[width=0.2\textwidth,center]{equationcito.png}
-\caption{Equationcito la mascota oficial de Implicitus.}
+\caption{Equationcito, la mascota oficial de Implicitus.}
 \label{equationcito}
 \end{figure}
 
@@ -1325,7 +1332,11 @@ En la Figura \ref{grafobz} se puede observar el grafo de construcción de la sup
 \null\newpage
 \section{Conclusiones y trabajo a futuro}
 \subsection{Conclusiones}
-\noindent Las conclusiones se presentarán en tres partes, en la primera se analiza la performance de los meshers, comparándolos entre sí. 
+\noindent El producto final permite visualizar múltiples ecuaciones implícitas de forma atractiva, ya sea de forma estereoscópica o no. En el mismo se exploran las superficies libremente, pudiéndolas visualizar desde cualquier ángulo. A su vez, el ingreso de las ecuaciones se realiza a través de una interfaz simple, similar a la de otras herramientas matemáticas. 
+
+La aplicación posee también luces y sombras dinámicas; texturas y efectos visuales a través de shaders, que permiten a los usuarios tener un mayor control de la escena.
+
+A continuación se presentan tres partes, en la primera se analiza la performance de los meshers, comparándolos entre sí. 
 
 En la segunda parte se analiza la performance de la aplicación en cuanto a fps y a la resolución de las imágenes generadas. En esta parte se comparará contra SURFER y se analizará si el framerate y la calidad de las imágenes es lo suficientemente bueno para una experiencia positiva de realidad virtual.
 
@@ -1333,13 +1344,13 @@ Finalmente se presentan las conclusiones de los experimentos con usuarios.
 \subsubsection{Meshers}
 \noindent Cada uno de los 3 métodos tiene sus puntos fuertes y débiles. 
 
-Marching Cubes es bueno ya que existen implementaciones libres y fácilmente utilizables, y también es bastante rápido. Sin mencionar que también es la más ampliamente conocida. Además de ser relativamente rápido no tiene el problema de repetir vértices como es el caso de Naive Surface Nets, y la calidad de las mallas es superior. Los resultados no son tan agradables a la vista como los de Marching Tetrahedra, pero es considerablemente más veloz. 
+$\bullet$ Marching Cubes es bueno ya que existen implementaciones libres y fácilmente utilizables, y también es bastante rápido, sin mencionar que también es la más ampliamente conocida. Además de ser relativamente rápido no tiene el problema de repetir vértices como es el caso de Naive Surface Nets, y la calidad de las mallas es superior. Los resultados no son tan agradables a la vista como los de Marching Tetrahedra, pero es considerablemente más veloz. 
 
-Marching Tetrahedra soluciona algunos problemas de Marching Cubes a expensas de ser mucho más lento y la creación de mallas de mayor tamaño. A su vez, estas últimas poseen una mayor suavidad, pero contienen mucho más caras y vértices, además  el algoritmo es mucho más lento.
+$\bullet$ Marching Tetrahedra soluciona algunos problemas de Marching Cubes a expensas de ser mucho más lento y la creación de mallas de mayor tamaño. A su vez, estas últimas poseen una mayor suavidad, pero contienen mucho más caras y vértices, además  el algoritmo es mucho más lento.
 
-Naive Surface Nets posee una velocidad significativamente superior y se puede ampliar para generar mallas de alta calidad utilizando algoritmos más sofisticados de selección de vértices. También es fácil de implementar y produce mallas ligeramente más pequeñas en cuanto a su costo de almacenamiento. Su inconveniente principal es que las superficies que genera son de inferior calidad, aunque podría mejorarse si se cambia la técnica de elección de vértices. 
+$\bullet$ Naive Surface Nets posee una velocidad significativamente superior y se puede ampliar para generar mallas de alta calidad utilizando algoritmos más sofisticados de selección de vértices. También es fácil de implementar y produce mallas ligeramente más pequeñas en cuanto a su costo de almacenamiento. Su inconveniente principal es que las superficies que genera son de inferior calidad, aunque podría mejorarse si se cambia la técnica de elección de vértices. 
 
-La elección de cual de los métodos es el superior depende de cada caso. Si se quiere ahorrar en memoria y obtener el resultado con mayor rapidez, se debe usar Naive Surface Nets, pero asumiendo que la aproximación se vería comprometida con respecto al uso de cualquiera de los otros dos algoritmos. Sin embargo, si se quiere maximizar la precisión de la aproximación se debe utilizar Marching Tetrahedra, pero demorara más tiempo y utilizará más recursos. Finalmente, si se quiere una opción más equilibrada, se puede optar por Marching Cubes ya que no es tan preciso a la hora de aproximar como Marching Tetrahedra, pero es más rápido y usa menos recursos; además de que es más preciso que Naive Surface Nets aunque es más lento. Por estos motivos se optó por dejar a Marching Cubes como algoritmo por defecto, pero permitirle al usuario cambiarlo en caso de que éste lo considere necesario.
+$\bullet$ La elección de cual de los métodos es el superior depende de cada caso. Si se quiere ahorrar en memoria y obtener el resultado con mayor rapidez, se debe usar Naive Surface Nets,  asumiendo que la aproximación se vería comprometida con respecto al uso de cualquiera de los otros dos algoritmos. Por otra parte, si se quiere maximizar la precisión de la aproximación se debe utilizar Marching Tetrahedra, que demorará más tiempo y utilizará más recursos. Finalmente, si se quiere una opción más equilibrada, se puede optar por Marching Cubes ya que no es tan preciso a la hora de aproximar como Marching Tetrahedra, pero es más rápido y usa menos recursos; además de que es más preciso que Naive Surface Nets aunque es más lento. Por estos motivos se optó por dejar a Marching Cubes como algoritmo por defecto, pero permitirle al usuario cambiarlo en caso de que éste lo considere necesario.
 
 \subsubsection{Calidad de imagen y framerate}
 \noindent Los framerates obtenidos son altos, ampliamente superiores a 60 fps (la tasa de refresco que los videojuegos apuntan a obtener). Son también ampliamente superiores a los 15 fps que tiene como objetivo mantener el SURFER. Ésto hace que la experiencia visual sea muy fluida y agradable (tanto en el modo de realidad virtual como en el normal). 
@@ -1350,7 +1361,7 @@ El hecho de que se tienen framerates altos y resolución alta, como se dijo ante
 
 La experiencia obtenida utilizando la aplicación con DK1 y con DK2 ha sido muy positiva, ya que ninguno de los usuarios sufrió ningún tipo de inconveniente, ni sensación de mareo. 
 
-Luego, las pruebas con Google Cardboard también fueron favorables, ninguno de los usuarios sufrió ningún tipo de inconveniente.
+Las pruebas con Google Cardboard también fueron favorables. Ninguno de los usuarios sufrió ningún tipo de inconveniente.
 
 A su vez hay que destacar que, aunque se presenten dichas ventajas, el uso de ray casting hubiese permitido visualizar de forma más precisa algunas ecuaciones, particularmente aquellas con múltiples puntos singulares, y evitar algunos artefactos en dichos puntos. Aún así la aproximación es buena, pero la que genera SURFER es superior. Sin embargo, si se utiliza la funcionalidad de cortar y se acerca a las zonas problemáticas, el resultado obtienido es muy bueno, ya que se disminuye la aparición de la deformación.
 
@@ -1367,17 +1378,17 @@ Como se mencionó anteriormente, ninguno de los usuarios sintió ningún tipo de
 %Para mejorar aún más la aplicación se podrían implementar una serie de cambios y agregados. 
 \noindent A continuación se listan una serie de mejoras y modificaciones que se podrían implementar sobre la aplicación.
 
-Agregar a la lista de algoritmos de generación de malla, el algoritmo de Dual Contouring\cite{dualcontour}, el cual mejoraría los resultados en cuanto a la calidad de la geometría, aunque aumentaría el tiempo de cálculo. 
+$\bullet$ Explorar la posibilidad de agregar a la lista de algoritmos de generación de malla, el algoritmo de Dual Contouring\cite{dualcontour}, el cual mejoraría los resultados en cuanto a la calidad de la geometría, aunque aumentaría el tiempo de cálculo. 
 
-En cuanto a la mejora de los algoritmos, se podrían implementar diferentes versiones de Surface Nets, es decir, cambiar las técnicas de selección de los vértices, utilizar algunas más complejas que obtengan mejores resultados.
+$\bullet$ En cuanto a la mejora de los algoritmos, analizar la implementación de diferentes versiones de Surface Nets, donde se cambian las técnicas de selección de los vértices, para obtener mejores resultados.
 
-Agregar otros shaders de GLSL permitiría incorporar nuevos efectos volviéndolo más atractivo visualmente, se podría, por ejemplo, permitir al usuario agregar sus propios shaders, de forma de otorgarle  mayor control de cómo se visualiza la ecuación. También se podría alterar algunos de los shaders existentes de manera que los clicks en pantalla afecten su comportamiento, por ejemplo que los clicks generen ondas en el agua, o que el movimiento de la ecuación afecte la vibración de la gelatina.
+$\bullet$ Agregar otros shaders de GLSL permitiría incorporar nuevos efectos visuales, volviéndolo más atractivo. Se podría, por ejemplo, permitir al usuario agregar sus propios shaders, de forma de otorgarle  mayor control de cómo se visualiza la ecuación. También se podría alterar algunos de los shaders existentes de manera que los clicks en pantalla afecten su comportamiento, por ejemplo que los clicks generen ondas en el agua, o que el movimiento de la ecuación afecte la vibración de la gelatina.
 
-Otra posibilidad sería mejorar la interfaz en caso que se ingrese desde un teléfono, hacerla más amigable para los dispositivos móviles. Aparte se podrían desarrollar aplicaciones para celular (aprovechando la existencia de herramientas para utilizar HTML, CSS y Javascript para hacer aplicaciones para estos dispositivos) tanto para Android como para iOS. 
+$\bullet$ Otra posibilidad sería mejorar la interfaz en caso que se ingrese desde un teléfono, hacerla más amigable para los dispositivos móviles. También se podrían desarrollar aplicaciones para celular (aprovechando la existencia de herramientas para utilizar HTML, CSS y Javascript para hacer aplicaciones para estos dispositivos) tanto para Android como para iOS. 
 
-A su vez, se podría traducir el código a C++ utilizando OpenGL haciendo así, una versión de escritorio. De esta forma se mejoraría la performance porque se obtendría código compilado, además se disminuiría el overhead. Por otro lado se tendría un mayor control del framerate ya que no se dependería del loop de refresco del navegador.
+$\bullet$ Se podría traducir el código a C++ con OpenGL, para implementar una versión de escritorio. De esta forma se mejoraría la performance porque se obtendría código compilado, además de disminuir el overhead. Por otro lado se tendría un mayor control del framerate ya que no se dependería del loop de refresco del navegador.
 
-Por último se podrían utilizar técnicas de simplificación\cite{simplificacion}\cite{realtimerendering} con el fin de simplificar la geometría con la menor pérdida de calidad posible. Ésto permitiría disminuir considerablemente la cantidad de polígonos en varias ecuaciones, por ejemplo, si se simplificase la ecuación del plano $x-3=0$, en lugar de tener una gran cantidad de triángulos dependiendo del paso seleccionado por el usuario, simplemente se tendrían 2.
+$\bullet$ Por último se podrían utilizar técnicas de simplificación\cite{simplificacion}\cite{realtimerendering} con el fin de simplificar la geometría con la menor pérdida de calidad posible. Ésto permitiría disminuir considerablemente la cantidad de polígonos en varias ecuaciones, por ejemplo, si se simplificase la ecuación del plano $x-3=0$, en lugar de tener una gran cantidad de triángulos dependiendo del paso seleccionado por el usuario, simplemente se tendrían 2 triángulos.
 
 \clearpage
 \null\newpage
@@ -1443,7 +1454,7 @@ Descargado 2016-05-27
 
 \bibitem{inter} 
 Bourke, P., (1997) \textit{Trilinear Interpolation},
-Vistado 2016-05-24 
+Vistiado 2016-05-24 
 \\\url{http://paulbourke.net/miscellaneous/interpolation/}
 
 \bibitem{216s} 
@@ -1531,8 +1542,8 @@ Visitado 2016-04-22
 \\\url{https://nightly.mozilla.org/}
 
 \bibitem{patterns} 
-Nystrom,R \textit{Game Programming Patterns},\\
-genever benning.
+Nystrom,R (2014) \textit{Game Programming Patterns},\\
+Genever Benning.
 
 \bibitem{oculus} 
 Oculus, \textit{homepage},
@@ -1552,9 +1563,7 @@ Visitado 2016-05-20
 
 \bibitem{Phong} 
 Phong, B. T., (1975). \textit{Illumination for Computer Generated Pictures},\\
-Communications of the ACM, vol 18.
-Descargado 2016-05-22
-\\\url{http://www.cs.northwestern.edu/~ago820/cs395/Papers/Phong_1975.pdf}.  
+Communications of the ACM, vol 18, no. 6, pp. 311-317 .
 
 \bibitem{samsungvr} 
 Samsung, \textit{Samsung VR},
@@ -1593,7 +1602,7 @@ Descargado 2016-03-24
 
 \bibitem{shadowmap} 
 Williams, L.,(1978). \textit{Casting Curved Shadows on Curved Surfaces},
-SIGGRAPH '78. 
+SIGGRAPH '78, pp. 270-278. 
 
 \end{thebibliography}
 

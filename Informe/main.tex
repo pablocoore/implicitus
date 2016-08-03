@@ -95,7 +95,7 @@ Respuesta Cantidad
 
 La propuesta de este trabajo consiste en implementar un programa que permita la visualización de ecuaciones implícitas, utilizando tecnologías gráficas relacionadas con la visión estereoscópica.  Ésto  busca acercar al estudiante los componentes estéticos y visuales de las matemáticas. Además se quiere obtener una experiencia de realidad virtual agradable al usuario.
 
-En el marco de este proyecto, se concluyó que los algoritmos basados en la generación de mallas son más adecuados para la visualización estereoscópica debido a que tienen un mejor tiempo de respuesta cuando se actuliza la posición de la cámara.
+En el marco de este proyecto, se concluyó que los algoritmos basados en la generación de mallas son más adecuados para la visualización estereoscópica debido a que tienen un mejor tiempo de respuesta cuando se actualiza la posición de la cámara.
 
 Se cuenta con una aplicación web\footnote{El código fuente se encuentra disponible en \cite{nuestrocodigo} y se puede acceder a la aplicación en \cite{nuestrositio}}, que funciona  tanto en PC como en celulares,  compatible con Oculus Rift (DK1, DK2 y Consumer Version) si se utiliza el navegador Firefox Nightly, y con Google Cardboard en celulares.
 \\
@@ -119,7 +119,7 @@ En los últimos años se han desarrollado paquetes de software que facilitan la 
 
 En el área de la educación actualmente hay experiencias exitosas, como SURFER\cite{surfer}, 3DXplorMath\cite{dxplormath}, entre otros, que permiten al estudiante introducirse en el mundo de la abstracción geométrica. Además, la visualización de superficies y curvas tridimensionales es ampliamente utilizada en varias disciplinas para la visualización de datos: química, geofísica, meteorología y dinámica de los fluidos, permitiéndo a los ingenieros estudiar características de los mismos mediante simulaciones. Por ejemplo, se puede estudiar el flujo del viento a través de un modelo por computadora de una ala de avión \cite{aircraftwing}, también se pueden utilizar este tipo de técnicas para la visualización de pisos en videojuegos\cite{realtimerendering}\cite{engine}.
 
-En este contexto, se quieren explorar las posibilidades de desarrollar una aplicación donde sea posible visualizar de forma estereoscópica e interactiva (en tiempo real) curvas y superficies matemáticas. Para ello la idea es considerar el uso del dispositivo de visualización Oculus Rift, y de hardware gráfico (tarjetas gráficas) NVIDIA.
+En este contexto, se quieren explorar las posibilidades de desarrollar una aplicación donde sea posible visualizar de forma estereoscópica e interactiva (en tiempo real) curvas y superficies matemáticas. Para ello la idea es considerar el uso del dispositivo de visualización Oculus Rift, y aprovechar las capacidades gráficas de las GPU.
 \subsection{Objetivos}
 \begin{itemize}
 \item Desarrollar una aplicación para visualizar ecuaciones algebraicas de forma estereoscópica y en tiempo real.
@@ -131,7 +131,7 @@ En este contexto, se quieren explorar las posibilidades de desarrollar una aplic
 \subsection{Resultados Esperados}
 \begin{itemize}
 \item Un sitio web desde donde se describan las principales características del software y se tenga acceso al paquete desarrollado para su instalación en equipos de terceros. 
-\item Un artículo y un póster con las principales características del proyecto, para su presentación en actividades académicas.
+\item Un póster con las principales características del proyecto, para su presentación en actividades académicas.
 \end{itemize}
 \clearpage
 \section{Estado del Arte}
@@ -443,7 +443,7 @@ La primera parte del algoritmo utiliza una tabla (edgeTable) que mapea los vért
 \end{lstlisting}
 
 La búsqueda en la tabla devuelve un número de 12 bits, cada bit correspondiendo a una arista, 0 si la arista no interseca la superficie, 1 si la misma es intersecada por la superficie. Si ninguna de las aristas retorna un corte en la tabla, se devuelve un 0, esto ocurre cuando cubeindex es 0000 0000 (todos los vértices por debajo de la superficie) o 1111 1111 (todos los vértices por encima de la superficie).
-Utilizando el ejemplo anterior donde sólo el vértice 3 estuvo por debajo de la superficie, cubeindex sería igual a 0000 1000 u 8, según el pseudocódigo de arriba. Con este valor de cubeindex, se pueden obtener los vértices que formarán el polígono, para ello basta con ver la celda 8 de edgeTable que tiene los valores 1000 0000 1100 ( se puede encontrar la tabla edgeTable en el Anexo J). Estos valores significan que las aristas 2, 3, y 11 son intersecados por la superficie. Los puntos de intersección se calculan ahora por interpolación lineal (Sección 3.2).
+Utilizando el ejemplo anterior donde sólo el vértice 3 estuvo por debajo de la superficie, cubeindex sería igual a 0000 1000 u 8, según el pseudocódigo de arriba. Con este valor de cubeindex, se pueden obtener los vértices que formarán el polígono, para ello basta con ver la celda 8 de edgeTable que tiene los valores 1000 0000 1100 ( se puede encontrar la tabla edgeTable en el Anexo I). Estos valores significan que las aristas 2, 3, y 11 son intersecados por la superficie. Los puntos de intersección se calculan ahora por interpolación lineal (Sección 3.2).
 
 \begin{figure}[h!]
 \includegraphics[width=0.8\textwidth,center]{marchingcubes3.png}
@@ -451,7 +451,7 @@ Utilizando el ejemplo anterior donde sólo el vértice 3 estuvo por debajo de la
 \label{mc3}
 \end{figure}
 
-La última parte del algoritmo implica la formación de las caras correctas en las posiciones en que la superficie interseca las aristas del cubo de la grilla, en la Figura \ref{mc3} se pueden apreciar algunos ejemplos. La tabla triTable (verl Anexo J) utiliza el cubeindex como entrada, y retorna las aristas de la grilla que  formarán parte de los vértices de las caras triangulares que sean necesarias para representar la superficie dentro del cubo de la grilla. Hay como máximo 5 caras triangulares en un cubo de la grilla.
+La última parte del algoritmo implica la formación de las caras correctas en las posiciones en que la superficie interseca las aristas del cubo de la grilla, en la Figura \ref{mc3} se pueden apreciar algunos ejemplos. La tabla triTable (ver Anexo I) utiliza el cubeindex como entrada, y retorna las aristas de la grilla que  formarán parte de los vértices de las caras triangulares que sean necesarias para representar la superficie dentro del cubo de la grilla. Hay como máximo 5 caras triangulares en un cubo de la grilla.
 Volviendo a nuestro ejemplo, en el paso anterior se calculan los puntos de intersección a lo largo de las aristas 2,3 y 11. El octavo elemento en la triTable es:
 {3, 11, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}.
 
@@ -569,11 +569,11 @@ Considerando que la aplicación genera solamente superficies algebraicas y la ca
 \clearpage
 \null\newpage
 \section{Alcance del proyecto}
-\noindent A continuación se plantean los objetivos específicos que se consideraron a la hora de desarrollar la aplicación final. A su vez se presentan una serie de decisiones de diseño importantes que fueron tomadas a lo largo del proyecto, así como la justificación pertinente asociada.
+\noindent A continuación se plantean los objetivos específicos que se consideraron a la hora de desarrollar la aplicación final. A su vez se presentan una serie de decisiones de diseño importantes que fueron tomadas a lo largo del proyecto, así como la justificación asociada.
 \subsection{Objetivos}
 $\bullet$ El principal objetivo del proyecto es lograr visualizar ecuaciones utilizando Oculus Rift, y donde  la experiencia del usuario sea agradable. Por ese motivo el framerate de la aplicación es importante, ya que éste debe poder mantenerse como mínimo por encima de los $60 fps$ generando dos puntos de vista distintos al mismo tiempo. Ésto persigue la disminución de la probabilidad de que los usuarios sufran VRS. 
 
-$\bullet$ Permitir a los usuarios que no cuenten con Oculus Rift el uso de la aplicación. Para ello se requiere contar con dos modalidades, una para visualizar las ecuaciones estereoscópicamente y una modalidad más simple que no lo haga.
+$\bullet$ Permitir el uso de la aplicación a usuarios que no cuenten con Oculus Rift. Para ello se requiere contar con dos modalidades, una para visualizar las ecuaciones estereoscópicamente y una modalidad más simple que no lo haga.
 
 $\bullet$ Explorar las ecuaciones de manera interactiva, pudiendo navegar por ella libremente. En particular se busca que se pueda visualizar la aplicación de dos formas, una similar a la de SURFER, donde la ecuación se encuentra en el centro y se orbita alrededor de ella; y otra similiar a los juegos en primera persona. Estas dos formas le dan al usuario la posibilidad de visualizar las superficies desde todos los ángulos posibles.
 
@@ -592,7 +592,7 @@ $\bullet$ Considerando el objetivo anterior, lograr que en la escena haya sombra
 
 $\bullet$ Lograr efectos visualmente atractivos para aplicar sobre las superficies. La intención detrás de este objetivo es atraer a usuarios a la aplicación a través de los efectos visuales.
 
-$\bullet$ Persiguiendo atraer al público más joven, así como una mayor comodidad de los usuarios se puso como objetivo la compatibilidad con joystick.
+$\bullet$ Persiguiendo atraer al público más joven, así como una mayor comodidad de los usuarios, se puso como objetivo la compatibilidad con joystick.
 
 $\bullet$ Contar con menúes en varios idiomas, de manera de hacer la aplicación accesible al mayor número de personas posible.
 
@@ -603,6 +603,8 @@ $\bullet$ Finalmente, permitir a los usuarios no visualizar una única ecuación
 \subsection{Decisiones de diseño}
 
 $\bullet$ La principal decisión que se tomó fue no utilizar ray casting sino meshers. Esta decisión se realizó considerando la resolución de las imágenes y los framerates obtenidos utilizando ray casting. Como se presentó en la Sección 4, fue utilizada la versión modificada de SURFER desarrollada por nosotros para las pruebas. Los resultados obtenidos eran inferiores a lo recomendado para una buena experiencia estereoscópica. Por ese motivo se optó por tomar como base Isosurface (Sección 2.3.3) en lugar de SURFER. Para la toma de esta decisión también fue considerado el hecho de que de esta forma la aplicación podría generar ecuaciones implícitas, mientras que SURFER (Secciones 2.3.1 y 4 ) genera sólo ecuaciones algebraicas. Ésto permite la visualización de una cantidad mayor de superficies, aunque como se mencionó anteriormente tiene el costo de que se visualiza una aproximación poligonal, por lo que la calidad de la ecuación se ve afectada. Considerando la ganancia en performance, así como en cantidad de superficies que se pueden presentar, luego de varias pruebas, se decidió que la pérdida de calidad generada por la aproximación era aceptable. Esta decisión fue la de mayor incidencia puesto que significó abandonar lo que se había desarrollado para extender SURFER y comenzar de nuevo.
+
+$\bullet$ Se tomó la decisión de que la aplicación fuese web. Ésto permite que un mayor número de usuarios tenga acceso a la misma, ya que no es necesario descargarla y se puede acceder desde una gran cantidad de dispositivos heterogéneos. A su vez, mejora el objetivo inicial de permitir a terceros descargar y compilar la aplicación, porque al ser ésta web, se puede directamente permitir a terceros ejecutarla desde su navegador web. 
 
 $\bullet$ Se decidió utilizar dos patrones de diseño empleados generalmente en videojuegos, éstos son el \textit{Update Pattern} y el \textit{Game Loop Pattern}\cite{patterns}\cite{engine}. Ésto se debe a que al ser nuestro software una aplicación gráfica en tiempo real, al igual que los videojuegos, se pueden aplicar algunas de las buenas prácticas que se han desarrollado para los mismos. El \textit{Update Pattern} consiste en delegar a los diferentes elementos de la escena su actualización en la etapa previa al renderizado del frame. Ésto se efectúa en la etapa de Update o Animate, en esta etapa todos los elementos de la escena se modifican en caso de ser necesario para representar el estado actual. El \textit{Update Pattern} permite que cada objeto se responsabilice de su actualización, lo que brinda un mayor grado de independencia entre scripts. El \textit{Game Loop Pattern} consiste en contar con un loop principal, el cual es el encargado de realizar las etapas previas y renderizar los frames.  La estructura de este patrón se puede apreciar en la Figura \ref{glp}. Este patrón descompone la aplicación en tres etapas y fuerza a que cuando se ejecuta una etapa, otra no cambie el estado que influya a la misma, ya que se podrían generar inconvenientes. Por ejemplo si al mismo tiempo que se está renderizando, se actualizase la posición de un objeto, el mismo podría verse deformado, ya que algunos píxeles se podrían haber calculado antes de la actualización. Existen múltiples variantes del \textit{Game Loop Pattern}\cite{patterns}, donde se utilizan distintos criterios sobre la forma de controlar el tiempo que ha transcurrido desde el frame anterior. Se decidió emplear la versión que utiliza una variable y almacena el tiempo en milisegundos que ha transcurrido. Al decidirse que se realizaría una aplicación web, la aplicación del patrón no es la más directa, ya que a diferencia de lo que sucede en otro tipo de plataformas, la aplicación queda embebida dentro del loop del navegador. Por este motivo para utilizar este patrón se debe llamar a $requestAnimationFrame$\cite{patterns} y ejecutar las tres etapas cuando el navegador le retorna el control a la aplicación. La función $requestAnimationFrame$ permite pasarle una función al navegador para que sea llamada por él  y se ejecute. La frecuencia de las invocaciones a la función que se pasa como parámetro, depende de la configuración del navegador y de la máquina sobre la que se ejecuta. La función que recibe como parámetro $requestAnimationFrame$ es la responsable de ejecutar las tres etapas. 
 
@@ -627,7 +629,7 @@ $\bullet$ Para la realización de las sombras se decidió utilizar Shadow Map\ci
 
 $\bullet$ Para la compatibilidad del joystick se decidió utilizar polling de los valores del joystick, que es la forma comúnmente utilizada en el desarrollo de videojuegos\cite{engine}. Esto consiste en analizar en cada frame los valores de los registros del driver para verificar en qué estados se encuentran y actuar de la forma correspondiente.
 
-$\bullet$ Se decidió agregar un módulo que se encargue de parsear las ecuaciones ingresadas para facilitar la escritura de éstas por parte del usuario. Ésto se realizó con la intención de tener una interfaz transparente, que permita ingresar las ecuaciones de forma similar a SURFER, y usar algunas funciones como $min, max, abs, etc$.
+$\bullet$ Se decidió agregar un módulo que se encargue de parsear las ecuaciones ingresadas para facilitar la escritura de éstas por parte del usuario. Ésto se realizó con la intención de tener una interfaz transparente, que permita ingresar las ecuaciones algebraicas de forma similar a SURFER, y usar funciones no algebreaicas como \textit{min, max, abs, funciones trigonométricas, logaritmos,etc}. Utilizando esas funciones se puede hacer Geometría Sólida Constructiva (ver Sección 7.6).
 
 $\bullet$ Para darle al usuario un mayor grado de libertad se optó por permitir a los usuarios generar una cantidad sin límite de ecuaciones, contando con una opción que le permita elegir si quiere visualizar una única o varias. En caso de querer visualizar varias puede hacerlo con la interfaz o utilizando el teclado, donde se mapean las primeras diez ecuaciones a los números de éste. Como se mencionó anteriormente, ésto busca que los usuarios puedan generar escenas donde utilizando varias superficies puedan generar objetos cotidianos.
 
@@ -712,21 +714,23 @@ A su vez se utilizaron fragment shaders, que son programas encargados de retorna
 \label{texturas}
 \end{figure}
 
-Se optó por la proyección planar, debido a que es posible automatizar. La proyección natural se debe ajustar caso a caso. Se prefirió la proyección planar ante las esféricas y las cilíndricas, dado de que estas últimas sólo se ven de forma agradable sobre las figuras de características similares. En la Figura \ref{sackboy} se observa una superficie texturizada utilizando proyección planar, mientras que en la Figura \ref{sintextura} se muestra la textura utilizada y la ecución sin texturizar.
+Se optó por la proyección planar, debido a que es posible automatizar. La proyección natural se debe ajustar caso a caso. Se prefirió la proyección planar ante las esféricas y las cilíndricas, dado de que estas últimas sólo se ven de forma agradable sobre las figuras de características similares. En la Figura \ref{sintextura} se muestra un ejemplo, se aprecia la textura utilizada y la ecuación sin texturizar en la parte superior, mientras que en la parte inferior se observa la misma ecuación texturizada utilizando proyección planar.
 
 \begin{figure}[h!]
 \includegraphics[width =0.45\linewidth]{fondoPantalla.jpg}
 \hfill
 \includegraphics[width =0.45\linewidth]{sintexoc.png}
-\caption{ A la izquierda se puede apreciar la textura y a la derecha la ecuación sin texturizar.}
+\\\\
+\includegraphics[width =0.37\linewidth, center]{texturizada.png}
+\caption{ Arriba a la izquierda se puede apreciar una textura, arriba a la derecha una ecuación sin texturizar y abajo la ecuación texturizada con esa textura.}
 \label{sintextura}
 \end{figure}
 
-\begin{figure}[h!]
-\includegraphics[width =0.37\linewidth, center]{texturizada.png}
-\caption{Ejemplo de superficie texturizada generada con la aplicación.}
-\label{sackboy}
-\end{figure}
+%\begin{figure}[h!]
+%\includegraphics[width =0.37\linewidth, center]{texturizada.png}
+%\caption{Ejemplo de superficie texturizada generada con la aplicación.}
+%\label{sackboy}
+%\end{figure}
 
 \clearpage
 \subsection{Arquitectura}
@@ -825,9 +829,9 @@ En las plataformas móviles, se utilizó un Samsung  Galaxy S5 y un Samsung  Gal
 
 \subsection{Comparación entre meshers}
 \subsubsection{Comparación a través de sucesiones}
-\noindent La primer prueba que se realizó persiguió medir el tiempo que le lleva a cada algoritmo generar superficies. Para medirlo se fijó la bounding box y el paso del algoritmo, se utilizó una sucesión de superficies, generándolas con los tres meshers y registrando sus tiempos. Este tipo de comparación fija la información de la función que se utiliza para la generación de la geometría, pero los distintos algoritmos generan distintas cantidades de caras.
+\noindent La primer prueba que se realizó persiguió medir el tiempo que le lleva a cada algoritmo generar las mallas de las superficies. Para medirlo se fijó la bounding box y el paso del algoritmo, se utilizó una serie de superficies, generándolas con los tres meshers y registrando sus tiempos. Este tipo de comparación fija la información de la función que se utiliza para la generación de la geometría, pero los distintos algoritmos generan distintas cantidades de caras.
 
-Se utilizó como intervalo $[-1,1]$ en los tres ejes, y el paso fue 0.05 (la variación en los tres ejes que utilizan los algoritmos para generar la grilla). La sucesión que se utilizó fue $F_n(x,y,z) = cos(\frac{n\pi x}{2}) + cos(\frac{n\pi y}{2}) +cos(\frac{n\pi z}{2}) =0$, donde $n$ varía entre 1 y 10, en las Figuras \ref{ejsuc1} y \ref{ejsuc2} se aprecian algunas de las superficies que forman parte de la sucesión. Se decidió utilizar esa sucesión ya que es similar a la utilizada por Lysenko en una de sus pruebas. Los tiempos de la Tabla \ref{suc2} son en segundos y son el promedio de 15 ejecuciones.\\\\\\\\\\
+Se utilizó como intervalo $[-1,1]$ en los tres ejes, y el paso fue 0.05 (la variación en los tres ejes que utilizan los algoritmos para generar la grilla). La serie que se utilizó fue $F_n(x,y,z) = cos(\frac{n\pi x}{2}) + cos(\frac{n\pi y}{2}) +cos(\frac{n\pi z}{2}) =0$, donde $n$ varía entre 1 y 10, en las Figuras \ref{ejsuc1} y \ref{ejsuc2} se aprecian algunas de las superficies que forman parte de la serie. Se decidió utilizar esa serie ya que es similar a la utilizada por Lysenko en una de sus pruebas. Los tiempos de la Tabla \ref{suc2} son en segundos y son el promedio de 15 ejecuciones.\\\\\\\\\\
 
 \begin{table}[h!]
   \centering
@@ -850,7 +854,7 @@ Se utilizó como intervalo $[-1,1]$ en los tres ejes, y el paso fue 0.05 (la var
     10 & 0,345 &63480 & 1,840 &179352 & 0,671 &67240\\
     \bottomrule
 \end{tabular}
-  \caption{Comparación con sucesión.}
+  \caption{Comparación de tiempos de generación de las mallas para la serie de funciones.}
   \label{suc2}
 \end{table}
 
@@ -893,7 +897,7 @@ Luego, considerando que Marching Tetrahedra genera alrededor de 3 veces más car
     10 & 0,345 &63480 & 0,794 &66634 & 0,671 &67240\\
     \bottomrule
 \end{tabular}
-  \caption{Comparación con la sucesión a similar cantidad de caras.}
+  \caption{Comparación de tiempos de generación de las mallas para la serie de funciones para una cantidad de caras similar.}
   \label{tablaSIC}
 \end{table}
 
@@ -908,7 +912,7 @@ Primero se realizó una esfera con el paso en 0.1 como se aprecia en la Figura \
   \label{esf1g}
 \end{figure}
 
-Se puede apreciar en el sector superior a la derecha de la esfera cómo Marching Tetrahedra genera una superficie más suave que los otros dos. En la Figura \ref{acercamientoEsf} se muestra un acercamiento.
+Se puede apreciar, en el sector superior a la derecha de la esfera, cómo Marching Tetrahedra genera una superficie más suave que los otros dos. En la Figura \ref{acercamientoEsf} se muestra un acercamiento.
 
 \begin{figure}[h!]
 \includegraphics[width=\linewidth,center]{zoomesfera.png}
@@ -1067,7 +1071,7 @@ A continuación se presenta la Tabla \ref{fps} con la cantidad de caras de la ec
 Estas pruebas se realizaron generando sólo un punto de vista, por lo que, en modo VR, el framerate sería menor. Aún así la mayoría de las pruebas poseen resultados muy superiores a los 120$fps$ (60Hz es la velocidad de refresco del DK1). Utilizando esto como refencia, la única escena que generaría problemas es la de casi tres millones de triángulos, pero para llegar a esa cantidad es necesario tener una gran cantidad de ecuaciones o poner un paso muy pequeño.
 
 \subsection{Comparación con SURFER en puntos singulares}
-\noindent Los puntos singulares son puntos puntos donde no hay una única tangente. Éstos presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando SURFER con nuestra aplicación. 
+\noindent Los puntos singulares son puntos donde no hay un único plano tangente. Éstos presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando SURFER con nuestra aplicación. 
 
 Para hacerlo se utilizó una ecuación con 216 puntos singulares creada por Breske, Labs y van Straten \cite{216s}.
 \begin{figure}[h!]
@@ -1088,7 +1092,7 @@ Se aprecia a la izquierda de la Figura \ref{svi2} cómo se visualiza cuando se u
 De estas pruebas se desprende que los puntos singulares pueden llegar a ser problemáticos si la malla no es lo suficientemente fina, así como que los resultados obtenidos no son tan precisos como los de SURFER. Por otra parte, si se quiere visualizar algún punto singular en particular se puede recalcular con mayor calidad obteniendo resultados de una calidad similar a la de SURFER.
 
 \subsection{Análisis de usuarios}
-\noindent Se presenta a continuación un breve resumen de lo obtenido al presentarle a los usuarios el cuestionario presentado en el Anexo H. Se realizaron pruebas con 13 individuos (estudiantes o egresados de la Facultad de Ingeniería). Primero se les permitió experimentar con la aplicación libremente por unos 10 minutos, teniendo a su disposición el manual de usuario. Luego se les solicitó que realizaran la prueba presentada en el Anexo G. Las pruebas que se realizaron en PC fueron con el Oculus Rift DK1.
+\noindent Se presenta a continuación un breve resumen de lo obtenido al presentarle a los usuarios el cuestionario presentado en el Anexo G. Se realizaron pruebas con 13 individuos (estudiantes o egresados de la Facultad de Ingeniería). Primero se les permitió experimentar con la aplicación libremente por unos 10 minutos, teniendo a su disposición el manual de usuario. Luego se les solicitó que realizaran la prueba presentada en el Anexo G. Las pruebas que se realizaron en PC fueron con el Oculus Rift DK1.
 
 Las críticas fueron positivas en general, la mayoría de los usuarios quedaron satisfechos con la aplicación. A continuación se presenta un resumen de los principales resultados obtenidos, junto con recomendaciones recibidas.
 
@@ -1214,7 +1218,7 @@ Una recomendación que se obtuvo por parte de uno de los usuarios, fue que para 
 \subsection{Composición de ecuaciones}
 \noindent La aplicación desarrollada puede ser utilizada con fines pedagógicos. En esta sección se muestran algunas formas de utilizar el programa para  realizar ecuaciones de forma sencilla e intuitiva, de manera de de poder generar superficies a partir de algunas más simples.
 
-Uno de los más útiles usos para el software desarrollado es utilizar la matemática para generar objetos conocidos del mundo real, es decir objetos cotidianos. Una forma de lograr ésto es por medio de la unión, intersección y resta de superficies. Esta aplicación puede lograr cada una de las 3 operaciones de 3 formas distintas.
+Uno de los más útiles usos para el software desarrollado es utilizar la matemática para generar objetos conocidos del mundo real, es decir objetos cotidianos. Una forma de lograr ésto es por medio de la unión, intersección y resta de superficies. Estas tres operaciones son la base de la Geometría Sólida Constructiva, esta aplicación puede lograr cada una de las mismas de 3 formas distintas.
 
 Estas tres operaciones permiten una increíble flexibilidad, y se pueden aprovechar para generar una gran cantidad de superficies. A continuación se muestran algunos ejemplos.\\
 \begin{wrapfigure}{l}{0.4\textwidth}
@@ -1336,6 +1340,8 @@ En la Figura \ref{grafobz} se puede observar el grafo de construcción de la sup
 
 La aplicación posee también luces y sombras dinámicas; texturas y efectos visuales a través de shaders, que permiten a los usuarios tener un mayor control de la escena.
 
+También hay que destacar que la aplicación final es web, lo que implica que se encuentra disponible para una gran cantidad de dispositivos, sin ser necesario su descarga ni su compilación como se había considerado inicialmente.
+
 A continuación se presentan tres partes, en la primera se analiza la performance de los meshers, comparándolos entre sí. 
 
 En la segunda parte se analiza la performance de la aplicación en cuanto a fps y a la resolución de las imágenes generadas. En esta parte se comparará contra SURFER y se analizará si el framerate y la calidad de las imágenes es lo suficientemente bueno para una experiencia positiva de realidad virtual.
@@ -1344,11 +1350,11 @@ Finalmente se presentan las conclusiones de los experimentos con usuarios.
 \subsubsection{Meshers}
 \noindent Cada uno de los 3 métodos tiene sus puntos fuertes y débiles. 
 
-$\bullet$ Marching Cubes es bueno ya que existen implementaciones libres y fácilmente utilizables, y también es bastante rápido, sin mencionar que también es la más ampliamente conocida. Además de ser relativamente rápido no tiene el problema de repetir vértices como es el caso de Naive Surface Nets, y la calidad de las mallas es superior. Los resultados no son tan agradables a la vista como los de Marching Tetrahedra, pero es considerablemente más veloz. 
+$\bullet$ \textbf{Marching Cubes} es bueno ya que existen implementaciones libres y fácilmente utilizables, y también es bastante rápido, sin mencionar que también es la más ampliamente conocida. Además de ser relativamente rápido no tiene el problema de repetir vértices como es el caso de Naive Surface Nets, y la calidad de las mallas es superior. Los resultados no son tan agradables a la vista como los de Marching Tetrahedra, pero es considerablemente más veloz. 
 
-$\bullet$ Marching Tetrahedra soluciona algunos problemas de Marching Cubes a expensas de ser mucho más lento y la creación de mallas de mayor tamaño. A su vez, estas últimas poseen una mayor suavidad, pero contienen mucho más caras y vértices, además  el algoritmo es mucho más lento.
+$\bullet$ \textbf{Marching Tetrahedra} soluciona algunos problemas de Marching Cubes a expensas de ser mucho más lento y la creación de mallas de mayor tamaño. A su vez, estas últimas poseen una mayor suavidad, pero contienen mucho más caras y vértices, además  el algoritmo es mucho más lento.
 
-$\bullet$ Naive Surface Nets posee una velocidad significativamente superior y se puede ampliar para generar mallas de alta calidad utilizando algoritmos más sofisticados de selección de vértices. También es fácil de implementar y produce mallas ligeramente más pequeñas en cuanto a su costo de almacenamiento. Su inconveniente principal es que las superficies que genera son de inferior calidad, aunque podría mejorarse si se cambia la técnica de elección de vértices. 
+$\bullet$ \textbf{Naive Surface Nets} posee una velocidad significativamente superior y se puede ampliar para generar mallas de alta calidad utilizando algoritmos más sofisticados de selección de vértices. También es fácil de implementar y produce mallas ligeramente más pequeñas en cuanto a su costo de almacenamiento. Su inconveniente principal es que las superficies que genera son de inferior calidad, aunque podría mejorarse si se cambia la técnica de elección de vértices. 
 
 $\bullet$ La elección de cual de los métodos es el superior depende de cada caso. Si se quiere ahorrar en memoria y obtener el resultado con mayor rapidez, se debe usar Naive Surface Nets,  asumiendo que la aproximación se vería comprometida con respecto al uso de cualquiera de los otros dos algoritmos. Por otra parte, si se quiere maximizar la precisión de la aproximación se debe utilizar Marching Tetrahedra, que demorará más tiempo y utilizará más recursos. Finalmente, si se quiere una opción más equilibrada, se puede optar por Marching Cubes ya que no es tan preciso a la hora de aproximar como Marching Tetrahedra, pero es más rápido y usa menos recursos; además de que es más preciso que Naive Surface Nets aunque es más lento. Por estos motivos se optó por dejar a Marching Cubes como algoritmo por defecto, pero permitirle al usuario cambiarlo en caso de que éste lo considere necesario.
 
@@ -1382,13 +1388,13 @@ $\bullet$ Explorar la posibilidad de agregar a la lista de algoritmos de generac
 
 $\bullet$ En cuanto a la mejora de los algoritmos, analizar la implementación de diferentes versiones de Surface Nets, donde se cambian las técnicas de selección de los vértices, para obtener mejores resultados.
 
-$\bullet$ Agregar otros shaders de GLSL permitiría incorporar nuevos efectos visuales, volviéndolo más atractivo. Se podría, por ejemplo, permitir al usuario agregar sus propios shaders, de forma de otorgarle  mayor control de cómo se visualiza la ecuación. También se podría alterar algunos de los shaders existentes de manera que los clicks en pantalla afecten su comportamiento, por ejemplo que los clicks generen ondas en el agua, o que el movimiento de la ecuación afecte la vibración de la gelatina.
+$\bullet$ Agregar otros shaders de GLSL. Ésto permitiría incorporar nuevos efectos visuales, volviéndolo más atractivo. Se podría, por ejemplo, permitir al usuario agregar sus propios shaders, de forma de otorgarle  mayor control de cómo se visualiza la ecuación. También se podría alterar algunos de los shaders existentes de manera que los clicks en pantalla afecten su comportamiento, por ejemplo que los clicks generen ondas en el agua, o que el movimiento de la ecuación afecte la vibración de la gelatina.
 
-$\bullet$ Otra posibilidad sería mejorar la interfaz en caso que se ingrese desde un teléfono, hacerla más amigable para los dispositivos móviles. También se podrían desarrollar aplicaciones para celular (aprovechando la existencia de herramientas para utilizar HTML, CSS y Javascript para hacer aplicaciones para estos dispositivos) tanto para Android como para iOS. 
+$\bullet$ Mejorar la interfaz en caso que se ingrese desde un teléfono, para hacerla más amigable para los dispositivos móviles. También se podrían desarrollar aplicaciones para celular (aprovechando la existencia de herramientas para utilizar HTML, CSS y Javascript para hacer aplicaciones para estos dispositivos) tanto para Android como para iOS. 
 
-$\bullet$ Se podría traducir el código a C++ con OpenGL, para implementar una versión de escritorio. De esta forma se mejoraría la performance porque se obtendría código compilado, además de disminuir el overhead. Por otro lado se tendría un mayor control del framerate ya que no se dependería del loop de refresco del navegador.
+$\bullet$ Traducir el código a C++ con OpenGL, para implementar una versión de escritorio. De esta forma se mejoraría la performance porque se obtendría código compilado, además de disminuir el overhead. Por otro lado se tendría un mayor control del framerate ya que no se dependería del loop de refresco del navegador.
 
-$\bullet$ Por último se podrían utilizar técnicas de simplificación\cite{simplificacion}\cite{realtimerendering} con el fin de simplificar la geometría con la menor pérdida de calidad posible. Ésto permitiría disminuir considerablemente la cantidad de polígonos en varias ecuaciones, por ejemplo, si se simplificase la ecuación del plano $x-3=0$, en lugar de tener una gran cantidad de triángulos dependiendo del paso seleccionado por el usuario, simplemente se tendrían 2 triángulos.
+$\bullet$ Utilizar técnicas de simplificación\cite{simplificacion}\cite{realtimerendering} con el fin de simplificar la geometría con la menor pérdida de calidad posible. Ésto permitiría disminuir considerablemente la cantidad de polígonos en varias ecuaciones, por ejemplo, si se simplificase la ecuación del plano $x-3=0$, en lugar de tener una gran cantidad de triángulos dependiendo del paso seleccionado por el usuario, simplemente se tendrían 2 triángulos.
 
 \clearpage
 \null\newpage
@@ -1436,7 +1442,7 @@ Visitado 2016-05-21
 \\\url{http://3d-xplormath.org/}
 
 \bibitem{realtimerendering} 
-Akenine-Moller, T., Haines, E., Hoffman, N. (2008). \textit{Real-Time Rendering Third Edition},\\A. K. Peters, Ltd.
+Akenine-Moller, T., Haines, E., Hoffman, N. (2008). \textit{Real-Time Rendering Third Edition}, A. K. Peters, Ltd.
 
 \bibitem{nuestrocodigo} 
 Báez, G., Coore, P., (2016), \textit{Implicitus}
@@ -1458,16 +1464,13 @@ Vistiado 2016-05-24
 \\\url{http://paulbourke.net/miscellaneous/interpolation/}
 
 \bibitem{216s} 
-Breske, S., Labs, O., van Straten, D., (2005) \textit{REAL LINE ARRANGEMENTS AND SURFACES WITH MANY REAL NODES},\\
-Institut fur Mathematik, Johannes Gutenberg Universitat Mainz.
+Breske, S., Labs, O., van Straten, D., (2005) \textit{REAL LINE ARRANGEMENTS AND SURFACES WITH MANY REAL NODES}, Institut fur Mathematik, Johannes Gutenberg Universitat Mainz.
 
 \bibitem{surfacenets} 
-Gibson, S., (1999) \textit{Constrained Elastic SurfaceNets: Generating Smooth Models from Binary Segmented Data},\\
-Springer Berlin Heidelberg.
+Gibson, S., (1999) \textit{Constrained Elastic SurfaceNets: Generating Smooth Models from Binary Segmented Data}, Springer Berlin Heidelberg.
 
 \bibitem{implicitas} 
-Gomes, A., Voiculescu, I., Jorge, J., Wyvill, B., Galbraith, C., (2009) \textit{Implicit Curves and Surfaces: Mathematics, Data Structures and Algorithms},\\
-Springer.
+Gomes, A., Voiculescu, I., Jorge, J., Wyvill, B., Galbraith, C., (2009) \textit{Implicit Curves and Surfaces: Mathematics, Data Structures and Algorithms}, Springer.
 
 \bibitem{cardboard} 
 Google Cardboard, \textit{homepage},
@@ -1480,8 +1483,7 @@ Descargado 2016-05-21
 \\\url{http://www.gnuplot.info/}
 
 \bibitem{engine} 
-Gregory, J., (2013) \textit{Game Engine Architecture, Second Edition},\\
-CRC Press.
+Gregory, J., (2013) \textit{Game Engine Architecture, Second Edition}, CRC Press.
 
 \bibitem{htcvive} 
 HTC, \textit{HTC Vive},
@@ -1494,24 +1496,19 @@ Descargado 2016-05-21
 \\\url{https://imaginary.org/es/program/surfer}
 
 \bibitem{usa} 
-Johnson, D., (2005), \textit{Introduction to and Review of Simulator Sickness Research (Research Report 1832)},\\
-U.S. Army Research Institute for the Behavioral and Social Sciences.
+Johnson, D., (2005), \textit{Introduction to and Review of Simulator Sickness Research (Research Report 1832)}, U.S. Army Research Institute for the Behavioral and Social Sciences.
 
 \bibitem{dualcontour} 
-Ju, T., Losasso, F., Schaefer, S., Warren, J. (2002). \textit{Dual Contouring of Hermite Data},\\
-SIGGRAPH '02.
+Ju, T., Losasso, F., Schaefer, S., Warren, J. (2002). \textit{Dual Contouring of Hermite Data}, SIGGRAPH '02.
 
 \bibitem{VRS} 
-LaViola, J., (2000) \textit{A Discussion of Cybersickness in Virtual Environments},\\
-ACM SIGCHI Bulletin.
+LaViola, J., (2000) \textit{A Discussion of Cybersickness in Virtual Environments},ACM SIGCHI Bulletin 32, pp 47-56.
 
 \bibitem{marchingcubes} 
-Lorensen, W., Cline, H., (1987)\textit{Marching Cubes: A High Resolution 3D Surface Construction Algorithm},\\
-SIGGRAPH  '87.
+Lorensen, W., Cline, H., (1987)\textit{Marching Cubes: A High Resolution 3D Surface Construction Algorithm}, SIGGRAPH  '87.
 
 \bibitem{simplificacion} 
-Luebke, D.,(2001). \textit{A Developer's Survey of Polygonal Simplification Algorithms},\\
-IEEE Computer Graphics \& Aplications, vol 21.
+Luebke, D.,(2001). \textit{A Developer's Survey of Polygonal Simplification Algorithms}, IEEE Computer Graphics \& Aplications, vol 21.
 
 \bibitem{mykola1} 
 Lysenko, M., (2012) \textit{Smooth Voxel Terrain (Part 1)},
@@ -1542,8 +1539,7 @@ Visitado 2016-04-22
 \\\url{https://nightly.mozilla.org/}
 
 \bibitem{patterns} 
-Nystrom,R (2014) \textit{Game Programming Patterns},\\
-Genever Benning.
+Nystrom,R (2014) \textit{Game Programming Patterns},Genever Benning.
 
 \bibitem{oculus} 
 Oculus, \textit{homepage},
@@ -1562,8 +1558,7 @@ Visitado 2016-05-20
 \\\url{https://developer.oculus.com/documentation/pcsdk/0.5/concepts/dg-render/}
 
 \bibitem{Phong} 
-Phong, B. T., (1975). \textit{Illumination for Computer Generated Pictures},\\
-Communications of the ACM, vol 18, no. 6, pp. 311-317 .
+Phong, B. T., (1975). \textit{Illumination for Computer Generated Pictures}, Communications of the ACM, vol 18, no. 6, pp. 311-317 .
 
 \bibitem{samsungvr} 
 Samsung, \textit{Samsung VR},
@@ -1582,13 +1577,11 @@ Visitado 2016-05-27
 
 
 \bibitem{visionest} 
-Steeves, J., Harris, L. (2012). \textit{Plasticity in Sensory Systems},\\
-Cambridge University Press.
+Steeves, J., Harris, L. (2012). \textit{Plasticity in Sensory Systems}, Cambridge University Press.
 
 
 \bibitem{marchingt} 
-Tatarchuk, N., Shopf, J., (2007)\textit{Real-Time Medical Visualization with FireGL},
-SIGGRAPH 2007, AMD Technical Talk.
+Tatarchuk, N., Shopf, J., (2007)\textit{Real-Time Medical Visualization with FireGL}, SIGGRAPH 2007, AMD Technical Talk.
 
 \bibitem{three} 
 THREEJS, \textit{homepage},
@@ -1601,8 +1594,7 @@ Descargado 2016-03-24
 \\\url{https://github.com/mrdoob/three.js/}
 
 \bibitem{shadowmap} 
-Williams, L.,(1978). \textit{Casting Curved Shadows on Curved Surfaces},
-SIGGRAPH '78, pp. 270-278. 
+Williams, L.,(1978). \textit{Casting Curved Shadows on Curved Surfaces}, SIGGRAPH '78, pp. 270-278. 
 
 \end{thebibliography}
 
@@ -1659,8 +1651,19 @@ A continuación se presenta un breve manual de usuario donde se explica cómo ut
 \subsection{Interfaz}
 En este punto se muestran los distintos modos con los que se puede interactuar con la aplicación.
 \subsubsection{Menú lateral}
-El menú lateral permite varias funcionalidades. En la parte superior se encuentran cinco botones, el que se encuentra más a la izquierda oculta el menú de las ecuaciones, el siguiente activa el modo VR, el central habilita o deshabilita el uso del teclado para afectar la escena, de modo que ingresar la ecuación no afecte la visualización, el próximo cambia el idioma de la aplicación y, finalmente el de más a la derecha muestra el menú de configuración que contiene parámetros avanzados.
-\begin{wrapfigure}{l}{0.35\textwidth}
+El menú lateral permite varias funcionalidades. En la parte superior se encuentran cinco botones los cuales se pueden apreciar en la Figura \ref{menu1}, se describen a continuación de izquierda a derecha:
+
+$\bullet$ Oculta el menú de las ecuaciones.
+
+$\bullet$ Activa el modo VR.
+
+$\bullet$ Habilita o deshabilita el uso del teclado para afectar la escena, de modo que ingresar la ecuación no afecte la visualización. 
+
+$\bullet$ Cambia el idioma de la aplicación.
+
+$\bullet$ Muestra el menú de configuración que contiene parámetros avanzados.
+
+\begin{wrapfigure}{l}{0.32\textwidth}
 \includegraphics[width=0.9\linewidth]{interfaz1.png} 
 \caption{Interfaz lateral de la aplicación, menú de ecuaciones.}
 \label{menu1}
@@ -1676,12 +1679,12 @@ El menú de las ecuaciones está compuesto de varias pestañas que forman un aco
 \\$\bullet$ El valor del paso a utilizar en el algoritmo.
 \\$\bullet$ El botón Actualizar que es el responsable de regenerar la geometría utilizando los parámetros ingresados.
 \clearpage
-$\bullet$ Un campo donde se ingresa el nombre, el cual es mostrado arriba en la pestaña, y en caso de estar conectado a la base a la hora de guardar se utilizará.
+\noindent $\bullet$ Un campo donde se ingresa el nombre, el cual es mostrado arriba en la pestaña, y en caso de estar conectado a la base a la hora de guardar se utilizará.
 \\$\bullet$ Un botón que sólo aparece en caso de conexión con la base y permite grabar.
 \\$\bullet$ Opciones para cambiar el color interno y externo así como las texturas.
 \\$\bullet$ La posición de la figura en la escena.
 \\$\bullet$ Afuera de las pestañas se encuentra una opción para agregar más ecuaciones (lo que genera más pestañas). \\
-\begin{wrapfigure}{l}{0.35\textwidth}
+\begin{wrapfigure}{l}{0.32\textwidth}
 \includegraphics[width=0.9\linewidth]{interfaz2.png} 
 \caption{Interfaz lateral de la aplicación, configuración avanzada.}
 \label{menu2}
@@ -1919,7 +1922,7 @@ meshers = {
 \end{lstlisting}
 \clearpage
 \null\newpage
-\section{Pruebas para los usuarios}
+\section{Test con usuarios}
 A continuación se presenta la prueba que se le presentó a los usuarios para probar la aplicación.
 \begin{itemize}
 \item Dibuje la ecuación de un plano.
@@ -1931,9 +1934,8 @@ A continuación se presenta la prueba que se le presentó a los usuarios para pr
 \item Entre en modo VR.
 \item Asígnele un material a la ecuación.
 \end{itemize}
-\clearpage
-\null\newpage
-\section{Cuestionario de usabilidad de la aplicación}
+
+\subsection{Cuestionario de usabilidad de la aplicación}
 \textbf{La interfaz le pareció:}
 \\ 1) Muy mala
 \\ 2) Mala
@@ -1956,7 +1958,6 @@ A continuación se presenta la prueba que se le presentó a los usuarios para pr
 \\\\\\\\\\\\
 \textbf{¿Cuál es su opinión general de la aplicación?}
 \clearpage
-\null\newpage
 \section{Descripción de módulos del proyecto}
 En este anexo se describen los módulos del proyecto, junto con algunas funciones importantes con la intención de asistir a quien quiera extender la aplicación desarrollada.
 \\Lista de módulos JavaScript:

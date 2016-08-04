@@ -372,9 +372,9 @@ Con este lenguaje se pueden desarrollar tanto vertex shaders como pixel shaders 
 
 \clearpage
 \section{Aproximación de superficies algebraicas a través de meshers}
-\noindent Para la generación de superficies algebraicas existen diversas formas. En rasgos generales se pueden distinguir estos algoritmos en 2 categorías: los que funcionan mediante la intersección de rayos contra la superficie (Ray casting), y aquellos que generan una aproximación lineal mediante polígonos (Meshers).
+\noindent Para la generación de superficies algebraicas existen diversas formas. En rasgos generales se pueden dividir estos algoritmos en 2 categorías: los que funcionan mediante la intersección de rayos contra la superficie (Ray casting), y aquellos que generan una aproximación lineal mediante polígonos (Meshers).
 
-En el proyecto se decidió utilizar los algoritmos que caen en la categoría de Meshers\cite{mykola1}\cite{mykola2} a pesar de que sólo aproximan la superficie, debido a que tienen un tiempo de respuesta menor a la hora de realizar movimientos (rotación y traslación), lo cual es indispensable a la hora de evitar la Virtual Reality Sickness luego de la renderización de la superficie en el Oculus Rift. En la Figura \ref{saturno} se pueden apreciar dos superficies generadas utilizando meshers.
+En el proyecto se decidió utilizar los algoritmos que caen en la categoría de Meshers \cite{mykola1}\cite{mykola2} a pesar de que sólo aproximan la superficie, debido a que tienen un tiempo de respuesta menor a la hora de realizar movimientos (rotación y traslación), lo cual es indispensable a la hora de evitar la Virtual Reality Sickness luego de la renderización de la superficie en el Oculus Rift. En la Figura \ref{saturno} se pueden apreciar dos superficies generadas utilizando meshers.
 
 Existen diversos algoritmos que caen en la categoría de Meshers y realizan una aproximación por polígonos de las superficies o volúmenes de las ecuaciones. Se presentan a continuación una serie de conceptos matemáticos sobre los cuales se basan los algoritmos que se describen más adelante.
 \begin{figure}[h]
@@ -575,7 +575,7 @@ $\bullet$ El principal objetivo del proyecto es lograr visualizar ecuaciones uti
 
 $\bullet$ Permitir el uso de la aplicación a usuarios que no cuenten con Oculus Rift. Para ello se requiere contar con dos modalidades, una para visualizar las ecuaciones estereoscópicamente y una modalidad más simple que no lo haga.
 
-$\bullet$ Explorar las ecuaciones de manera interactiva, pudiendo navegar por ella libremente. En particular se busca que se pueda visualizar la aplicación de dos formas, una similar a la de SURFER, donde la ecuación se encuentra en el centro y se orbita alrededor de ella; y otra similiar a los juegos en primera persona. Estas dos formas le dan al usuario la posibilidad de visualizar las superficies desde todos los ángulos posibles.
+$\bullet$ Explorar las ecuaciones de manera interactiva, pudiendo navegar por ellas libremente. En particular se busca que se pueda visualizar la aplicación de dos formas, una similar a la de SURFER, donde la ecuación se encuentra en el centro y se orbita alrededor de ella; y otra similiar a los juegos en primera persona. Estas dos formas le dan al usuario la posibilidad de visualizar las superficies desde todos los ángulos posibles.
 
 $\bullet$ Visualizar no sólo superficies algebraicas como el SURFER sino también ecuaciones implícitas en general, para darle una mayor flexibilidad al usuario.
 
@@ -602,9 +602,9 @@ $\bullet$ Finalmente, permitir a los usuarios no visualizar una única ecuación
 
 \subsection{Decisiones de diseño}
 
-$\bullet$ La principal decisión que se tomó fue no utilizar ray casting sino meshers. Esta decisión se realizó considerando la resolución de las imágenes y los framerates obtenidos utilizando ray casting. Como se presentó en la Sección 4, fue utilizada la versión modificada de SURFER desarrollada por nosotros para las pruebas. Los resultados obtenidos eran inferiores a lo recomendado para una buena experiencia estereoscópica. Por ese motivo se optó por tomar como base Isosurface (Sección 2.3.3) en lugar de SURFER. Para la toma de esta decisión también fue considerado el hecho de que de esta forma la aplicación podría generar ecuaciones implícitas, mientras que SURFER (Secciones 2.3.1 y 4 ) genera sólo ecuaciones algebraicas. Ésto permite la visualización de una cantidad mayor de superficies, aunque como se mencionó anteriormente tiene el costo de que se visualiza una aproximación poligonal, por lo que la calidad de la ecuación se ve afectada. Considerando la ganancia en performance, así como en cantidad de superficies que se pueden presentar, luego de varias pruebas, se decidió que la pérdida de calidad generada por la aproximación era aceptable. Esta decisión fue la de mayor incidencia puesto que significó abandonar lo que se había desarrollado para extender SURFER y comenzar de nuevo.
+$\bullet$ La principal decisión que se tomó fue no utilizar ray casting sino meshers. Esta decisión se realizó considerando la resolución de las imágenes y los framerates obtenidos utilizando ray casting. Como se presentó en la Sección 4, desarrollamos una versión estereoscópica de SURFER para las pruebas. Los resultados obtenidos eran inferiores a lo recomendado para una buena experiencia estereoscópica. Por ese motivo se optó por tomar como base Isosurface (Sección 2.3.3) en lugar de SURFER. Para la toma de esta decisión también fue considerado el hecho de que de esta forma la aplicación podría generar ecuaciones implícitas, mientras que SURFER (Secciones 2.3.1 y 4 ) genera sólo ecuaciones algebraicas. Ésto permite la visualización de una cantidad mayor de superficies, aunque como se mencionó anteriormente tiene el costo de que se visualiza una aproximación poligonal, por lo que la calidad de la ecuación se ve afectada. Considerando la ganancia en performance, así como en cantidad de superficies que se pueden presentar, luego de varias pruebas, se decidió que la pérdida de calidad generada por la aproximación era aceptable. Esta decisión fue la de mayor incidencia puesto que significó abandonar lo que se había desarrollado para extender SURFER y comenzar de nuevo.
 
-$\bullet$ Se tomó la decisión de que la aplicación fuese web. Ésto permite que un mayor número de usuarios tenga acceso a la misma, ya que no es necesario descargarla y se puede acceder desde una gran cantidad de dispositivos heterogéneos. A su vez, mejora el objetivo inicial de permitir a terceros descargar y compilar la aplicación, porque al ser ésta web, se puede directamente permitir a terceros ejecutarla desde su navegador web. 
+$\bullet$ Se tomó la decisión de que la aplicación fuese web. Ésto permite que un mayor número de usuarios tenga acceso a la misma, ya que no es necesario descargarla y se puede acceder desde una gran cantidad de dispositivos heterogéneos. A su vez, mejora el objetivo inicial de permitir a terceros descargar y compilar la aplicación, porque al ser web, se puede permitir directamente a terceros ejecutarla desde su navegador web. 
 
 $\bullet$ Se decidió utilizar dos patrones de diseño empleados generalmente en videojuegos, éstos son el \textit{Update Pattern} y el \textit{Game Loop Pattern}\cite{patterns}\cite{engine}. Ésto se debe a que al ser nuestro software una aplicación gráfica en tiempo real, al igual que los videojuegos, se pueden aplicar algunas de las buenas prácticas que se han desarrollado para los mismos. El \textit{Update Pattern} consiste en delegar a los diferentes elementos de la escena su actualización en la etapa previa al renderizado del frame. Ésto se efectúa en la etapa de Update o Animate, en esta etapa todos los elementos de la escena se modifican en caso de ser necesario para representar el estado actual. El \textit{Update Pattern} permite que cada objeto se responsabilice de su actualización, lo que brinda un mayor grado de independencia entre scripts. El \textit{Game Loop Pattern} consiste en contar con un loop principal, el cual es el encargado de realizar las etapas previas y renderizar los frames.  La estructura de este patrón se puede apreciar en la Figura \ref{glp}. Este patrón descompone la aplicación en tres etapas y fuerza a que cuando se ejecuta una etapa, otra no cambie el estado que influya a la misma, ya que se podrían generar inconvenientes. Por ejemplo si al mismo tiempo que se está renderizando, se actualizase la posición de un objeto, el mismo podría verse deformado, ya que algunos píxeles se podrían haber calculado antes de la actualización. Existen múltiples variantes del \textit{Game Loop Pattern}\cite{patterns}, donde se utilizan distintos criterios sobre la forma de controlar el tiempo que ha transcurrido desde el frame anterior. Se decidió emplear la versión que utiliza una variable y almacena el tiempo en milisegundos que ha transcurrido. Al decidirse que se realizaría una aplicación web, la aplicación del patrón no es la más directa, ya que a diferencia de lo que sucede en otro tipo de plataformas, la aplicación queda embebida dentro del loop del navegador. Por este motivo para utilizar este patrón se debe llamar a $requestAnimationFrame$\cite{patterns} y ejecutar las tres etapas cuando el navegador le retorna el control a la aplicación. La función $requestAnimationFrame$ permite pasarle una función al navegador para que sea llamada por él  y se ejecute. La frecuencia de las invocaciones a la función que se pasa como parámetro, depende de la configuración del navegador y de la máquina sobre la que se ejecuta. La función que recibe como parámetro $requestAnimationFrame$ es la responsable de ejecutar las tres etapas. 
 
@@ -721,7 +721,7 @@ Se optó por la proyección planar, debido a que es posible automatizar. La proy
 \hfill
 \includegraphics[width =0.45\linewidth]{sintexoc.png}
 \\\\
-\includegraphics[width =0.37\linewidth, center]{texturizada.png}
+\includegraphics[width =0.45\linewidth, center]{texturizada.png}
 \caption{ Arriba a la izquierda se puede apreciar una textura, arriba a la derecha una ecuación sin texturizar y abajo la ecuación texturizada con esa textura.}
 \label{sintextura}
 \end{figure}
@@ -1071,11 +1071,11 @@ A continuación se presenta la Tabla \ref{fps} con la cantidad de caras de la ec
 Estas pruebas se realizaron generando sólo un punto de vista, por lo que, en modo VR, el framerate sería menor. Aún así la mayoría de las pruebas poseen resultados muy superiores a los 120$fps$ (60Hz es la velocidad de refresco del DK1). Utilizando esto como refencia, la única escena que generaría problemas es la de casi tres millones de triángulos, pero para llegar a esa cantidad es necesario tener una gran cantidad de ecuaciones o poner un paso muy pequeño.
 
 \subsection{Comparación con SURFER en puntos singulares}
-\noindent Los puntos singulares son puntos donde no hay un único plano tangente. Éstos presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando SURFER con nuestra aplicación. 
+\noindent Los puntos singulares de una superficie son aquellos puntos que no tienen un único plano tangente. Éstos presentan inconvenientes para los algoritmos presentados, ya que los mismos no son generados de forma idónea. A continuación presentaremos una serie de imágenes para comparar los resultados que se obtienen utilizando SURFER con nuestra aplicación. 
 
 Para hacerlo se utilizó una ecuación con 216 puntos singulares creada por Breske, Labs y van Straten \cite{216s}.
 \begin{figure}[h!]
-\includegraphics[width=\linewidth]{comp1.png}
+\includegraphics[width=0.9\linewidth]{comp1.png}
 \caption{Comparación de una figura con 216 puntos singulares creada por Breske, Labs y van Straten utilizando SURFER y la aplicación desarrollada.}
 \label{svi1}
 \end{figure}
@@ -1083,7 +1083,7 @@ Para hacerlo se utilizó una ecuación con 216 puntos singulares creada por Bres
 En la Figura \ref{svi1} a la izquierda se puede apreciar la imagen generada con SURFER y a la derecha la misma imagen generada con Marching Tetrahedra en nuestra aplicación. Se puede apreciar cómo SURFER resuelve los puntos singulares de mejor forma. A su vez se puede apreciar cómo nuestra aplicación posee sombras.
 %\clearpage
 \begin{figure}[h!]
-\includegraphics[width=\linewidth]{comp2.png}
+\includegraphics[width=0.9\linewidth]{comp2.png}
 \caption{Comparación cuando se realiza zoom hacia un punto singular de la figura anterior.}
 \label{svi2}
 \end{figure}
@@ -1218,7 +1218,7 @@ Una recomendación que se obtuvo por parte de uno de los usuarios, fue que para 
 \subsection{Composición de ecuaciones}
 \noindent La aplicación desarrollada puede ser utilizada con fines pedagógicos. En esta sección se muestran algunas formas de utilizar el programa para  realizar ecuaciones de forma sencilla e intuitiva, de manera de de poder generar superficies a partir de algunas más simples.
 
-Uno de los más útiles usos para el software desarrollado es utilizar la matemática para generar objetos conocidos del mundo real, es decir objetos cotidianos. Una forma de lograr ésto es por medio de la unión, intersección y resta de superficies. Estas tres operaciones son la base de la Geometría Sólida Constructiva, esta aplicación puede lograr cada una de las mismas de 3 formas distintas.
+Uno de los usos más útiles para el software desarrollado es utilizar la matemática para generar objetos conocidos del mundo real, es decir objetos cotidianos. Una forma de lograr ésto es por medio de la unión, intersección y resta de superficies. Estas tres operaciones son la base de la Geometría Sólida Constructiva. Estas operaciones se pueden lograr utilizando las funciones matemáticas \textit{min, max, raíz cuadrada y valor absoluto}, las cuales son soportadas por nuestra aplicación.
 
 Estas tres operaciones permiten una increíble flexibilidad, y se pueden aprovechar para generar una gran cantidad de superficies. A continuación se muestran algunos ejemplos.\\
 \begin{wrapfigure}{l}{0.4\textwidth}
@@ -1228,7 +1228,6 @@ Estas tres operaciones permiten una increíble flexibilidad, y se pueden aprovec
 \end{wrapfigure}
 
 Se pueden ver dos ecuaciones generadas con nuestra aplicación con las operaciones expresadas anteriormente. Particularmente, en la Figura \ref{dode}, se puede apreciar un dodecaedro realizado intersecando 12 semiespacios definidos por planos, y en la Figura \ref{tornillo} un ``tirabuzón" generado a través de la resta entre un cilindro  y una ecuación similar a un resorte (se puede apreciar en la Figura \ref{grafobz}).
-\\
 \\
 \\
 \\
@@ -1336,17 +1335,13 @@ En la Figura \ref{grafobz} se puede observar el grafo de construcción de la sup
 \null\newpage
 \section{Conclusiones y trabajo a futuro}
 \subsection{Conclusiones}
-\noindent El producto final permite visualizar múltiples ecuaciones implícitas de forma atractiva, ya sea de forma estereoscópica o no. En el mismo se exploran las superficies libremente, pudiéndolas visualizar desde cualquier ángulo. A su vez, el ingreso de las ecuaciones se realiza a través de una interfaz simple, similar a la de otras herramientas matemáticas. 
+\noindent El producto final permite visualizar múltiples ecuaciones implícitas, ya sea de forma estereoscópica o no. Se pueden explorar las superficies libremente, pudiéndolas visualizar desde cualquier punto de vista. A su vez, el ingreso de las ecuaciones se realiza a través de una interfaz simple, similar a la de otras herramientas matemáticas. 
 
 La aplicación posee también luces y sombras dinámicas; texturas y efectos visuales a través de shaders, que permiten a los usuarios tener un mayor control de la escena.
 
 También hay que destacar que la aplicación final es web, lo que implica que se encuentra disponible para una gran cantidad de dispositivos, sin ser necesario su descarga ni su compilación como se había considerado inicialmente.
 
-A continuación se presentan tres partes, en la primera se analiza la performance de los meshers, comparándolos entre sí. 
-
-En la segunda parte se analiza la performance de la aplicación en cuanto a fps y a la resolución de las imágenes generadas. En esta parte se comparará contra SURFER y se analizará si el framerate y la calidad de las imágenes es lo suficientemente bueno para una experiencia positiva de realidad virtual.
-
-Finalmente se presentan las conclusiones de los experimentos con usuarios.
+A continuación se ordenan el resto de la concluciones en tres grupos. En la primera se analiza la performance de los meshers, comparándolos entre sí.  En la segunda parte se analiza la performance de la aplicación en cuanto a fps y a la resolución de las imágenes generadas. En esta parte se comparará contra SURFER y se analizará si el framerate y la calidad de las imágenes es lo suficientemente bueno para una experiencia positiva de realidad virtual. Finalmente se presentan las conclusiones de los experimentos con usuarios.
 \subsubsection{Meshers}
 \noindent Cada uno de los 3 métodos tiene sus puntos fuertes y débiles. 
 
@@ -1950,14 +1945,12 @@ A continuación se presenta la prueba que se le presentó a los usuarios para pr
 \\ 4) Buena
 \\ 5) Muy buena
 \\\\\
-\textbf{¿Cuál es su opinión sobre la calidad de las superficies mostradas?}
-\\\\\\\\\\\\
-\textbf{¿Le parecieron interesantes los efectos visuales sobre las superficies?}
-\\\\\\\\\\\\
-\textbf{¿Sufrío algún tipo de incomodidad o mareo durante el uso de la misma?}
-\\\\\\\\\\\\
+\textbf{¿Cuál es su opinión sobre la calidad de las superficies mostradas?}\\\\
+\textbf{¿Le parecieron interesantes los efectos visuales sobre las superficies?}\\\\
+\textbf{¿Sufrío algún tipo de incomodidad o mareo durante el uso de la misma?}\\\\
 \textbf{¿Cuál es su opinión general de la aplicación?}
 \clearpage
+\null\newpage
 \section{Descripción de módulos del proyecto}
 En este anexo se describen los módulos del proyecto, junto con algunas funciones importantes con la intención de asistir a quien quiera extender la aplicación desarrollada.
 \\Lista de módulos JavaScript:
